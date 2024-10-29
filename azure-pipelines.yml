@@ -7,7 +7,7 @@ trigger:
 - development
 
 pool:
-  name: build-agents-linux
+  name: build-agents
 steps:
 - task: NodeTool@0
   inputs:
