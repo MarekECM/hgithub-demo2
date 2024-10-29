@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize'; 
+import { useSidebarStore } from '@/stores/resize';
 import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { mdiAccountSearch } from '@mdi/js';
 import { ref } from 'vue';
-import { moveSyntheticComments } from 'typescript';
+//import { moveSyntheticComments } from 'typescript';
 
 
 const navBarIcon = ref<HTMLElement | null>(null);
@@ -35,44 +35,32 @@ const isWide = computed(() => sidebarStore.isWide);
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
                     <li class="ecm_primLink">
-                        <RouterLink to="/">Přehled</RouterLink>
+                        <RouterLink to="/">Můj Marfy</RouterLink>
+                        <span class="linkLine1"></span>
+                    </li>
+                    <li class="ecm_primLink">
+                        <RouterLink to="/management">Domů</RouterLink>
+                        <span class="linkLine1"></span>
+                    </li>
+                    <li class="ecm_primLink">
+                        <RouterLink to="/komunity/data">Data</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink"> 
-                        <RouterLink to="/Data">Data</RouterLink>
+                        <RouterLink to="/komunity/dokumenty">Dokumenty</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/souhrny">Souhrny</RouterLink>
+                        <RouterLink to="/komunity/sprava-skupin">Správa Skupin</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/denni-plany">Denní plány</RouterLink>
+                        <RouterLink to="/komunity/sprava-clenu">Správa členů</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/Alarmy">Alarmy</RouterLink>
+                        <RouterLink to="/management">Správa Komunit</RouterLink>
                         <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/vykazy">Výkazy</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/management">Komunita</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/statistiky">Statistiky</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="/publicita">Publicita</RouterLink>
-                        <span class="linkLine2"></span>
-                    </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="vizualizace/scada">Vizualizace</RouterLink>
-                        <span class="linkLine2"></span>
                     </li>
                 </ul>
             </nav>

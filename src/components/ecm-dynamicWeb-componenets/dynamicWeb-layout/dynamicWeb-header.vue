@@ -1,20 +1,19 @@
 <script setup lang="ts">
-    import MainNavbar from './MainNavbar.vue';
+    import MainNavbar from './dynamicWeb-Navbar.vue';
 </script>
 
 <template>
-    <header class="ecm_mainHeader">
+    <header class="dw_mainHeader">
         <MainNavbar/>
     </header>
 </template>
 
 <style setup lang="scss">
 
-    .ecm_mainHeader {
+    .dw_mainHeader {
         display: flex;
         max-width: 1655px;
         width: 100%;
-        justify-content: flex-end;
         background-color: var(--body-backgroundColor);
         z-index: 2;
         position: fixed;

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize'; 
+import { useSidebarStore } from '@/stores/resize';
 import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { mdiAccountSearch } from '@mdi/js';
 import { ref } from 'vue';
-import { moveSyntheticComments } from 'typescript';
+//import { moveSyntheticComments } from 'typescript';
 
 
 const navBarIcon = ref<HTMLElement | null>(null);
@@ -17,7 +17,7 @@ const navBarClick = () => {
   }
 }
 
-const { dynamicStyles } = useWindowResize();
+
 const sidebarStore = useSidebarStore();
 
 // Sledování stavu isWide z Pinia store odebraní navigace
@@ -29,49 +29,37 @@ const isWide = computed(() => sidebarStore.isWide);
 
 <template>
 
-<div class="headerWrap" :style="dynamicStyles">
-    <div class="headercontaioner">
+<div class="dw_headerWrap">
+    <div class="dw_headercontaioner">
         <div class="ecm_marfyNavWrrap" v-if="!isWide">
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
                     <li class="ecm_primLink">
-                        <RouterLink to="/">Přehled</RouterLink>
+                        <RouterLink to="/">Můj Marfy</RouterLink>
+                        <span class="linkLine1"></span>
+                    </li>
+                    <li class="ecm_primLink">
+                        <RouterLink to="/vizualizace/scada">SCADA</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink"> 
-                        <RouterLink to="/Data">Data</RouterLink>
+                        <RouterLink to="/vizualizace/elektromery">Elektroměry</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/souhrny">Souhrny</RouterLink>
+                        <RouterLink to="/vizualizace/kotelna">Kotelna</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/denni-plany">Denní plány</RouterLink>
+                        <RouterLink to="/vizualizace/stridace">Střídače</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/Alarmy">Alarmy</RouterLink>
+                        <RouterLink to="/vizualizace/kogenerace">Kogenerační jednotka</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vykazy">Výkazy</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/management">Komunita</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/statistiky">Statistiky</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="/publicita">Publicita</RouterLink>
-                        <span class="linkLine2"></span>
-                    </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="vizualizace/scada">Vizualizace</RouterLink>
+                        <RouterLink to="/publicita">Publciita</RouterLink>
                         <span class="linkLine2"></span>
                     </li>
                 </ul>
@@ -160,7 +148,7 @@ const isWide = computed(() => sidebarStore.isWide);
 
 
 
-.headerWrap {
+.dw_headerWrap {
     width: 100%;
     max-width: 1400px;
     display: flex;
@@ -171,7 +159,7 @@ const isWide = computed(() => sidebarStore.isWide);
     background-color: var(--body-backgroundColor);
 }
 
-.headercontaioner {
+.dw_headercontaioner {
     width: 100%;
     display: flex;
     height: 72px;
@@ -185,14 +173,14 @@ const isWide = computed(() => sidebarStore.isWide);
     display: flex;
 }
 
-.headercontaioner .ecm_marfyMainNavigation {
+.dw_headercontaioner .ecm_marfyMainNavigation {
     display: flex;
     justify-content: center;
     align-items: center; 
 }
 
 
-.headercontaioner .ecm_marfyMainNavigation ul {
+.dw_headercontaioner .ecm_marfyMainNavigation ul {
     display: inline-flex;
     width: 100%;
     max-width: 1000px;
@@ -201,7 +189,7 @@ const isWide = computed(() => sidebarStore.isWide);
     padding: 0px 5px;
 }
 
-.headercontaioner .ecm_marfyMainNavigation ul li a {
+.dw_headercontaioner .ecm_marfyMainNavigation ul li a {
     text-decoration: none;
     width: 100%;
     height: 100%;
@@ -212,7 +200,7 @@ const isWide = computed(() => sidebarStore.isWide);
     white-space: nowrap;
 }
 
-.headercontaioner .ecm_marfyMainNavigation ul li {
+.dw_headercontaioner .ecm_marfyMainNavigation ul li {
     list-style: none;
     display: flex;
     flex-direction: column;

@@ -27,7 +27,6 @@
     height: 180px;
     background-color: #3a4d6a;
     border-radius: 5px;
-
 }
 
 .ecm_TitleDailyplan {

@@ -46,7 +46,7 @@ const dynamicStyles = computed(() => {
             <section class="mainContentContainer" style="padding-top: 110px">
                 <div class="activeDevicesContainer">
                      <div class="titleDevices DataPageTitle">
-                        <span class="ecm_dailyPlanTitle">Dokumenty</span>
+                        <span class="ecm_dailyPlanTitle">Data</span>
                      </div>
                 </div>
             </section>   

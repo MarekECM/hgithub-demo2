@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
 import batteryDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/battery-device-detail.vue'
-import Navtree2_TEMP from '@/components/ecm-marfy-components/marfy-layout/Navtree2_TEMP.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import Navtree2_TEMP from '@/components/ecm-marfy-components/marfy-layout/Navtre
       </div>
     </section>
   </main>
-  <Navtree2_TEMP />
+  <NavtreeMarfy />
 </template>
 
 <style setup lang="scss">

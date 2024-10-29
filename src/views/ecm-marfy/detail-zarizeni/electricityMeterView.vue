@@ -2,7 +2,7 @@
 import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
 //import navTree from '@/components/ecmMarfy-components/marfyLayout/navTree.vue';
 import electricityMeterDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/electricityMeter-device-detail.vue'
-import Navtree2_TEMP from '@/components/ecm-marfy-components/marfy-layout/Navtree2_TEMP.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
 </script>
 
 <template>
@@ -14,7 +14,7 @@ import Navtree2_TEMP from '@/components/ecm-marfy-components/marfy-layout/Navtre
       </div>
     </section>
   </main>
-  <Navtree2_TEMP />
+  <NavtreeMarfy />
 </template>
 
 <style setup lang="scss">

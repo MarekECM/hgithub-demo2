@@ -160,12 +160,23 @@ main {
   --selectionPeriodsBg: #EB3443;
 
   // dailyPlans
-
   --dailyPlansBgContainer: #1f262e;
+  --btnBgDailyPlans: #1f262e;
+  --btnBorderDailyPlans: #3c4d67;
+  --colorIconDpCheck: #10B981;
+  --colorIconDpPower: #EB3443;
+
+  // Alarms
+  --btnBgSelectAlarms: #1f262e;
+  --btnBorderAlarms: #3c4d67;
+
 
   //table
-  --tableHeaderColor: #48AEED;
-  --tableHeaderBackground: #EBEBEB;
+  --tableHeaderColor: #a0abbb;
+  --tableHeaderBackground: #303945;
+  --tableBorderBottom: #303945;
+  --tableAlarmBg: #EB3443; 
+  --tableOkBg: #10B981;
 
   //transition
   --transtion1: 0.1s;

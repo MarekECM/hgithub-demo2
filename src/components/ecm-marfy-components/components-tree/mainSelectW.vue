@@ -123,11 +123,11 @@ const selectClick = () => {
 }
 
 .noneActive {
-    display: none;
+    display: none !important;
 }
 
 .active {
-    display: block;
+    display: block !important;
 }
 
 </style>

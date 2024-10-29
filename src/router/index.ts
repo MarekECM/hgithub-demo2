@@ -15,7 +15,7 @@ import electricityMeterView from '@/views/ecm-marfy/detail-zarizeni/electricityM
 
 // ecm komunity
 import communityManagementView from '@/views/komunity/communityManagementView.vue'
-import comunityDataView from '@/views/komunity/comunityDataView.vue'
+import communityDataView from '@/views/komunity/communityDataView.vue'
 import documentsView from '@/views/komunity/documentsView.vue'
 import memberManagementView from '@/views/komunity/memberManagementView.vue'
 import userGroupManagementView from '@/views/komunity/userGroupManagementView.vue'
@@ -87,32 +87,32 @@ const router = createRouter({
       component: communityManagementView
     },
     {
-      path: '/data',
+      path: '/komunity/data',
       name: 'data',
-      component: comunityDataView
+      component: communityDataView
     },
     {
-      path: '/dokumenty',
+      path: '/komunity/dokumenty',
       name: 'dokumenty',
       component: documentsView
     },
     {
-      path: '/sprava-clenu',
+      path: '/komunity/sprava-clenu',
       name: 'sprava-clenu',
       component: memberManagementView
     },
     {
-      path: '/sprava-skupin',
+      path: '/komunity/sprava-skupin',
       name: 'sprava-skupin',
       component: userGroupManagementView
     },
     {
-      path: '/scada',
+      path: '/vizualizace/scada',
       name: 'scada',
       component: scadaView
     },
     {
-      path: '/stridace',
+      path: '/vizualizace/stridace',
       name: 'stridace',
       component: stridaceView
     },
@@ -122,17 +122,17 @@ const router = createRouter({
       component: publicitaView
     },
     {
-      path: '/kotelna',
+      path: '/vizualizace/kotelna',
       name: 'kotelna',
       component: kotelnaView
     },
     {
-      path: '/kogenerace',
+      path: '/vizualizace/kogenerace',
       name: 'kogenerace',
       component: kgjView
     },
     {
-      path: '/elektromery',
+      path: '/vizualizace/elektromery',
       name: 'elektromery',
       component: elektromeryView
     }
