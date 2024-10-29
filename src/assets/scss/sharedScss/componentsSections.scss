@@ -1,0 +1,592 @@
+// Components style
+
+//**********************************//
+//* Production container component *//
+//**********************************//
+.productionSection {
+  display: inline-block;
+  width: 100%;
+  max-width: 410px;
+  height: 100%;
+  margin: 0 15px 30px;
+}
+
+.productionContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 20px;
+  background-color: var(--production-Background);
+}
+
+.btitle {
+  font-weight: bold;
+}
+
+.differenceValue {
+  @extend .btitle;
+}
+
+.productionValue {
+  @extend .btitle;
+  font-size: var(--balanceContainer-value);
+  color: var(--production-textColor);
+}
+
+.prodictionTextContent {
+  text-align: left;
+  padding: 20px 0px 10px 25px;
+}
+
+.productionHeader {
+  font-size: 18px;
+  color: var(--production-textColor);
+}
+
+.productionHeader {
+  padding: 10px 0px 25px 0px;
+}
+
+.productionFotter {
+  @extend .productionHeader;
+}
+
+.productionIconContainer {
+  width: 50px;
+  height: 100px;
+  position: relative;
+}
+
+.productionIconWrap {
+  width: 50px;
+  height: 50px;
+  border-radius: 25vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 25px;
+  top: 22px;
+  background-color: var(--production-IconWrap-bg);
+  color: var(--productionIcon-color);
+}
+//***********************************//
+//* Consumption container component *//
+//***********************************//
+.consumptionSection {
+  @extend .productionSection;
+}
+
+.consumptionContainer {
+  @extend .productionContainer;
+  background-color: var(--consumption-Background);
+}
+
+.differenceValue {
+  @extend .btitle;
+}
+
+.consumptionValue {
+  @extend .productionValue;
+  @extend .btitle;
+  color: var(--consumption-textColor);
+}
+
+.consumptionTextContent {
+  @extend .prodictionTextContent;
+}
+
+.consumptionValue {
+  @extend .productionValue;
+}
+
+.consumptionHeader {
+  @extend .productionHeader;
+  color: var(--consumption-textColor);
+}
+
+.consumptionFotter {
+  @extend .consumptionHeader;
+}
+
+.consumptionIconContainer {
+  @extend .productionIconContainer;
+}
+
+.consumptionIconWrap {
+  @extend .productionIconWrap;
+  background-color: var(--consumption-IconWrap-bg);
+  color: var(--consumptionIcon-color);
+}
+//******************************//
+//* Result container component *//
+//******************************//
+.resultSection {
+  @extend .productionSection;
+}
+
+.resultContainer {
+  @extend .productionContainer;
+  background-color: var(--result-Background);
+}
+
+.differenceValue {
+  @extend .btitle;
+}
+
+.resultValue {
+  @extend .productionValue;
+  @extend .btitle;
+  color: var(--result-mainValue-color);
+}
+
+.resultTextContent {
+  @extend .prodictionTextContent;
+}
+
+.resultValue {
+  @extend .productionValue;
+}
+
+.resultHeader {
+  @extend .productionHeader;
+  color: var(--result-textColor);
+}
+
+.resultFotter {
+  @extend .resultHeader;
+}
+
+.resultIconContainer {
+  @extend .productionIconContainer;
+}
+
+.resultIconWrap {
+  @extend .productionIconWrap;
+  background-color: var(--result-IconWrap-bg);
+  color: var(--resultIcon-color);
+}
+
+//*******************//
+//* ecm_battery devices *//
+//*******************//
+
+.ecm_batteryContainer {
+  display: inline-block;
+  width: 410px;
+  height: 200px;
+  background-color: var(--devBackgroundContainer);
+  border-radius: 20px;
+  margin: 0 15px 30px;
+  padding: 15px;
+  box-shadow: var(--devBoxShadow);
+  border: 1px solid var(--devBorder);
+  
+}
+
+.ecm_batteryWrapContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.ecm_batteryImgContent {
+  min-width: 150px;
+  height: 100%;
+  display: flex;
+  //misto obrázku
+  background-color: #459dd410;
+  align-items: flex-end;
+}
+
+.ecm_batteryDateContainer {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--devH2Color);
+  font-size: 13px;
+  padding-bottom: 8px;
+}
+
+.ecm_batteryContainerMain {
+  display: flex;
+  flex-direction: column;
+}
+
+.ecm_batteryContent {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 15px;
+}
+
+.ecm_batteryValueCharge {
+  color: var(--batteryValueCharge);
+  @extend .btitle;
+  font-size: var(--balanceContainer-value);
+}
+
+.ecm_batteryTitleHeader {
+  color: var(--comDevTitleColor);
+  font-size: 25px;
+}
+
+.ecm_batteryDeviceButton, .ecm_batteryDeviceButton a {
+  width: 180px;
+  height: 35px;
+  background-color: var(--devButtonBackground);
+  color: var(--devColorLink);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25vh;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 10px 15px
+}
+
+.ecm_batteryText {
+  color: var(--devH2Color);
+}
+
+
+//****************************//
+//* electricityMeter devices *//
+//****************************//
+
+.electricityMeterContainer {
+  @extend .ecm_batteryContainer;
+}
+
+.electricityMeterWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.electricityMeterImgContent {
+  @extend .ecm_batteryImgContent;
+}
+
+.electricityMeterDateContainer {
+  @extend .ecm_batteryDateContainer;
+}
+
+.electricityMeterContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.electricityMeterContent {
+  @extend .ecm_batteryContent;
+}
+
+.electricityMeterValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--energyOutput);
+}
+
+.electricityMeterText {
+  @extend .ecm_batteryText;
+  font-size: 16px;
+}
+
+.electricityMeterTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+}
+
+.electricityMeterDeviceButton {
+  @extend .ecm_batteryDeviceButton;
+}
+
+
+
+//************************//
+//* photovoltaics Device *//
+//************************//
+
+.photovoltaicsContainer {
+  @extend .ecm_batteryContainer;
+}
+
+.photovoltaicsWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.photovoltaicsImgContent {
+  @extend .ecm_batteryImgContent;
+}
+
+.photovoltaicsDateContainer {
+  @extend .ecm_batteryDateContainer;
+}
+
+.photovoltaicsContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.photovoltaicsContent {
+  @extend .ecm_batteryContent;
+}
+
+.photovoltaicsValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--energyOutput);
+}
+
+.photovoltaicsTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+}
+
+.photovoltaicsDeviceButton {
+  @extend .ecm_batteryDeviceButton;
+}
+
+.photovoltaicsText {
+  @extend .ecm_batteryText;
+}
+
+//*********//
+//* table *//
+//*********//
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td, th {
+text-align: left;
+padding: 8px;
+
+}
+
+th {
+  background-color: var(--tableHeaderBackground);
+  color: var(--tableHeaderColor);
+}
+
+//*******************************//
+//* Components TOTAL summaries  *//
+//*******************************//
+
+//*******************************//
+//* Total suply to the Grid  *//
+//*******************************//
+
+.ecm_TotalGridContainer {
+  @extend .ecm_batteryContainer;
+  width: 300px;
+  height: 220px;
+  position: relative;
+  
+}
+
+.ecm_TotalGridWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.ecm_TotalGridContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.ecm_TotalGridContent {
+  @extend .ecm_batteryContent;
+  padding-left: 0;
+  width: 100%;
+}
+
+.ecm_TotalGridValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--energyOutput);
+}
+
+.ecm_TotalGridTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+  font-size: 18px;
+  width: 140px;
+}
+
+.ecm_TotalGridlink {
+  @extend .ecm_batteryDeviceButton;
+  width: 100%;
+  font-size:9px;
+  padding: 10px;
+  background-color: #191d23;
+  height: 40px;
+  border-radius: 5px;
+  min-width: 215px;
+  justify-content: flex-start;
+}
+
+.ecm_TotalGridText {
+  @extend .ecm_batteryText;
+}
+
+.ecm_TotalGridIcon {
+  width: 50px;
+  height: 50px;
+  background-color: #191d23;
+  position: absolute;
+  right: 10px;
+  border-radius: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+}
+
+
+.ecm_TotalGridValuesContainer {
+  height: 35px;
+  color: var(--totalValuesColor);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+//******************************//
+//* Total supply from battery  *//
+//******************************//
+
+.ecm_TotalBatteryContainer {
+  @extend .ecm_batteryContainer;
+  @extend .ecm_TotalGridContainer; 
+}
+
+.ecm_TotalBatteryWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.ecm_TotalBatteryContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.ecm_TotalBatteryContent {
+  @extend .ecm_batteryContent;
+  @extend .ecm_TotalGridContent;
+}
+
+.ecm_TotalBatteryValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--supblyFromBattery);
+}
+
+.ecm_TotalBatteryTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+  @extend .ecm_TotalGridTitleHeader;
+}
+
+.ecm_TotalBatterylink {
+  @extend .ecm_TotalGridlink;
+}
+
+.ecm_TotalBatteryText {
+  @extend .ecm_batteryText;
+}
+
+.ecm_TotalBatteryIcon {
+  @extend .ecm_TotalGridIcon;
+}
+
+.ecm_TotalBatteryValuesContainer {
+  @extend .ecm_TotalGridValuesContainer;
+}
+
+//**************************//
+//* Total consumption grid *//
+//**************************//
+
+.ecm_TotalconsumptionContainer {
+  @extend .ecm_batteryContainer;
+  @extend .ecm_TotalGridContainer; 
+}
+
+.ecm_TotalconsumptionWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.ecm_TotalconsumptionContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.ecm_TotalconsumptionContent {
+  @extend .ecm_batteryContent;
+  @extend .ecm_TotalGridContent;
+}
+
+.ecm_TotalconsumptionValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--consumptionGridValue);
+}
+
+.ecm_TotalconsumptionTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+  @extend .ecm_TotalGridTitleHeader;
+}
+
+.ecm_Totalconsumptionlink {
+  @extend .ecm_TotalGridlink;
+}
+
+.ecm_TotalconsumptionText {
+  @extend .ecm_batteryText;
+}
+
+.ecm_TotalconsumptionIcon {
+  @extend .ecm_TotalGridIcon;
+}
+
+.ecm_TotalconsumptionValuesContainer {
+  @extend .ecm_TotalGridValuesContainer;
+}
+
+
+//******************************//
+//* Total supply from battery  *//
+//******************************//
+
+.ecm_TotalconsumptionEnergyContainer {
+  @extend .ecm_batteryContainer;
+  @extend .ecm_TotalGridContainer; 
+}
+
+.ecm_TotalconsumptionEnergyWrapContainer {
+  @extend .ecm_batteryWrapContainer;
+}
+
+.ecm_TotalconsumptionEnergyContainerMain {
+  @extend .ecm_batteryContainerMain;
+}
+
+.ecm_TotalconsumptionEnergyContent {
+  @extend .ecm_batteryContent;
+  @extend .ecm_TotalGridContent;
+}
+
+.ecm_TotalconsumptionEnergyValue {
+  @extend .ecm_batteryValueCharge;
+  color: var(--consumptionEnergyValue);
+}
+
+.ecm_TotalconsumptionEnergyTitleHeader {
+  @extend .ecm_batteryTitleHeader;
+  @extend .ecm_TotalGridTitleHeader;
+}
+
+.ecm_TotalconsumptionEnergylink {
+  @extend .ecm_TotalGridlink;
+}
+
+.ecm_TotalconsumptionEnergyText {
+  @extend .ecm_batteryText;
+}
+
+.ecm_TotalconsumptionEnergyIcon {
+  @extend .ecm_TotalGridIcon;
+}
+
+.ecm_TotalconsumptionEnergyValuesContainer {
+  @extend .ecm_TotalGridValuesContainer;
+}
