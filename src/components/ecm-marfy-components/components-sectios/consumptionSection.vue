@@ -1,11 +1,7 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
    
 <div class="consumptionSection">
-    <div class="consumptionContainer">
+    <div class="consumptionContainer" >
         <div class="consumptionTextContent">
             <div class="consumptionHeader">
                 <span class="btitle">SPOTŘEBOVÁNO</span><span> tento měsíc</span>

@@ -23,6 +23,20 @@ const sidebarStore = useSidebarStore();
 // Sledování stavu isWide z Pinia store odebraní navigace
 const isWide = computed(() => sidebarStore.isWide);
 
+
+let navbar = ref([
+    { to: "/", text: "Přehled" },
+    { to: "/Data", text: "Data" },
+    { to: "/souhrny", text: "Souhrny" },
+    { to: "/denni-plany", text: "Denní plány" },
+    { to: "/Alarmy", text: "Alarmy" },
+    { to: "/vykazy", text: "Výkazy" },
+    { to: "/management", text: "Komunity" },
+    { to: "/statistiky", text: "Statistiky" },
+    { to: "/publicita", text: "Publicita" },
+    { to: "/vizualizace/scada", text: "Vizualizace"}
+]);
+
 </script>
 
 
@@ -34,11 +48,15 @@ const isWide = computed(() => sidebarStore.isWide);
         <div class="ecm_marfyNavWrrap" v-if="!isWide">
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
-                    <li class="ecm_primLink">
+                    <li v-for="(link, index) in navbar" :key="index">
+                <RouterLink :to="link.to">{{ link.text }}</RouterLink>
+                <span class="linkLine" :class="index % 2 === 0 ? 'linkLine1' : 'linkLine1'"></span>
+            </li>
+                    <!-- <li class="ecm_primLink" >
                         <RouterLink to="/">Přehled</RouterLink>
                         <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink"> 
+                    </li> -->
+                    <!-- <li class="ecm_primLink"> 
                         <RouterLink to="/Data">Data</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
@@ -73,7 +91,7 @@ const isWide = computed(() => sidebarStore.isWide);
                     <li class="ecm_secLink">
                         <RouterLink to="vizualizace/scada">Vizualizace</RouterLink>
                         <span class="linkLine2"></span>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -88,11 +106,13 @@ const isWide = computed(() => sidebarStore.isWide);
                     </li>
                     <li class="evmRingBc" @click="navBarClick">
                         <span class="material-icons" style="font-size: 26px;">more_vert</span>
+
+
                         <ul ref="navBarIcon" class="wwwtttwwww testwwww noneActive">
                        
-                            <li>
-                                <span class="myIcontest"><svg :viewBox="'0 0 24 24'" width="48" height="48"><path :d="mdiAccountSearch" /></svg></span>
-                                <span class="textQ">poslední</span>
+                            <li class="secondaryNavbar"  v-for="(link, index) in navbar" :key="index">
+                                <RouterLink :to="link.to">{{ link.text }}</RouterLink>
+
                             </li>
                         </ul>
                     </li>
@@ -113,6 +133,10 @@ const isWide = computed(() => sidebarStore.isWide);
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+.ecm_marfyMainNavigation-list a {
+    color: black;
 }
 
 .testwwww {
@@ -173,10 +197,12 @@ const isWide = computed(() => sidebarStore.isWide);
 
 .headercontaioner {
     width: 100%;
+    max-width: 1300px;
     display: flex;
     height: 72px;
     background-color: var(--navbar-backgroundColor);
     border-radius: 20px;
+    margin-right: 25px;
 }
 
 .ecm_marfyNavWrrap {

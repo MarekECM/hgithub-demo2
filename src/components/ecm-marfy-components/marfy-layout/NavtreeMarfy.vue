@@ -2,6 +2,8 @@
 import {onMounted } from 'vue';
 import mainSelectW from '../components-tree/mainSelectW.vue'; // Import Vue komponenty
 import { useSidebarStore } from '@/stores/resize';
+import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useMainSelect } from '@/stores/useMainSelect';
 
 // Přístup k Pinia store
 const sidebarStore = useSidebarStore();
@@ -126,7 +128,8 @@ onMounted(() => {
   }
 });
 
-
+const store = useSelectedItemStore();
+const mainSelect =  useMainSelect();
 </script>
 
 
@@ -141,6 +144,9 @@ onMounted(() => {
                <mainSelectW/>
             </div>
         </div>
+        <div class="ecm_searchContainer noneActive" :class="{ active2: mainSelect.isActive }">
+            <span class="material-icons testIcon2 testIcon5" style="font-size:25px;">search</span>
+            <input type="search" placeholder="Hledej"></div>
         <div class="ecmNavTreeContainer">
           <ul class="ecm_navTreeMainList">
            <li class="ecm_NavTreeMainItem">
@@ -155,7 +161,7 @@ onMounted(() => {
                                     <span class="material-icons testIcon2" style="font-size: 26px;">adjust</span>
                                 </span>
                                 <span class="ecm_navTree_textContent">
-                                    Energetická Brumovice, příspěvková organizace
+                                    {{ store.selectedItem }}
                                 </span>
                             </div>
                         </div>
@@ -1026,6 +1032,40 @@ onMounted(() => {
 
 <style setup lang="scss">
 
+.testIcon5 {
+position: absolute;
+left: 35px;
+}
+
+.ecm_searchContainer {
+    width: calc(100% - 5px);
+    background-color: rgb(255, 255, 255);
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 15px 0 25px;
+    transition: var(--transtion3);
+    position: relative;
+}
+
+.ecm_searchContainer input[type='search'] {
+    //background-color: red;
+    outline: none;
+    border: none;
+    height: 35px;
+    width: calc(100% - 10px);
+    border-radius: 5px;
+    padding: 0px 10px 0 50px;
+    font-size: 16px;
+    background-color: #30394528;
+}
+
+.ecm_searchContainer input[type='search']:focus {
+    background-color:#303945;
+    color: #a0abbb;
+}
+
  .ecm_asideContainer {
     width: 300px;
     min-height: 100vh;
@@ -1331,6 +1371,7 @@ onMounted(() => {
 .ecmNavTreeContainer > ::-webkit-scrollbar {
   position: absolute;  
   width: 8px;
+  top: 0;
 }
 
 .ecm_asaidFotter {
@@ -1395,5 +1436,11 @@ onMounted(() => {
         display: none;
     }
 }
+
+.active2 {
+    display: flex !important;
+}
+
+
 
 </style>

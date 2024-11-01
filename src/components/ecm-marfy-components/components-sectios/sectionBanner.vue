@@ -1,5 +1,16 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const removeDiv = () => {
+  isVisible.value = false;
+};
+
+const isVisible = ref(true);
+
+</script>
+
 <template>
-  <div class="sectionBanner">
+  <div class="sectionBanner" v-if="isVisible">
     <div class="bannerContentContainer">
       <div class="bannerHeaderSection">
         <div class="bannerDotsContainer">
@@ -14,7 +25,9 @@
         <div class="bannerButton">STÁHNOUT APLIKACI</div>
       </div>
     </div>
-  </div>
+    <div class="ecm_bannerContainerIcon"  @click="removeDiv"><span class="material-icons" style="font-size:16px; color: #fff;">close</span></div>
+ 
+ </div>
 </template>
 
 <style setup lang="scss">
@@ -30,6 +43,7 @@
     text-align: left;
     padding-bottom: 50px;
     overflow: hidden;
+    position: relative;
 }
 
 .bannerContentContainer {
@@ -93,6 +107,20 @@
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.ecm_bannerContainerIcon {
+  width: 25px;
+  height: 25px;
+  border-radius: 25vh;
+  border: 1px solid #fff;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 </style>
