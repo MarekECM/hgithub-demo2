@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
+/* přepinač tříd pro seznam aside display none/block */
 export const useMainSelect = defineStore('style', () => {
     
     const isActive = ref(false);

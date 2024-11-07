@@ -5,7 +5,6 @@ import { useSidebarStore } from '@/stores/resize';
 import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
 import { useMainSelect } from '@/stores/useMainSelect';
 
-// Přístup k Pinia store
 const sidebarStore = useSidebarStore();
 
 function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
@@ -55,6 +54,7 @@ function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: Node
 
       // Pro všechny elementy s třídou .ecm_treeItemContainer
       treeItems.forEach((treeItem) => {
+        
         // Šířka treeItem bude odvozena od šířky sidebaru
         const treeItemWidth = cw - sidebarToTreeItemDiff;
         if (treeItemWidth > 0) {
@@ -144,7 +144,7 @@ const mainSelect =  useMainSelect();
                <mainSelectW/>
             </div>
         </div>
-        <div class="ecm_searchContainer noneActive" :class="{ active2: mainSelect.isActive }">
+        <div class="ecm_searchContainer noneActive" :class="{ activeSearchBox: mainSelect.isActive }">
             <span class="material-icons testIcon2 testIcon5" style="font-size:25px;">search</span>
             <input type="search" placeholder="Hledej"></div>
         <div class="ecmNavTreeContainer">
@@ -1277,67 +1277,67 @@ left: 35px;
 
 
 
-.ecm_itemTreeWrap2 {
-   width: calc(100% - 55px);
-   display: flex;
-   border-radius: 5px;
-   background-color: var(--sideMenu-itemBac);
-   color: var(--sideMenu-color);
-   transition: var(--transtion1);
-   align-items: center;
-  &:hover {
-        background-color: var(--sideMenu-hovBac);
-        color: var(--sideMenu-hovColor);
+// .ecm_itemTreeWrap2 {
+//    width: calc(100% - 55px);
+//    display: flex;
+//    border-radius: 5px;
+//    background-color: var(--sideMenu-itemBac);
+//    color: var(--sideMenu-color);
+//    transition: var(--transtion1);
+//    align-items: center;
+//   &:hover {
+//         background-color: var(--sideMenu-hovBac);
+//         color: var(--sideMenu-hovColor);
         
-  }
-  &:hover .ecm_navTreeIconContainerArrow2 > .testIcon  {
-        color: var(--sideMenu-ArrowColorHov);
-  }
-}
+//   }
+//   &:hover .ecm_navTreeIconContainerArrow2 > .testIcon  {
+//         color: var(--sideMenu-ArrowColorHov);
+//   }
+// }
 
-.ecm_itemTreeWrap3 {
-    width: 100%;
-    display: flex;
-    border-radius: 5px;
-    text-align: right;
-    padding-right: 10px;
-    background-color: var(--sideMenu-itemBac);
-    color: var(--sideMenu-color);
-    transition: var(--transtion1);
-    align-items: center;
-    border: 1px solid red;
-    &:hover {
-        background-color: var(--sideMenu-hovBac);
-        color: var(--sideMenu-hovColor);
+// .ecm_itemTreeWrap3 {
+//     width: 100%;
+//     display: flex;
+//     border-radius: 5px;
+//     text-align: right;
+//     padding-right: 10px;
+//     background-color: var(--sideMenu-itemBac);
+//     color: var(--sideMenu-color);
+//     transition: var(--transtion1);
+//     align-items: center;
+//     border: 1px solid red;
+//     &:hover {
+//         background-color: var(--sideMenu-hovBac);
+//         color: var(--sideMenu-hovColor);
         
-    }
-    &:hover .ecm_navTreeIconContainer2 > .testIcon  {
-        color: var(--sideMenu-ArrowColorHov);
-    }
-}
+//     }
+//     &:hover .ecm_navTreeIconContainer2 > .testIcon  {
+//         color: var(--sideMenu-ArrowColorHov);
+//     }
+// }
 
-.ecm_itemTreeWrap-5 {
-    display: flex;
-    padding: 0 10px;
-    border-radius: 5px;
-    margin-left: -20px;
-    background-color: var(--sideMenu-itemBac);
-    color: var(--sideMenu-color);
-    transition: var(--transtion1);
-    align-items: center;
-    &:hover {
-        background-color: var(--sideMenu-hovBac);
-        color: var(--sideMenu-hovColor);
-    }
-    &:hover .ecm_navTreeIconContainerArrow > .testIcon  {
-        color: var(--sideMenu-ArrowColorHov);
-    }
-} 
+// .ecm_itemTreeWrap-5 {
+//     display: flex;
+//     padding: 0 10px;
+//     border-radius: 5px;
+//     margin-left: -20px;
+//     background-color: var(--sideMenu-itemBac);
+//     color: var(--sideMenu-color);
+//     transition: var(--transtion1);
+//     align-items: center;
+//     &:hover {
+//         background-color: var(--sideMenu-hovBac);
+//         color: var(--sideMenu-hovColor);
+//     }
+//     &:hover .ecm_navTreeIconContainerArrow > .testIcon  {
+//         color: var(--sideMenu-ArrowColorHov);
+//     }
+// } 
 
-.ecm_navTree-List-5 {
-    --spacing: 25px;
-    --radius: 10px;
-}
+// .ecm_navTree-List-5 {
+//     --spacing: 25px;
+//     --radius: 10px;
+// }
 
 .ecm_navTree-List-5 li {
   padding-left: calc(2 * var(--spacing) - var(--radius) - 1px);
@@ -1437,7 +1437,7 @@ left: 35px;
     }
 }
 
-.active2 {
+.activeSearchBox {
     display: flex !important;
 }
 

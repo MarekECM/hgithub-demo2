@@ -4,7 +4,7 @@ import { useSidebarStore } from '@/stores/resize';
 import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { mdiAccountSearch } from '@mdi/js';
 import { ref } from 'vue';
-import { moveSyntheticComments } from 'typescript';
+//import { moveSyntheticComments } from 'typescript';
 
 
 const navBarIcon = ref<HTMLElement | null>(null);
@@ -111,7 +111,7 @@ let navbar = ref([
                         <ul ref="navBarIcon" class="wwwtttwwww testwwww noneActive">
                        
                             <li class="secondaryNavbar"  v-for="(link, index) in navbar" :key="index">
-                                <RouterLink :to="link.to">{{ link.text }}</RouterLink>
+                               <span class="secNavTexItem"><RouterLink :to="link.to">{{ link.text }}</RouterLink></span> 
 
                             </li>
                         </ul>
@@ -166,12 +166,23 @@ let navbar = ref([
 }
 
 .wwwtttwwww {
-    display: flex;
+    display: flex; 
+}
+
+.secNavTexItem {
+    width: 100%;
+}
+
+.secNavTexItem a{
+    display: block;
+    width: 100%;
+    border: 1px solid red;
 }
 
 .testwwww li {
     height: 35px;
     border-radius: 5px;
+   
 
     &:hover {
         background-color: blue;
