@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import {onMounted } from 'vue';
-import mainSelectW from '../components-tree/mainSelectW.vue'; // Import Vue komponenty
+import mainSelectW from '@/components/ecm-marfy-components/components-tree/mainSelectComponent.vue'; // Import Vue komponenty
 import { useSidebarStore } from '@/stores/resize';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-import { useMainSelect } from '@/stores/useMainSelect';
 
+// Přístup k Pinia store
 const sidebarStore = useSidebarStore();
 
 function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
@@ -54,7 +53,6 @@ function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: Node
 
       // Pro všechny elementy s třídou .ecm_treeItemContainer
       treeItems.forEach((treeItem) => {
-        
         // Šířka treeItem bude odvozena od šířky sidebaru
         const treeItemWidth = cw - sidebarToTreeItemDiff;
         if (treeItemWidth > 0) {
@@ -128,8 +126,7 @@ onMounted(() => {
   }
 });
 
-const store = useSelectedItemStore();
-const mainSelect =  useMainSelect();
+
 </script>
 
 
@@ -144,9 +141,6 @@ const mainSelect =  useMainSelect();
                <mainSelectW/>
             </div>
         </div>
-        <div class="ecm_searchContainer noneActive" :class="{ activeSearchBox: mainSelect.isActive }">
-            <span class="material-icons testIcon2 testIcon5" style="font-size:25px;">search</span>
-            <input type="search" placeholder="Hledej"></div>
         <div class="ecmNavTreeContainer">
           <ul class="ecm_navTreeMainList">
            <li class="ecm_NavTreeMainItem">
@@ -160,8 +154,8 @@ const mainSelect =  useMainSelect();
                                 <span class="ecm_navTreeIconContainer">
                                     <span class="material-icons testIcon2" style="font-size: 26px;">adjust</span>
                                 </span>
-                                <span class="ecm_navTree_textContent">
-                                    {{ store.selectedItem }}
+                                <span class="ecm_navTree_textContent">    
+                                    ECM System Solutions s.r.o.
                                 </span>
                             </div>
                         </div>
@@ -176,7 +170,7 @@ const mainSelect =  useMainSelect();
                                         </span>
                                         <div class="ecm_treeItemContainer">
                                             <span class="ecm_navTree_textContent">
-                                                Opava Suché Lazce
+                                                První skupina
                                             </span>
                                         </div>
                                     </div>
@@ -450,7 +444,7 @@ const mainSelect =  useMainSelect();
                                         </span>
                                         <div class="ecm_treeItemContainer">
                                             <span class="ecm_navTree_textContent">
-                                                Opava Suché Lazce
+                                               Druhá skupina
                                             </span>
                                         </div>
                                     </div>
@@ -532,7 +526,7 @@ const mainSelect =  useMainSelect();
                                         </span>
                                         <div class="ecm_treeItemContainer">
                                             <span class="ecm_navTree_textContent">
-                                                Opava Suché Lazce
+                                                Třetí skupina
                                             </span>
                                         </div>
                                     </div>
@@ -666,288 +660,6 @@ const mainSelect =  useMainSelect();
                                             </ul>
                                         </details>
                                     </li>
-                                    <li class="ecm_NavTree-Item-3">
-                                        <details class="ecm_navTree-Details-2">
-                                            <summary class="ecm_navTreeSummaryContainer">
-                                                <div class="ecm_itemTreeWrap2">
-                                                    <span class="ecm_navTreeIconContainerArrow2">
-                                                        <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                                    </span>
-                                                    <div class="ecm_treeItemContainer">
-                                                        <span class="ecm_navTree_textContent">
-                                                            Nějaká budova
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </summary>
-                                            <ul class="ecm_navTree-fourthListLast">
-                                                <li class="ecm_NavTree-fourthItem">
-                                                    <details class="ecm_navTree-fourthDetailsLast">
-                                                      <summary class="ecm_navTreeSummaryContainer">
-                                                        <div class="ecm_itemTreeWrap2">
-                                                            <span class="ecm_navTreeIconContainerArrow2">
-                                                            <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                                            </span>
-                                                            <div class="ecm_treeItemContainer">
-                                                                <span class="ecm_navTree_textContent">
-                                                                    Budova
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                      </summary>
-                                                        <ul class="ecm_navTree-List-5">
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-                                                                    <div class="ecm_treeItemContainer">
-                                                                        <span class="ecm_navTree_textContent">
-                                                                        FVE
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-
-                                                                <div class="ecm_treeItemContainer">
-                                                                    <span class="ecm_navTree_textContent">
-                                                                    Elektroměr
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            </li>
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-                                                                    <div class="ecm_treeItemContainer">
-                                                                        <span class="ecm_navTree_textContent">
-                                                                            Baterie
-                                                                        </span>
-                                                                    </div>
-                                                                  </div>
-                                                            </li>
-                                                        </ul>
-                                                    </details>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </li>
-                                </ul>
-                            </details>
-                        </li>
-                    </ul>
-                </details>
-           </li>
-           <li class="ecm_NavTreeMainItem">
-                <details class="ecm_navTreeMainDetails" open>
-                    <summary class="ecm_navTreeSummaryContainer">
-                        <div class="ecm_itemTreeWrap">
-                            <span class="ecm_navTreeIconContainerArrow">
-                              <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                            </span>
-                            <div class="ecm_treeItemContainer">
-                                <span class="ecm_navTreeIconContainer">
-                                    <span class="material-icons testIcon2" style="font-size: 26px;">bookmark_bag</span>
-                                </span>
-                                <span class="ecm_navTree_textContent">
-                                  Dalovice
-                                </span>
-                            </div>
-                        </div>
-                    </summary>
-                    <ul class="ecm_navTree-List-2">
-                        <li class="ecm_NavTree-Item-2">
-                            <div class="ecm_itemTreeWrap2">
-                                <div class="ecm_treeItemContainer">
-                                    <span class="ecm_navTree_textContent last">
-                                    OTE
-                                    </span>
-                                </div>
-                            </div>
-                        </li> 
-                        <li class="ecm_NavTree-Item-2">
-                            <details class="ecm_navTree-Details-2">
-                                <summary class="ecm_navTreeSummaryContainer">
-                                    <div class="ecm_itemTreeWrap2">
-                                        <span class="ecm_navTreeIconContainerArrow2">
-                                          <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                        </span>
-                                        <div class="ecm_treeItemContainer">
-                                            <span class="ecm_navTree_textContent">
-                                                Celní úřad
-                                            </span>
-                                        </div>
-                                    </div>
-                                </summary>
-                                <ul class="ecm_navTree-List-5">
-                                        <li class="ecm_NavTree-Item-5">
-                                            <div class="ecm_itemTreeWrap2">
-                                                <div class="ecm_treeItemContainer">
-                                                    <span class="ecm_navTree_textContent">
-                                                    FVE
-                                                    </span>
-                                                </div>
-                                            </div>
-                                         </li>
-                                        <li class="ecm_NavTree-Item-5">
-                                            <div class="ecm_itemTreeWrap2">
-
-                                            <div class="ecm_treeItemContainer">
-                                                <span class="ecm_navTree_textContent">
-                                                Elektroměr
-                                                 </span>
-                                             </div>
-                                        </div>
-                                        </li>
-                                        <li class="ecm_NavTree-Item-5">
-                                            <div class="ecm_itemTreeWrap2">
-                                                <div class="ecm_treeItemContainer">
-                                                    <span class="ecm_navTree_textContent">
-                                                        Baterie
-                                                    </span>
-                                                </div>
-                                                </div>
-                                        </li>
-                                    </ul>
-                            </details>
-                        </li>                                      
-                    </ul>
-                </details>
-           </li>
-           <li class="ecm_NavTreeMainItem">
-                <details class="ecm_navTreeMainDetails">
-                    <summary class="ecm_navTreeSummaryContainer">
-                        <div class="ecm_itemTreeWrap">
-                            <span class="ecm_navTreeIconContainerArrow">
-                              <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                            </span>
-                            <div class="ecm_treeItemContainer">
-                                <span class="ecm_navTreeIconContainer">
-                                    <span class="material-icons testIcon2" style="font-size: 26px;">battery_full_alt</span>
-                                </span>
-                                <span class="ecm_navTree_textContent">
-                                    Baterie
-                                </span>
-                            </div>
-                        </div>
-                    </summary>
-                    <ul class="ecm_navTree-List-2">
-                        <li class="ecm_NavTree-Item-2">
-                            <details class="ecm_navTree-Details-2">
-                                <summary class="ecm_navTreeSummaryContainer">
-                                    <div class="ecm_itemTreeWrap2">
-                                        <span class="ecm_navTreeIconContainerArrow2">
-                                          <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                        </span>
-                                        <div class="ecm_treeItemContainer">
-                                            <span class="ecm_navTree_textContent">
-                                                Opava Suché Lazce
-                                            </span>
-                                        </div>
-                                    </div>
-                                </summary>
-                                <ul class="ecm_navTree-List-3">
-                                    <li class="ecm_NavTree-Item-3">
-                                        <details class="ecm_navTree-Details-2">
-                                            <summary class="ecm_navTreeSummaryContainer">
-                                                <div class="ecm_itemTreeWrap2">
-                                                    <span class="ecm_navTreeIconContainerArrow2">
-                                                        <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                                    </span>
-                                                    <div class="ecm_treeItemContainer">
-                                                        <span class="ecm_navTree_textContent">
-                                                            Nějaká budova
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </summary>
-                                            <ul class="ecm_navTree-fourthListLast">
-                                                <li class="ecm_NavTree-fourthItem">
-                                                    <details class="ecm_navTree-fourthDetailsLast">
-                                                      <summary class="ecm_navTreeSummaryContainer">
-                                                        <div class="ecm_itemTreeWrap2">
-                                                            <span class="ecm_navTreeIconContainerArrow2">
-                                                            <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                                            </span>
-                                                            <div class="ecm_treeItemContainer">
-                                                                <span class="ecm_navTree_textContent">
-                                                                    Budova
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                      </summary>
-                                                        <ul class="ecm_navTree-List-5">
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-                                                                    <div class="ecm_treeItemContainer">
-                                                                        <span class="ecm_navTree_textContent">
-                                                                        FVE
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-
-                                                                <div class="ecm_treeItemContainer">
-                                                                    <span class="ecm_navTree_textContent">
-                                                                    Elektroměr
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            </li>
-                                                            <li class="ecm_NavTree-Item-5">
-                                                                <div class="ecm_itemTreeWrap2">
-                                                                    <div class="ecm_treeItemContainer">
-                                                                        <span class="ecm_navTree_textContent">
-                                                                            Baterie
-                                                                        </span>
-                                                                    </div>
-                                                                  </div>
-                                                            </li>
-                                                        </ul>
-                                                    </details>
-                                                </li>
-                                            </ul>
-                                        </details>
-                                    </li>
-                                </ul>
-                            </details>
-                        </li>
-                    </ul>
-                </details>
-           </li>
-           <li class="ecm_NavTreeMainItem">
-                <details class="ecm_navTreeMainDetails">
-                    <summary class="ecm_navTreeSummaryContainer">
-                        <div class="ecm_itemTreeWrap">
-                            <span class="ecm_navTreeIconContainerArrow">
-                              <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                            </span>
-                            <div class="ecm_treeItemContainer">
-                                <span class="ecm_navTreeIconContainer">
-                                    <span class="material-icons testIcon2" style="font-size: 26px;">thermostat</span>
-                                </span>
-                                <span class="ecm_navTree_textContent">
-                                   Podružné měření
-                                </span>
-                            </div>
-                        </div>
-                    </summary>
-                    <ul class="ecm_navTree-List-2">
-                        <li class="ecm_NavTree-Item-2">
-                            <details class="ecm_navTree-Details-2">
-                                <summary class="ecm_navTreeSummaryContainer">
-                                    <div class="ecm_itemTreeWrap2">
-                                        <span class="ecm_navTreeIconContainerArrow2">
-                                          <span class="material-icons testIcon" style="font-size: 13px;">arrow_forward_ios</span>
-                                        </span>
-                                        <div class="ecm_treeItemContainer">
-                                            <span class="ecm_navTree_textContent">
-                                                Opava Suché Lazce
-                                            </span>
-                                        </div>
-                                    </div>
-                                </summary>
-                                <ul class="ecm_navTree-List-3">
                                     <li class="ecm_NavTree-Item-3">
                                         <details class="ecm_navTree-Details-2">
                                             <summary class="ecm_navTreeSummaryContainer">
@@ -1031,40 +743,6 @@ const mainSelect =  useMainSelect();
 </template>
 
 <style setup lang="scss">
-
-.testIcon5 {
-position: absolute;
-left: 35px;
-}
-
-.ecm_searchContainer {
-    width: calc(100% - 5px);
-    background-color: rgb(255, 255, 255);
-    height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 15px 0 25px;
-    transition: var(--transtion3);
-    position: relative;
-}
-
-.ecm_searchContainer input[type='search'] {
-    //background-color: red;
-    outline: none;
-    border: none;
-    height: 35px;
-    width: calc(100% - 10px);
-    border-radius: 5px;
-    padding: 0px 10px 0 50px;
-    font-size: 16px;
-    background-color: #30394528;
-}
-
-.ecm_searchContainer input[type='search']:focus {
-    background-color:#303945;
-    color: #a0abbb;
-}
 
  .ecm_asideContainer {
     width: 300px;
@@ -1277,67 +955,67 @@ left: 35px;
 
 
 
-// .ecm_itemTreeWrap2 {
-//    width: calc(100% - 55px);
-//    display: flex;
-//    border-radius: 5px;
-//    background-color: var(--sideMenu-itemBac);
-//    color: var(--sideMenu-color);
-//    transition: var(--transtion1);
-//    align-items: center;
-//   &:hover {
-//         background-color: var(--sideMenu-hovBac);
-//         color: var(--sideMenu-hovColor);
+.ecm_itemTreeWrap2 {
+   width: calc(100% - 55px);
+   display: flex;
+   border-radius: 5px;
+   background-color: var(--sideMenu-itemBac);
+   color: var(--sideMenu-color);
+   transition: var(--transtion1);
+   align-items: center;
+  &:hover {
+        background-color: var(--sideMenu-hovBac);
+        color: var(--sideMenu-hovColor);
         
-//   }
-//   &:hover .ecm_navTreeIconContainerArrow2 > .testIcon  {
-//         color: var(--sideMenu-ArrowColorHov);
-//   }
-// }
+  }
+  &:hover .ecm_navTreeIconContainerArrow2 > .testIcon  {
+        color: var(--sideMenu-ArrowColorHov);
+  }
+}
 
-// .ecm_itemTreeWrap3 {
-//     width: 100%;
-//     display: flex;
-//     border-radius: 5px;
-//     text-align: right;
-//     padding-right: 10px;
-//     background-color: var(--sideMenu-itemBac);
-//     color: var(--sideMenu-color);
-//     transition: var(--transtion1);
-//     align-items: center;
-//     border: 1px solid red;
-//     &:hover {
-//         background-color: var(--sideMenu-hovBac);
-//         color: var(--sideMenu-hovColor);
+.ecm_itemTreeWrap3 {
+    width: 100%;
+    display: flex;
+    border-radius: 5px;
+    text-align: right;
+    padding-right: 10px;
+    background-color: var(--sideMenu-itemBac);
+    color: var(--sideMenu-color);
+    transition: var(--transtion1);
+    align-items: center;
+    border: 1px solid red;
+    &:hover {
+        background-color: var(--sideMenu-hovBac);
+        color: var(--sideMenu-hovColor);
         
-//     }
-//     &:hover .ecm_navTreeIconContainer2 > .testIcon  {
-//         color: var(--sideMenu-ArrowColorHov);
-//     }
-// }
+    }
+    &:hover .ecm_navTreeIconContainer2 > .testIcon  {
+        color: var(--sideMenu-ArrowColorHov);
+    }
+}
 
-// .ecm_itemTreeWrap-5 {
-//     display: flex;
-//     padding: 0 10px;
-//     border-radius: 5px;
-//     margin-left: -20px;
-//     background-color: var(--sideMenu-itemBac);
-//     color: var(--sideMenu-color);
-//     transition: var(--transtion1);
-//     align-items: center;
-//     &:hover {
-//         background-color: var(--sideMenu-hovBac);
-//         color: var(--sideMenu-hovColor);
-//     }
-//     &:hover .ecm_navTreeIconContainerArrow > .testIcon  {
-//         color: var(--sideMenu-ArrowColorHov);
-//     }
-// } 
+.ecm_itemTreeWrap-5 {
+    display: flex;
+    padding: 0 10px;
+    border-radius: 5px;
+    margin-left: -20px;
+    background-color: var(--sideMenu-itemBac);
+    color: var(--sideMenu-color);
+    transition: var(--transtion1);
+    align-items: center;
+    &:hover {
+        background-color: var(--sideMenu-hovBac);
+        color: var(--sideMenu-hovColor);
+    }
+    &:hover .ecm_navTreeIconContainerArrow > .testIcon  {
+        color: var(--sideMenu-ArrowColorHov);
+    }
+} 
 
-// .ecm_navTree-List-5 {
-//     --spacing: 25px;
-//     --radius: 10px;
-// }
+.ecm_navTree-List-5 {
+    --spacing: 25px;
+    --radius: 10px;
+}
 
 .ecm_navTree-List-5 li {
   padding-left: calc(2 * var(--spacing) - var(--radius) - 1px);
@@ -1371,7 +1049,6 @@ left: 35px;
 .ecmNavTreeContainer > ::-webkit-scrollbar {
   position: absolute;  
   width: 8px;
-  top: 0;
 }
 
 .ecm_asaidFotter {
@@ -1436,11 +1113,5 @@ left: 35px;
         display: none;
     }
 }
-
-.activeSearchBox {
-    display: flex !important;
-}
-
-
 
 </style>

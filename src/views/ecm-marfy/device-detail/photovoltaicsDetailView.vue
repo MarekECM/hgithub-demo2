@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
-import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
-import photovoltaicDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/photovoltaic-device-detail.vue'
+import Header from '@/components/ecm-marfy-components/marfy-layout/headerComponent.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfyComponent.vue'
+import photovoltaicDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/photovoltaicDeviceDetailComponent.vue'
 </script>
 
 <template>

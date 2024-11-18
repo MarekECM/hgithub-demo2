@@ -1,10 +1,10 @@
 <script setup lang="ts">
-    import MainNavbar from './dynamicWeb-Navbar.vue';
+    import mainNavbar from './dynamicWebNavbarComponent.vue';
 </script>
 
 <template>
     <header class="dw_mainHeader">
-        <MainNavbar/>
+        <mainNavbar/>
     </header>
 </template>
 

@@ -2,11 +2,11 @@
 import { useSidebarStore } from '@/stores/resize'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
-import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
-import batteryDevice from '@/components/ecm-marfy-components/components-devices/batteryDevice.vue'
-import electricityMeter from '@/components/ecm-marfy-components/components-devices/electricityMeter.vue'
-import photovoltaicsDevice from '@/components/ecm-marfy-components/components-devices/photovoltaicsDevice.vue'
+import Header from '@/components/ecm-marfy-components/marfy-layout/headerComponent.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfyComponent.vue'
+// import batteryDevice from '@/components/ecm-marfy-components/components-devices/batteryDeviceComponent.vue' 
+import electricityMeter from '@/components/ecm-marfy-components/components-devices/electricitymeterComponent.vue'
+import photovoltaicsDevice from '@/components/ecm-marfy-components/components-devices/photovoltaicsDeviceComponent.vue'
 
 //Použití store
 const sidebarStore = useSidebarStore()

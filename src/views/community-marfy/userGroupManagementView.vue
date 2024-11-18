@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import com_header from '@/components/ecm-comunity-components/comunity-layout/com_header.vue';
-import com_NavTree from '@/components/ecm-comunity-components/comunity-layout/com_NavTree.vue';
+import com_header from '@/components/ecm-community-components/community-layout/com_headerComponent.vue';
+import com_NavTree from '@/components/ecm-community-components/community-layout/com_navTreeComponent.vue';
 //Použití store
 const sidebarStore = useSidebarStore()
 
@@ -46,7 +46,7 @@ const dynamicStyles = computed(() => {
             <section class="mainContentContainer" style="padding-top: 110px">
                 <div class="activeDevicesContainer">
                      <div class="titleDevices DataPageTitle">
-                        <span class="ecm_dailyPlanTitle">Dokumenty</span>
+                        <span class="ecm_dailyPlanTitle">Správa skupin</span>
                      </div>
                 </div>
             </section>   

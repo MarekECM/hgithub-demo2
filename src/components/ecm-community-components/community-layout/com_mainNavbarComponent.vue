@@ -17,7 +17,7 @@ const navBarClick = () => {
   }
 }
 
-
+const { dynamicStyles } = useWindowResize();
 const sidebarStore = useSidebarStore();
 
 // Sledování stavu isWide z Pinia store odebraní navigace
@@ -29,38 +29,38 @@ const isWide = computed(() => sidebarStore.isWide);
 
 <template>
 
-<div class="dw_headerWrap">
-    <div class="dw_headercontaioner">
+<div class="headerWrap" :style="dynamicStyles">
+    <div class="headercontaioner">
         <div class="ecm_marfyNavWrrap" v-if="!isWide">
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
                     <li class="ecm_primLink">
-                        <RouterLink to="/">Můj Marfy</RouterLink>
+                        <RouterLink :to="{ name:'overview' , params: { parameter: 'overview' } }">Můj Marfy</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vizualizace/scada">SCADA</RouterLink>
+                        <RouterLink :to="{ name:'community-management' , params: { parameter: 'community-management' } }">Domů</RouterLink>
+                        <span class="linkLine1"></span>
+                    </li>
+                    <li class="ecm_primLink">
+                        <RouterLink :to="{ name:'community-data' , params: { parameter: 'community-data' } }">Data</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink"> 
-                        <RouterLink to="/vizualizace/elektromery">Elektroměry</RouterLink>
+                        <RouterLink :to="{ name:'community-documents' , params: { parameter: 'community-documents' } }">Dokumenty</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vizualizace/kotelna">Kotelna</RouterLink>
+                        <RouterLink :to="{ name:'users-group-management' , params: { parameter: 'users-group-management' } }">Správa Skupin</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vizualizace/stridace">Střídače</RouterLink>
+                        <RouterLink :to="{ name:'members-management' , params: { parameter: 'members-management' } }">Správa Skupin</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vizualizace/kogenerace">Kogenerační jednotka</RouterLink>
+                        <RouterLink :to="{ name:'community-management' , params: { parameter: 'community-management' } }">Správa komunit</RouterLink>
                         <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/publicita">Publciita</RouterLink>
-                        <span class="linkLine2"></span>
                     </li>
                 </ul>
             </nav>
@@ -148,7 +148,7 @@ const isWide = computed(() => sidebarStore.isWide);
 
 
 
-.dw_headerWrap {
+.headerWrap {
     width: 100%;
     max-width: 1400px;
     display: flex;
@@ -159,7 +159,7 @@ const isWide = computed(() => sidebarStore.isWide);
     background-color: var(--body-backgroundColor);
 }
 
-.dw_headercontaioner {
+.headercontaioner {
     width: 100%;
     display: flex;
     height: 72px;
@@ -173,14 +173,14 @@ const isWide = computed(() => sidebarStore.isWide);
     display: flex;
 }
 
-.dw_headercontaioner .ecm_marfyMainNavigation {
+.headercontaioner .ecm_marfyMainNavigation {
     display: flex;
     justify-content: center;
     align-items: center; 
 }
 
 
-.dw_headercontaioner .ecm_marfyMainNavigation ul {
+.headercontaioner .ecm_marfyMainNavigation ul {
     display: inline-flex;
     width: 100%;
     max-width: 1000px;
@@ -189,7 +189,7 @@ const isWide = computed(() => sidebarStore.isWide);
     padding: 0px 5px;
 }
 
-.dw_headercontaioner .ecm_marfyMainNavigation ul li a {
+.headercontaioner .ecm_marfyMainNavigation ul li a {
     text-decoration: none;
     width: 100%;
     height: 100%;
@@ -200,7 +200,7 @@ const isWide = computed(() => sidebarStore.isWide);
     white-space: nowrap;
 }
 
-.dw_headercontaioner .ecm_marfyMainNavigation ul li {
+.headercontaioner .ecm_marfyMainNavigation ul li {
     list-style: none;
     display: flex;
     flex-direction: column;

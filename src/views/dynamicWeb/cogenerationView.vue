@@ -1,15 +1,15 @@
 <script setup lang="ts">
-    import dynamicWebHeader from '@/components/ecm-dynamicWeb-componenets/dynamicWeb-layout/dynamicWeb-header.vue';
+    import dynamicWebHeaderComponent from '@/components/ecm-dynamicWeb-componenets/dynamicWeb-layout/dynamicWebHeaderComponent.vue';
 </script>
 
 <template>
     
-        <dynamicWebHeader/>
+        <dynamicWebHeaderComponent/>
         <main>
             <section class="mainContentContainerTest">
 
                 <div class="detailDevicesContainerTest2">
-                       Elektroměry
+                       Kogenerace
                 </div>
                 
             </section>    

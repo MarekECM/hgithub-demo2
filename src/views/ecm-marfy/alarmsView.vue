@@ -2,9 +2,9 @@
 import { useSidebarStore } from '@/stores/resize'
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
-import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
-import alarmsTable from '@/components/ecm-marfy-components/componenets-alarms/alarmsTable.vue'
+import Header from '@/components/ecm-marfy-components/marfy-layout/headerComponent.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfyComponent.vue'
+import alarmsTable from '@/components/ecm-marfy-components/components-alarms/alarmsTableComponent.vue'
 
 //Použití store
 const sidebarStore = useSidebarStore()

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-    import MainNavbar from './com_mainNavbar.vue';
+    import mainNavbar from './com_mainNavbarComponent.vue';
 </script>
 
 <template>
     <header class="ecm_mainHeader">
-        <MainNavbar/>
+        <mainNavbar/>
     </header>
 </template>
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import Header from '@/components/ecm-marfy-components/marfy-layout/header.vue'
-import batteryDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/battery-device-detail.vue'
-import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfy.vue'
+import Header from '@/components/ecm-marfy-components/marfy-layout/headerComponent.vue'
+//import navTree from '@/components/ecmMarfy-components/marfyLayout/navTree.vue';
+import electricityMeterDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/electricitymeterDeviceDetailComponent.vue'
+import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/NavtreeMarfyComponent.vue'
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/Navtree
   <main>
     <section class="mainContentContainer">
       <div class="detailDevicesContainer">
-        <batteryDeviceDetail />
+        <electricityMeterDeviceDetail />
       </div>
     </section>
   </main>

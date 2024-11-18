@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize'; 
-import { useWindowResize } from '@/composables/gl_resizeWindow';
+import { useSidebarStore } from '@/stores/resize';
+// import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { mdiAccountSearch } from '@mdi/js';
 import { ref } from 'vue';
 //import { moveSyntheticComments } from 'typescript';
@@ -17,25 +17,11 @@ const navBarClick = () => {
   }
 }
 
-const { dynamicStyles } = useWindowResize();
+
 const sidebarStore = useSidebarStore();
 
 // Sledování stavu isWide z Pinia store odebraní navigace
 const isWide = computed(() => sidebarStore.isWide);
-
-
-let navbar = ref([
-    { to: "/", text: "Přehled" },
-    { to: "/Data", text: "Data" },
-    { to: "/souhrny", text: "Souhrny" },
-    { to: "/denni-plany", text: "Denní plány" },
-    { to: "/Alarmy", text: "Alarmy" },
-    { to: "/vykazy", text: "Výkazy" },
-    { to: "/management", text: "Komunity" },
-    { to: "/statistiky", text: "Statistiky" },
-    { to: "/publicita", text: "Publicita" },
-    { to: "/vizualizace/scada", text: "Vizualizace"}
-]);
 
 </script>
 
@@ -43,55 +29,39 @@ let navbar = ref([
 
 <template>
 
-<div class="headerWrap" :style="dynamicStyles">
-    <div class="headercontaioner">
+<div class="dw_headerWrap">
+    <div class="dw_headercontaioner">
         <div class="ecm_marfyNavWrrap" v-if="!isWide">
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
-                    <li v-for="(link, index) in navbar" :key="index">
-                <RouterLink :to="link.to">{{ link.text }}</RouterLink>
-                <span class="linkLine" :class="index % 2 === 0 ? 'linkLine1' : 'linkLine1'"></span>
-            </li>
-                    <!-- <li class="ecm_primLink" >
-                        <RouterLink to="/">Přehled</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li> -->
-                    <!-- <li class="ecm_primLink"> 
-                        <RouterLink to="/Data">Data</RouterLink>
+                    <li class="ecm_primLink">
+                        <RouterLink to="/">Můj Marfy</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/souhrny">Souhrny</RouterLink>
+                        <RouterLink :to="{ name:'scada' , params: { parameter: 'scadaView' } }">SCADA</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/denni-plany">Denní plány</RouterLink>
+                        <RouterLink :to="{ name:'inverters' , params: { parameter: 'invertersView' } }">Střídače</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/Alarmy">Alarmy</RouterLink>
+                        <RouterLink :to="{ name:'electricityMeters' , params: { parameter: 'electricityMetersView' } }">Elektroměry</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/vykazy">Výkazy</RouterLink>
+                        <RouterLink :to="{ name:'cogeneration' , params: { parameter: 'cogenerationView' } }">Kogenerace</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/management">Komunita</RouterLink>
+                        <RouterLink :to="{ name:'boiler-room' , params: { parameter: 'boilerRoomView' } }">Kotelna</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
                     <li class="ecm_primLink">
-                        <RouterLink to="/statistiky">Statistiky</RouterLink>
+                        <RouterLink :to="{ name:'publicity' , params: { parameter: 'publicityView' } }">Publicita</RouterLink>
                         <span class="linkLine1"></span>
                     </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="/publicita">Publicita</RouterLink>
-                        <span class="linkLine2"></span>
-                    </li>
-                    <li class="ecm_secLink">
-                        <RouterLink to="vizualizace/scada">Vizualizace</RouterLink>
-                        <span class="linkLine2"></span>
-                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -106,13 +76,11 @@ let navbar = ref([
                     </li>
                     <li class="evmRingBc" @click="navBarClick">
                         <span class="material-icons" style="font-size: 26px;">more_vert</span>
-
-
                         <ul ref="navBarIcon" class="wwwtttwwww testwwww noneActive">
                        
-                            <li class="secondaryNavbar"  v-for="(link, index) in navbar" :key="index">
-                               <span class="secNavTexItem"><RouterLink :to="link.to">{{ link.text }}</RouterLink></span> 
-
+                            <li>
+                                <span class="myIcontest"><svg :viewBox="'0 0 24 24'" width="48" height="48"><path :d="mdiAccountSearch" /></svg></span>
+                                <span class="textQ">poslední</span>
                             </li>
                         </ul>
                     </li>
@@ -133,10 +101,6 @@ let navbar = ref([
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
-}
-
-.ecm_marfyMainNavigation-list a {
-    color: black;
 }
 
 .testwwww {
@@ -166,23 +130,12 @@ let navbar = ref([
 }
 
 .wwwtttwwww {
-    display: flex; 
-}
-
-.secNavTexItem {
-    width: 100%;
-}
-
-.secNavTexItem a{
-    display: block;
-    width: 100%;
-    border: 1px solid red;
+    display: flex;
 }
 
 .testwwww li {
     height: 35px;
     border-radius: 5px;
-   
 
     &:hover {
         background-color: blue;
@@ -195,7 +148,7 @@ let navbar = ref([
 
 
 
-.headerWrap {
+.dw_headerWrap {
     width: 100%;
     max-width: 1400px;
     display: flex;
@@ -206,14 +159,12 @@ let navbar = ref([
     background-color: var(--body-backgroundColor);
 }
 
-.headercontaioner {
+.dw_headercontaioner {
     width: 100%;
-    max-width: 1300px;
     display: flex;
     height: 72px;
     background-color: var(--navbar-backgroundColor);
     border-radius: 20px;
-    margin-right: 25px;
 }
 
 .ecm_marfyNavWrrap {
@@ -222,14 +173,14 @@ let navbar = ref([
     display: flex;
 }
 
-.headercontaioner .ecm_marfyMainNavigation {
+.dw_headercontaioner .ecm_marfyMainNavigation {
     display: flex;
     justify-content: center;
     align-items: center; 
 }
 
 
-.headercontaioner .ecm_marfyMainNavigation ul {
+.dw_headercontaioner .ecm_marfyMainNavigation ul {
     display: inline-flex;
     width: 100%;
     max-width: 1000px;
@@ -238,7 +189,7 @@ let navbar = ref([
     padding: 0px 5px;
 }
 
-.headercontaioner .ecm_marfyMainNavigation ul li a {
+.dw_headercontaioner .ecm_marfyMainNavigation ul li a {
     text-decoration: none;
     width: 100%;
     height: 100%;
@@ -249,7 +200,7 @@ let navbar = ref([
     white-space: nowrap;
 }
 
-.headercontaioner .ecm_marfyMainNavigation ul li {
+.dw_headercontaioner .ecm_marfyMainNavigation ul li {
     list-style: none;
     display: flex;
     flex-direction: column;

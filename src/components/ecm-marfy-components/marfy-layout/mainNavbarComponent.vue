@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize';
+import { useSidebarStore } from '@/stores/resize'; 
 import { useWindowResize } from '@/composables/gl_resizeWindow';
-import { mdiAccountSearch } from '@mdi/js';
+// import { mdiAccountSearch } from '@mdi/js';
 import { ref } from 'vue';
 //import { moveSyntheticComments } from 'typescript';
 
@@ -23,6 +23,23 @@ const sidebarStore = useSidebarStore();
 // Sledování stavu isWide z Pinia store odebraní navigace
 const isWide = computed(() => sidebarStore.isWide);
 
+
+let navbar = ref([
+    { to: { name: 'overview', params: { parameter: 'overview' } }, text: "Můj Marfy"},
+    { to: { name: 'data', params: { parameter: 'data' } }, text: "Data"},
+    { to: { name: 'summaries', params: { parameter: 'summaries' } }, text: "Souhrny"},
+    { to: { name: 'daily-plans', params: { parameter: 'daily-plans' } }, text: "Denní plány"},
+    { to: { name: 'alarms', params: { parameter: 'alarms' } }, text: "Alarmy"},
+    { to: { name: 'reports', params: { parameter: 'reports' } }, text: "Výkazy"},
+    { to: { name: 'community-management', params: { parameter: 'community-management' } }, text: "Komunity"},
+    { to: { name: 'reports', params: { parameter: 'reports' } }, text: "Statistiky"},
+    { to: { name: 'publicity', params: { parameter: 'reports' } }, text: "Publicita"},
+    { to: { name: 'scada', params: { parameter: 'scadaView' } }, text: "Vizualizace"},
+]);
+
+
+
+
 </script>
 
 
@@ -34,34 +51,10 @@ const isWide = computed(() => sidebarStore.isWide);
         <div class="ecm_marfyNavWrrap" v-if="!isWide">
             <nav class="ecm_marfyMainNavigation">
                 <ul ref="navList" class="ecm_marfyMainNavigation-list">
-                    <li class="ecm_primLink">
-                        <RouterLink to="/">Můj Marfy</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/management">Domů</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/komunity/data">Data</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink"> 
-                        <RouterLink to="/komunity/dokumenty">Dokumenty</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/komunity/sprava-skupin">Správa Skupin</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/komunity/sprava-clenu">Správa členů</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
-                    <li class="ecm_primLink">
-                        <RouterLink to="/management">Správa Komunit</RouterLink>
-                        <span class="linkLine1"></span>
-                    </li>
+                    <li v-for="(link, index) in navbar" :key="index">
+                        <RouterLink :to="link.to">{{ link.text }}</RouterLink>
+                        <span :class="index >= navbar.length - 2 ? 'linkLine2' : 'linkLine1'"></span>
+                   </li>
                 </ul>
             </nav>
         </div>
@@ -77,10 +70,8 @@ const isWide = computed(() => sidebarStore.isWide);
                     <li class="evmRingBc" @click="navBarClick">
                         <span class="material-icons" style="font-size: 26px;">more_vert</span>
                         <ul ref="navBarIcon" class="wwwtttwwww testwwww noneActive">
-                       
-                            <li>
-                                <span class="myIcontest"><svg :viewBox="'0 0 24 24'" width="48" height="48"><path :d="mdiAccountSearch" /></svg></span>
-                                <span class="textQ">poslední</span>
+                            <li class="secondaryNavbar"  v-for="(link, index) in navbar" :key="index">
+                               <span class="secNavTexItem"><RouterLink :to="link.to">{{ link.text }}</RouterLink></span> 
                             </li>
                         </ul>
                     </li>
@@ -101,6 +92,10 @@ const isWide = computed(() => sidebarStore.isWide);
   'wght' 400,
   'GRAD' 0,
   'opsz' 24
+}
+
+.ecm_marfyMainNavigation-list a {
+    color: black;
 }
 
 .testwwww {
@@ -130,12 +125,23 @@ const isWide = computed(() => sidebarStore.isWide);
 }
 
 .wwwtttwwww {
-    display: flex;
+    display: flex; 
+}
+
+.secNavTexItem {
+    width: 100%;
+}
+
+.secNavTexItem a{
+    display: block;
+    width: 100%;
+    border: 1px solid red;
 }
 
 .testwwww li {
     height: 35px;
     border-radius: 5px;
+   
 
     &:hover {
         background-color: blue;
@@ -161,10 +167,12 @@ const isWide = computed(() => sidebarStore.isWide);
 
 .headercontaioner {
     width: 100%;
+    max-width: 1300px;
     display: flex;
     height: 72px;
     background-color: var(--navbar-backgroundColor);
     border-radius: 20px;
+    margin-right: 25px;
 }
 
 .ecm_marfyNavWrrap {

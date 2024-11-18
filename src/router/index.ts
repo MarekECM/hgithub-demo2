@@ -9,101 +9,101 @@ import statisticsView from '@/views/ecm-marfy/statisticsView.vue'
 import reportsView from '@/views/ecm-marfy/reportsView.vue'
 
 // ecm Marfy detaily zarizeni 
-import battreryView from '@/views/ecm-marfy/detail-zarizeni/battreryView.vue'
-import photovoltaicsView from '@/views/ecm-marfy/detail-zarizeni/photovoltaicsView.vue'
-import electricityMeterView from '@/views/ecm-marfy/detail-zarizeni/electricityMeterView.vue'
+import battreryDetailView from '@/views/ecm-marfy/device-detail/battreryDetailView.vue'
+import photovoltaicsDetailView from '@/views/ecm-marfy/device-detail/photovoltaicsDetailView.vue'
+import electricityMeterDetailView from '@/views/ecm-marfy/device-detail/electricityMeterDetailView.vue'
 
 // ecm komunity
-import communityManagementView from '@/views/komunity/communityManagementView.vue'
-import communityDataView from '@/views/komunity/communityDataView.vue'
-import documentsView from '@/views/komunity/documentsView.vue'
-import memberManagementView from '@/views/komunity/memberManagementView.vue'
-import userGroupManagementView from '@/views/komunity/userGroupManagementView.vue'
+import communityManagementView from '@/views/community-marfy/communityManagementView.vue'
+import communityDataView from '@/views/community-marfy/communityDataView.vue'
+import documentsView from '@/views/community-marfy/documentsView.vue'
+import memberManagementView from '@/views/community-marfy/memberManagementView.vue'
+import userGroupManagementView from '@/views/community-marfy/userGroupManagementView.vue'
 
 // DynamicWeb
-import scadaView from '@/views/vizualizace/scadaView.vue'
-import stridaceView from '@/views/vizualizace/stridaceView.vue'
-import publicitaView from '@/views/vizualizace/publicitaView.vue'
-import kotelnaView from '@/views/vizualizace/kotelnaView.vue'
-import kgjView from '@/views/vizualizace/kgjView.vue'
-import elektromeryView from '@/views/vizualizace/elektromeryView.vue'
+import scadaView from '@/views/dynamicWeb/scadaView.vue'
+import invertersView from '@/views/dynamicWeb/invertersView.vue'
+import publicityView from '@/views/dynamicWeb/publicityView.vue'
+import boilerRoomView from '@/views/dynamicWeb/boilerRoomView.vue'
+import cogenerationView from '@/views/dynamicWeb/cogenerationView.vue'
+import electricityMetersView from '@/views/dynamicWeb/electricityMetersView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Přehledy',
+      name: 'overview',
       component: mainOverview
     },
     {
       path: '/alarmy',
-      name: 'Alarmy',
+      name: 'alarms',
       component: alarmsView
     },
     {
       path: '/denni-plany',
-      name: 'Denní plány',
+      name: 'daily-plans',
       component: dailyPlansView
     },
     {
       path: '/data',
-      name: 'Data',
+      name: 'data',
       component: dataView
     },
     {
       path: '/souhrny',
-      name: 'Souhrny',
+      name: 'summaries',
       component: sumamriesView
     },
     {
       path: '/statistiky',
-      name: 'Statistiky',
+      name: 'statistics',
       component: statisticsView
     },
     {
       path: '/vykazy',
-      name: 'Vykazy',
+      name: 'reports',
       component: reportsView
     },
     {
       path: '/detail-baterie',
-      name: 'detail-baterie',
-      component: battreryView
+      name: 'battery-detail',
+      component: battreryDetailView
     },
     {
       path: '/detail-fotovoltaiky',
-      name: 'detail-fotovoltaiky',
-      component: photovoltaicsView
+      name: 'photovoltaics-detail',
+      component: photovoltaicsDetailView
     },
     {
       path: '/detail-elektromeru',
-      name: 'detail-elektromeru',
-      component: electricityMeterView
+      name: 'electricitymeter-detail',
+      component: electricityMeterDetailView
     },
     {
-      path: '/management',
-      name: 'management',
+      path: '/komunity/management',
+      name: 'community-management',
       component: communityManagementView
     },
     {
       path: '/komunity/data',
-      name: 'data',
+      name: 'community-data',
       component: communityDataView
     },
     {
       path: '/komunity/dokumenty',
-      name: 'dokumenty',
+      name: 'community-documents',
       component: documentsView
     },
     {
       path: '/komunity/sprava-clenu',
-      name: 'sprava-clenu',
+      name: 'members-management',
       component: memberManagementView
     },
     {
       path: '/komunity/sprava-skupin',
-      name: 'sprava-skupin',
+      name: 'users-group-management',
       component: userGroupManagementView
     },
     {
@@ -113,28 +113,28 @@ const router = createRouter({
     },
     {
       path: '/vizualizace/stridace',
-      name: 'stridace',
-      component: stridaceView
+      name: 'inverters',
+      component: invertersView
     },
     {
       path: '/publicita',
-      name: 'publicita',
-      component: publicitaView
+      name: 'publicity',
+      component: publicityView
     },
     {
       path: '/vizualizace/kotelna',
-      name: 'kotelna',
-      component: kotelnaView
+      name: 'boiler-room',
+      component: boilerRoomView
     },
     {
       path: '/vizualizace/kogenerace',
-      name: 'kogenerace',
-      component: kgjView
+      name: 'cogeneration',
+      component: cogenerationView
     },
     {
       path: '/vizualizace/elektromery',
-      name: 'elektromery',
-      component: elektromeryView
+      name: 'electricityMeters',
+      component: electricityMetersView
     }
   ]
 })

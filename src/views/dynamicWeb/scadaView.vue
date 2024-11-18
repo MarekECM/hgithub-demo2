@@ -1,15 +1,16 @@
 <script setup lang="ts">
-    import dynamicWebHeader from '@/components/ecm-dynamicWeb-componenets/dynamicWeb-layout/dynamicWeb-header.vue';
+
+    import dynamicWebHeaderComponent from '@/components/ecm-dynamicWeb-componenets/dynamicWeb-layout/dynamicWebHeaderComponent.vue';
 </script>
 
 <template>
     
-        <dynamicWebHeader/>
+        <dynamicWebHeaderComponent/>
         <main>
             <section class="mainContentContainerTest">
 
                 <div class="detailDevicesContainerTest2">
-                       Publicita
+                       Vizualizace SCADA
                 </div>
                 
             </section>    
@@ -30,6 +31,11 @@
 
         .detailDevicesContainerTest2 {
             color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.9vw;
         }
 
 </style>
