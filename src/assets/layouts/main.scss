@@ -1,0 +1,52 @@
+.ecm-main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    position: relative;
+    background-color: var(--body-backgroundColor);
+    padding-top: 100px;
+   
+    &__wrap {
+        display: flex;
+        width: 100%;
+        max-width: 1400px;
+        text-align: center;
+        position: absolute;
+        right: 0;    
+        flex-direction: column;
+        align-items: center;  
+        background-color: var(--body-backgroundColor);
+       // min-height: 100vh;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    &__container--primary {
+       
+        display: block;
+        width: 100%;
+        margin: 15px auto 0;
+        transition: all 0.3s ease;
+    }
+
+    &__container--secondary {
+        position: relative;
+        display: block;
+        width: 100%;
+       
+        margin: 0 auto;
+    }
+
+    &__titleDevices {
+        display: flex;
+        width: 100%;
+        max-width: 1330px;
+        padding: 0 30px 30px;
+        margin: 0 auto;
+        font-size: var(--titleSection);
+        color: var(--ecm-title);
+        justify-content: space-between;
+    }
+
+
+}

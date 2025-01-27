@@ -1,0 +1,121 @@
+.ecm-banner {
+    max-width: 1290px;
+    width: 100%;
+    background-color: var(--bannerContainerBackground);
+    margin: 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-bottom: 50px;
+    overflow: hidden;
+    position: relative;
+   
+  
+    &__content-container {
+      width: 50%;
+      height: 80%;
+      margin-left: 50px;
+      position: relative;
+    }
+  
+    &__dots-container {
+      width: 40px;
+      height: 10px;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 50px;
+    }
+
+    &__dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        cursor: pointer;   
+    }
+
+    &__dot--active {
+    background-color: var(--dotActive);
+    }
+
+    &__dot--inactive {
+    background-color: var(--dotInActive);
+    }
+  
+    &__hero-title {
+      width: 100%;
+      max-width: 470px;
+      font-size: var(--heroTitle);
+      color: var(--bannerHeroTitleColor);
+    }
+  
+    &__footer {
+      width: 100%;
+      height: 80px;
+      display: flex;
+      align-items: center;
+    }
+  
+    &__title {
+      font-size: 18px;
+      color: var(--bannertitleColor);
+      padding: 20px 0;
+
+
+    }
+  
+    &__button {
+      max-width: 180px;
+      width: 100%;
+      height: 40px;
+      background-color: var(--bannerButtonBackground);
+      color: var(--bannerTextColor);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    &__icon-container {
+      width: 25px;
+      height: 25px;
+      border-radius: 25vh;
+      border: 1px solid #fff;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+  
+      .ecm-banner__icon {
+        font-size: 16px;
+        color: #fff;
+      }
+    }
+
+
+  }
+
+  @media (max-width: 1536px) {
+    .ecm-banner {
+         
+      width: 100%;
+      max-width: 1180px;
+      margin: 15px 12px;
+    }
+  }
+  
+  @media (max-width: 795px) {
+    .ecm-banner {
+         
+      &__hero-title {
+        font-size: 25px;
+        transition: var(--transtion3);
+       
+      }
+    }
+  }
+

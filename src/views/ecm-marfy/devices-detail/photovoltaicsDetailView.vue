@@ -2,16 +2,20 @@
 import { useSidebarStore } from '@/stores/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
+import photovoltaicDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/photovoltaic-device-detail-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 
-//Použití store
 const sidebarStore = useSidebarStore()
 </script>
 
 <template>
   <Header />
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
-    <section class="ecm-main__wrap"></section>
+    <section class="ecm-main__wrap">
+      <div class="ecm-main__container--primary">
+        <photovoltaicDeviceDetail />
+      </div>
+    </section>
   </main>
   <NavtreeMarfy />
 </template>

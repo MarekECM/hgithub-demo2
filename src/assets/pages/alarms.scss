@@ -1,0 +1,31 @@
+.alarm-btn-container {
+    &__selection-alarms {
+      width: 180px;
+      height: 35px;
+      background-color: var(--btnBgSelectAlarms);
+      border-radius: 5px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      cursor: pointer;
+      border: 1px solid var(--btnBorderAlarms);
+      transition: var(--transtion3);
+    }
+  
+    &__text {
+      width: 100%;
+    }
+  
+    &__icon-content {
+      padding: 0;
+      display: flex;
+      font-size: 10px;
+
+      & .material-icons {
+        font-size: 24px;
+      }
+    }
+}
+

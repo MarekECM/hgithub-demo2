@@ -30,8 +30,8 @@ export function useWindowResize() {
     if (windowWidth.value > 712) {
       // Pokud je šířka okna větší než 712px, použij styly
       return {
-        marginLeft: `${sidebarStore.width}px`,
-        width: `calc(100% - ${sidebarStore.width}px)`
+       marginLeft: `${sidebarStore.width}px`,
+       width: `calc(100% - ${sidebarStore.width}px)`
       };
     } else {
       // Pokud je šířka okna menší nebo rovná 712px, odeber styly

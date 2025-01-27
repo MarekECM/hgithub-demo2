@@ -1,0 +1,20 @@
+.ecm-header {
+    display: flex;
+    justify-content: flex-end;
+   // background-color: var(--body-backgroundColor);
+    z-index: 2;
+    position: fixed;
+    padding: 0 0 0 15px;
+}
+
+.ecm-header__default {
+    width: 100%;
+    max-width: 1655px;
+}
+
+.ecm-header__full-width {
+    width: 100%;
+    max-width: none;
+}
+
+

@@ -1,0 +1,49 @@
+.summaries-selection-periods {
+    width: 150px;
+    height: 35px;
+    background-color: var(--selectionPeriodsBg);
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    transition: var(--transtion3);
+  
+    &:hover {
+      background-color: white;
+      color: var(--selectionPeriodsBg);
+  
+      &__icon-calendar,
+      &__icon-arrow {
+        color: var(--selectionPeriodsBg);
+      }
+    }
+  
+    &__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      &-calendar {
+        font-size: 19px;
+        color: inherit;
+      }
+  
+      &-arrow {
+        font-size: 19px;
+        color: inherit;
+      }
+
+      & .material-icons {
+        font-size: 19px;
+      }
+    }
+  
+    &__text {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
+  

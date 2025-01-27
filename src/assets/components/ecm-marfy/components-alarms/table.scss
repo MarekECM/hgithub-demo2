@@ -1,0 +1,63 @@
+.alarm-detail {
+    background-color: var(--background-alarm-table);
+    padding: 30px 20px;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+
+ 
+        &__cell {
+
+            &--name {
+                border-radius: 25px 0px 0px 25px;
+            }
+
+            &--actions {
+                border-radius: 0px 25px 25px 0px;
+            }
+
+            &--status {
+                text-align: center;
+            }
+
+            &--actions {
+                text-align: center;
+            }   
+        }
+
+        &__icon {
+            padding: 3px;
+            border-radius: 5px;
+            background-color: var(--sideMenu-iconColorPrim);
+            color: var(--iconBg-table);
+        }
+
+        &__status--alarm {
+            display: flex;
+            background-color: var(--alarmStatus);
+            border-radius: 25vh;
+            font-size: 13px;
+            width: 60px;
+            height: 20px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        &__status--ok {
+            display: flex;
+            background-color: var(--oktatus);
+            border-radius: 25vh;
+            font-size: 13px;
+            width: 60px;
+            height: 20px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        td {
+            padding: 15px;
+        }
+ 
+}

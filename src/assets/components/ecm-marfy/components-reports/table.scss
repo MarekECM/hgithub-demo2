@@ -1,0 +1,21 @@
+.reports-detail {
+    background-color: var(--background-reports-table);
+    padding: 30px 20px;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+    
+        &__cell {
+
+            &--name {
+                border-radius: 25px 0px 0px 25px;
+            }
+
+            &--actions {
+                border-radius: 0px 25px 25px 0px;
+            }
+            
+        }
+
+
+}

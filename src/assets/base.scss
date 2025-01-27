@@ -1,0 +1,416 @@
+//layouts
+@import "layouts/header.scss";
+@import "layouts/aside.scss";
+@import "layouts/navbar.scss";
+@import "layouts/main.scss";
+//pages
+@import "pages/alarms.scss";
+@import "pages/dailyPlans.scss";
+@import "pages/reports.scss";
+@import "pages/login.scss";
+@import "pages/summaries.scss";
+//components ecm-marfy
+//main sections
+@import "components/ecm-marfy/components-sections/production.scss";
+@import "components/ecm-marfy/components-sections/consumption.scss";
+@import "components/ecm-marfy/components-sections/economic-performance.scss";
+@import "components/ecm-marfy/components-sections/banner.scss";
+//alarm components
+@import "components/ecm-marfy/components-alarms/table.scss";
+//reports components
+@import "components/ecm-marfy/components-reports/table.scss";
+//summaries components
+@import "components/ecm-marfy/components-summaries/total-consumption-energy-component.scss";
+@import "components/ecm-marfy/components-summaries/total-consumption-grid-component.scss";
+@import "components/ecm-marfy/components-summaries/total-supply-battery-component.scss";
+@import "components/ecm-marfy/components-summaries/total-supply-grid-component.scss";
+//devices components
+@import "components/ecm-marfy/components-devices/battery-device-component.scss";
+@import "components/ecm-marfy/components-devices/electricity-meter-component.scss";
+@import "components/ecm-marfy/components-devices/photovoltaics-device-component.scss";
+//aside components 
+@import "components/ecm-marfy/components-aside/select.scss";
+//modal windows components
+@import "components/ecm-marfy/components-modal-window/primary-modal-windou.scss";
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--body-backgroundColor);
+}
+
+.ecm-layout {
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+
+  &__default {
+    width: 100%;
+    max-width: 1663px;
+  }
+
+  &__full-width {
+    width: 100%;
+    max-width: none;
+  }
+
+  &__container {
+
+    &--default {
+      width: 100%;
+      max-width: 1290px;
+    }
+
+    &--full-width {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: var(--tableHeaderBackground);
+}
+
+.tbody, td {
+  color: var(--text-table);
+}
+
+td {
+  border-bottom: 1px solid var(--tableBorderBottom);
+}
+
+td, th {
+text-align: left;
+padding: 25px;
+font-weight: 100;
+}
+
+th {
+  color: var(--tableHeaderColor);
+}
+
+// dynamicke tridy components-sectios
+.dynamic-margin {
+  margin: 15px 0px !important;
+}
+
+// dynamicke tridy banner
+
+.dynamic-fontSize-v1 {
+  font-size: 25px;
+}
+
+.dynamic-fontSize-v2 {
+  font-size: 12px;
+}
+
+// scrollbar
+::-webkit-scrollbar {
+  position: absolute;  
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color:  var(--background-track);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:var(--background-hndl); 
+}
+
+// toggle display block 
+
+.display-block {
+  display: block;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.display-none {
+  display: none;
+}
+
+:root {
+  // Layout
+  --body-backgroundColor: #191d23;
+  --body-backgroundColorBlur: #f5f6f7cb;
+  --ecm-title: #fff;
+  // ECM Marfy Componenets
+
+  // Navbar
+  --navbar-backgroundColor: #FFFFFF;
+  --navbar-text-primaryColor: #191D23;
+  --navbar-text-secundaryColor: #EB3443;
+  --navbar-hover-color: #EB3443; 
+  --navbar-text-decorationLinkColor1: #EB3443;
+  --navbar-text-decorationLinkColor2: #E7EAEE;
+  --navbar-iconColor: #191D23;
+  --colorLink: #000;
+
+  // SideNavbar
+  --sideMenu-title: #64748B;
+  --sideMenu-headerBacground: #EB3443; 
+  --sideMenu-backgroundColor: #1f262e;
+  --sideMenu-iconColorPrim: #a0abbb;
+  --sideMenu-iconColorSec: #EB3443;
+  --sideMenu-hover-itemList: #48AEED;
+  --sideMenu-arrow-color: #EB3443;
+  --sideMenu-itemList-background: #1f262e;
+  --sideMenu-hovBac: #EB3443;
+  --sideMenu-hovColor: #ffffff;
+  --sideMenu-itemBac: transparent;
+  --sideMenu-line-item: #a0abbb;
+  --sideMenu-color: #a0abbb;
+  --sideMenu-resize: #a0abbb;
+  --sideMenu-ArrowColorHov: #fff;
+  --sideMenu-colorFotterPrim: rgb(65, 89, 125);
+  --sideMenu-colorFotterSec: #fff;
+  
+  // mainSelect
+  --selectContainerBacground: #fff;
+  --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
+  --textColorhov: #fff;
+
+  //components
+
+  // Banner
+  --background-1: #459dd410;
+  --background-2: #191d23;
+
+  --iconColor-1: #f0f8ff;
+
+  --bannerContainerBackground: #202e44;
+  --dotActive: #EB3443;
+  --dotInActive: #492f43;
+  --bannerHeroTitleColor: #fff;
+  --bannertitleColor: #EB3443;
+  --bannerButtonBackground: #EB3443;
+  --bannerTextColor: #fff;
+
+  // Production container component
+  --production-Background: #A7F3D0;
+  --production-IconWrap-bg: #10B981;
+  --productionIcon-color: #A7F3D0;
+  --production-textColor: #064E3B;
+
+  // Consumption container component
+  --consumption-Background: #FDE68A;
+  --consumption-IconWrap-bg: #F59E0B;
+  --consumptionIcon-color: #FDE68A;
+  --consumption-textColor: #78350F;
+
+  // economic-performance container component
+  --economic-performance-Background: #1f262e;
+  --economic-performance-IconWrap-bg: #505051;
+  --economic-performance-color: #A0ABBB;
+  --economic-performance-mainValue-color: #EB3443;
+  --economic-performance-textColor: #FFF;
+
+  // Components-devices
+  --batteryValueCharge: #f59e0b;
+  --energyConsumption:  #10B981;
+  --energyOutput: #10B981;
+  --comDevTitleColor: #ffffff;
+  --devColorLink: #ffffff;
+  --devButtonBackground:#303945;
+  --devBackgroundContainer: #1f262e;
+  --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+  rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --devBorder:#3c4d67;
+  --devH2Color: #a0abbb;
+
+  //componenets total supplyGrid
+  --totalValuesColor: #57657a;
+
+  //componenets total supplyFromBattery
+  --supblyFromBattery: #98a3b2;
+
+  //componenets total consumptionGrid
+  --consumptionGridValue: #f59e0b;
+
+  //componenets total consumptionEnergy
+  --consumptionEnergyValue: #EB3443;
+
+  //selection Periods
+  --selectionPeriodsBg: #EB3443;
+
+  // dailyPlans
+  --dailyPlansBgContainer: #1f262e;
+  --btnBgDailyPlans: #1f262e;
+  --btnBorderDailyPlans: #3c4d67;
+  --colorIconDpCheck: #10B981;
+  --colorIconDpPower: #EB3443;
+
+  // Alarms
+  --btnBgSelectAlarms: #1f262e;
+  --btnBorderAlarms: #3c4d67;
+  --alarmStatus: #EB3443;
+  --oktatus: #10B981;
+  --background-alarm-table: #1f272f;
+
+ // reports
+ --background-reports-table: #1f272f;
+ --btnBgSelectReport: #1f262e;
+ --btnBorderReport: #3c4d67;
+
+
+  //table
+  --tableHeaderColor: #a0abbb;
+  --tableHeaderBackground: #303945;
+  --tableBorderBottom: #303945;
+  --tableAlarmBg: #EB3443; 
+  --tableOkBg: #10B981;
+  --iconBg-table: #303945;
+  --text-table: #fff;
+
+  //transition
+  --transtion1: 0.1s;
+  --transtion2: 0.2s;
+  --transtion3: 0.3s;
+
+  //FontSize
+  // Banner
+  --heroTitle: 50px;
+  --balanceContainer-value: 30px;
+  //Title Section 
+  --titleSection: 30px;
+
+  // scrollbar
+  --scrollbarBackground: #c9c9c9;
+  --scrollbarColor: #d5d9dd;
+
+  //handle
+  --background-hndl: #535860;
+
+  //Track 
+  --background-track:  #2a3037;
+
+
+}
+
+// .ecm_dark-theme {
+//   // Layout
+//   --body-backgroundColor: #F5F6F7;
+//   --body-backgroundColorBlur: #f5f6f7cb;
+//   // ECM Marfy Componenets
+
+//   // Navbar
+//   --navbar-backgroundColor: #FFFFFF;
+//   --navbar-text-primaryColor: #191D23;
+//   --navbar-text-secundaryColor: #EB3443;
+//   --navbar-hover-color: #EB3443; 
+//   --navbar-text-decorationLinkColor1: #EB3443;
+//   --navbar-text-decorationLinkColor2: #E7EAEE;
+//   --navbar-iconColor: #191D23;
+//   --colorLink: #000;
+
+//   // SideNavbar
+//   --sideMenu-title: #64748B;
+//   --sideMenu-headerBacground: #EB3443; 
+//   --sideMenu-backgroundColor: #F7F8F9;
+//   --sideMenu-iconColorPrim: #48AEED;
+//   --sideMenu-iconColorSec: #EB3443;
+//   --sideMenu-hover-itemList: #48AEED;
+//   --sideMenu-arrow-color: #EB3443;
+//   --sideMenu-itemList-background: #E7EAEE;
+//   --sideMenu-hovBac: #DAEFFB;
+//   --sideMenu-hovColor: #48AEED;
+//   --sideMenu-itemBac: #dee2e6;
+//   --sideMenu-line-item: #d5d9dd;
+//   --sideMenu-color: #4B5768;
+//   --sideMenu-resize: #ddd;
+//   --sideMenu-ArrowColorHov: #fff;
+  
+//   // mainSelect
+//   --selectContainerBacground: #fff;
+//   --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
+//   --textColorhov: #fff;
+
+//   // Banner
+//   --bannerContainerBackground: #031723;
+//   --dotActive: #EB3443;
+//   --dotInActive: #311C29;
+//   --bannerHeroTitleColor: #fff;
+//   --bannertitleColor: #EB3443;
+//   --bannerButtonBackground: #EB3443;
+//   --bannerTextColor: #fff;
+
+//   // Production container component
+//   --production-Background: #A7F3D0;
+//   --production-IconWrap-bg: #10B981;
+//   --productionIcon-color: #A7F3D0;
+//   --production-textColor: #064E3B;
+
+//   // Consumption container component
+//   --consumption-Background: #FDE68A;
+//   --consumption-IconWrap-bg: #F59E0B;
+//   --consumptionIcon-color: #FDE68A;
+//   --consumption-textColor: #78350F;
+
+//   // Result container component
+//   --result-Background: #191D23;
+//   --result-IconWrap-bg: #505051;
+//   --resultIcon-color: #A0ABBB;
+//   --result-mainValue-color: #EB3443;
+//   --result-textColor: #FFF;
+
+//   // Components-devices
+//   --batteryValueCharge: #f59e0b;
+//   --energyConsumption:  #10B981;
+//   --energyOutput: #10B981;
+//   --comDevTitleColor: #191d23;
+//   --devColorLink: #0e5c8d;
+//   --devButtonBackground:#daeffb;
+//   --devBackgroundContainer: #fff;
+//   --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+//   rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; ;
+ 
+
+//   //table
+//   --tableHeaderColor: #48AEED;
+//   --tableHeaderBackground: #EBEBEB;
+
+//   //transition
+//   --transtion1: 0.1s;
+//   --transtion2: 0.2s;
+//   --transtion3: 0.3s;
+
+//   //FontSize
+//   // Banner
+//   --heroTitle: 50px;
+//   --balanceContainer-value: 30px;
+
+
+//   // scrollbar
+//   --scrollbarBackground: #c9c9c9;
+//   --scrollbarColor: #d5d9dd;
+// }
