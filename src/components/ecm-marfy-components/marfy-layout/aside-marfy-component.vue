@@ -138,11 +138,20 @@ const uiStore = useUiStore();
 
 // Přístup ke stavu
 const isAsideVisible = uiStore.isAsideVisible;
+
+
+
+// Připojení ke store
+
+// Funkce pro přepnutí viditelnosti aside
+const toggleAside = () => {
+  uiStore.toggleAside(); // Zavolání metody z Pinia store
+};
 </script>
 
 
 <template>
-    <aside class="ecm-aside" :class="{ 'display-block': isAsideVisible }">
+    <aside class="ecm-aside" :class="{ 'display-none': uiStore.isAsideVisible, 'display-block': !uiStore.isAsideVisible }">
         <div class="ecm-aside__header">
             <span class="ecm-aside__background-element"></span>
             <div class="ecm-aside__logo">
@@ -166,11 +175,11 @@ const isAsideVisible = uiStore.isAsideVisible;
                 <summary class="ecm-aside__nav-tree-summary-container">
                   <div class="ecm-aside__item-tree-wrap">
                     <span class="ecm-aside__nav-tree-icon-container-arrow">
-                      <span class="material-icons ecm-aside__test-icon" style="font-size: 13px;">arrow_forward_ios</span>
+                      <span class="material-icons ecm-aside__primary-icon" style="font-size: 13px;">arrow_forward_ios</span>
                     </span>
                     <div class="ecm-aside__tree-item-container">
                       <span class="ecm-aside__nav-tree-icon-container">
-                        <span class="material-icons ecm-aside__test-icon2" style="font-size: 26px;">adjust</span>
+                        <span class="material-icons ecm-aside__secondary-icon" style="font-size: 26px;">adjust</span>
                       </span>
                       <span class="ecm-aside__nav-tree-text-content">
                         {{ store.selectedItem }}
@@ -591,8 +600,12 @@ const isAsideVisible = uiStore.isAsideVisible;
 </template>
 
 
-<style>
-    .display-block {
-      display: block;
-    }
+<style scoped>
+.display-block {
+  display: flex;
+}
+
+.display-none {
+  display: none;
+}
 </style>

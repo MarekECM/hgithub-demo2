@@ -21,7 +21,6 @@ import communityHomeView from '@/views/community/community-homeView.vue'
 import scadaView from '@/views/dynamic-web/scadaView.vue'
 import publicityView from '@/views/dynamic-web/publicityView.vue'
 
-
 // Login
 import loginView from '@/views/loginView.vue'
 

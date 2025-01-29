@@ -103,12 +103,12 @@
         height: calc(100vh - 200px);
       }
     
-      &__test-icon {
+      &__primary-icon {
         width: 10px;
         color: var(--sideMenu-iconColorSec);
       }
     
-      &__test-icon2 {
+      &__secondary-icon {
         width: 26px;
         color: var(--sideMenu-iconColorPrim);
       }
@@ -138,11 +138,11 @@
           color: var(--sideMenu-hovColor);
         }
     
-        &:hover .ecm-aside__nav-tree-icon-container-arrow > .ecm-aside__test-icon {
+        &:hover .ecm-aside__nav-tree-icon-container-arrow > .ecm-aside__primary-icon {
           color: var(--sideMenu-ArrowColorHov);
         }
     
-        &:hover .ecm-aside__nav-tree-icon-container > .ecm-aside__test-icon2 {
+        &:hover .ecm-aside__nav-tree-icon-container > .ecm-aside__test-secondary-icon {
           color: white;
         }
       }

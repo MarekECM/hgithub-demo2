@@ -1,61 +1,35 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useSidebarStore } from '@/stores/resize'; 
 import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { useUiStore } from '@/stores/uiStore';
 
-// import { mdiAccountSearch } from '@mdi/js';
-import { ref } from 'vue';
-
-// Univerzální funkce pro přepínání tříd
-const toggleClasses = (element: HTMLElement | null, classes: string[]) => {
-  if (element) {
-    classes.forEach((className) => {
-      element.classList.toggle(className);
-    });
-  }
-};
-
-// Navbar
-const navBarIcon = ref<HTMLElement | null>(null);
-const navBarClick = () => {
-  toggleClasses(navBarIcon.value, ['active', 'noneActive']);
-};
-
-// Sidebar
-const sidebar = ref<HTMLElement | null>(null);
-const sidebarClick = () => {
-  toggleClasses(sidebar.value, ['active', 'noneActive']);
-  alert('click');
-};
-
-const { dynamicStyles } = useWindowResize();
-const sidebarStore = useSidebarStore();
-
-// Sledování stavu isWide z Pinia store odebraní navigace
-const isWide = computed(() => sidebarStore.isWide);
-
-let navbar = ref([
-    { to: { name: 'homeView' }, text: "Můj Marfy" },
-    { to: { name: 'data' }, text: "Data" },
-    { to: { name: 'summaries' }, text: "Souhrny" },
-    { to: { name: 'daily-plans' }, text: "Denní plány" },
-    { to: { name: 'alarms' }, text: "Alarmy" },
-    { to: { name: 'komunity-home' }, text: "Komunity"},
-    { to: { name: 'reports' }, text: "Výkazy" },
-    { to: { name: 'statistics' }, text: "Statistiky" },
-    { to: { name: 'scada' }, text: "Publicita"},
-    { to: { name: 'publicity' }, text: "Vizualizace"}
-]);
-
 // Připojení ke store
 const uiStore = useUiStore();
+const sidebarStore = useSidebarStore();
 
-// Funkce pro přepnutí viditelnosti aside
-const toggleAside = () => {
-  uiStore.toggleAside();
-};
+// Navigační položky
+let navbar = ref([
+  { to: { name: 'homeView' }, text: "Můj Marfy" },
+  { to: { name: 'data' }, text: "Data" },
+  { to: { name: 'summaries' }, text: "Souhrny" },
+  { to: { name: 'daily-plans' }, text: "Denní plány" },
+  { to: { name: 'alarms' }, text: "Alarmy" },
+  { to: { name: 'komunity-home' }, text: "Komunity" },
+  { to: { name: 'reports' }, text: "Výkazy" },
+  { to: { name: 'statistics' }, text: "Statistiky" },
+  { to: { name: 'scada' }, text: "Vizualizace" },
+  { to: { name: 'publicity' }, text: "publicita" }
+]);
 
+// Reaktivní vlastnost pro velikost okna
+const { dynamicStyles } = useWindowResize();
+const isWide = computed(() => sidebarStore.isWide);
+
+// Funkce pro přepínání viditelnosti
+const toggleAside = () => uiStore.toggleAside();
+const toggleNavBar = () => uiStore.toggleNavBar();
+const toggleSidebar = () => uiStore.toggleSidebar();
 </script>
 
 
@@ -86,39 +60,46 @@ const toggleAside = () => {
             </nav>
         </div>
         <div class="ecm-navbar__icons">
+
+            
             <nav class="ecm-navbar__secondary-nav">
                 <ul class="ecm-navbar__secondary-nav-list">
-                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--notification"   @click="toggleAside">
-                        <span class="ecm-navbar__icon-item--notification-number">1</span>
-                        <span class="material-icons" style="font-size: 26px;">notifications</span>
-                        <ul ref="navBarIcon" class="ecm-navbar__dropdown ecm-navbar__dropdown--hidden">
-                            <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
-                                <span class="ecm-navbar__dropdown-text">
-                                <div style="width: 300px; height: 300px; background-color: black;"></div>
-                                </span>
-                            </li>
-                        </ul>
+                    <!-- Notification item -->
+                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--notification" @click="toggleAside">
+                    <span class="ecm-navbar__icon-item--notification-number">1</span>
+                    <span class="material-icons" style="font-size: 26px;">notifications</span>
+                    <ul v-if="uiStore.isAsideVisible" class="ecm-navbar__dropdown">
+                        <!-- Obsah pro notifikace -->
+                    </ul>
                     </li>
-                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--arrow"  @click="sidebarClick">
-                        <span class="material-icons" style="font-size: 26px;">arrow_drop_down</span>
+
+                    <!-- Arrow item (Sidebar toggle) -->
+                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--arrow" @click="toggleSidebar">
+                         <span class="material-icons" style="font-size: 26px;">arrow_drop_down</span>
                     </li>
+
+                    <!-- Settings item -->
                     <RouterLink :to="{ name: 'setting', params: { parameter: 'setting' } }">
-                        <li class="ecm-navbar__icon-item ecm-navbar__icon-item--settings">
-                            <span class="material-icons" style="font-size: 26px;">settings</span>
-                        </li>
+                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--settings">
+                        <span class="material-icons" style="font-size: 26px;">settings</span>
+                    </li>
                     </RouterLink>
-                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" @click="navBarClick">
-                        <span class="material-icons" style="font-size: 26px;">more_vert</span>
-                        <ul ref="navBarIcon" class="ecm-navbar__dropdown ecm-navbar__dropdown--hidden">
-                            <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
-                                <span class="ecm-navbar__dropdown-text">
-                                    <RouterLink :to="link.to">{{ link.text }}</RouterLink>
-                                </span>
-                            </li>
-                        </ul>
+
+                    <!-- More item (Navbar toggle) -->
+                    <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" @click="toggleNavBar">
+                    <span class="material-icons" style="font-size: 26px;">more_vert</span>
+                    <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
+                        <!-- Iterování přes navigační položky -->
+                        <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
+                        <RouterLink :to="link.to" active-class="ecm-navbar__active-link" class="ecm-navbar__main-nav-link">
+                            {{ link.text }}
+                        </RouterLink>
+                        </li>
+                    </ul>
                     </li>
                 </ul>
             </nav>
+
         </div>
     </div>
 </div>
