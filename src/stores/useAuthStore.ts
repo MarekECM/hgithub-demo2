@@ -75,7 +75,7 @@
 // src/stores/useAuthStore.ts
 import { defineStore } from 'pinia';
 import { loginService, logoutService, getToken } from '@/services/authService';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 interface UserPayload {
   email: string;
