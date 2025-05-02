@@ -31,16 +31,10 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Root',
-      beforeEnter: (to, from, next) => {
+      redirect: (to) => {
         const authStore = useAuthStore();
         authStore.loadUserFromToken();
-
-        if (authStore.isAuthenticated) {
-          next('/home');
-        } else {
-          next('/login');
-        }
+        return authStore.isAuthenticated ? '/home' : '/login';
       }
     },
     {
