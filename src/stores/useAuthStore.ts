@@ -72,54 +72,130 @@
 //     }
 //   }
 // })
+
+
+
+
 // src/stores/useAuthStore.ts
-import { defineStore } from 'pinia';
-import { loginService, logoutService, getToken } from '@/services/authService';
+// import { defineStore } from 'pinia';
+// import { loginService, logoutService, getToken } from '@/services/authService';
+// import { jwtDecode } from 'jwt-decode';
+
+// interface UserPayload {
+//   email: string;
+//   role?: string;
+//   exp?: number;
+//   [key: string]: any;
+// }
+
+// export const useAuthStore = defineStore('auth', {
+//   state: () => ({
+//     isAuthenticated: false,
+//     user: null as UserPayload | null,
+//   }),
+
+//   actions: {
+//     async login(email: string, password: string) {
+//       try {
+//         const token = await loginService(email, password); // Zavoláme login service
+//         localStorage.setItem('authToken', token); // Uložíme token do localStorage
+//         this.loadUserFromToken(); // Načteme data uživatele z tokenu
+//       } catch (error) {
+//         console.error('Login failed:', error);
+//       }
+//     },
+
+//     logout() {
+//       logoutService(); // Zavoláme logout service
+//       this.isAuthenticated = false;
+//       this.user = null;
+//     },
+
+//     loadUserFromToken() {
+//       const token = getToken();
+//       if (token) {
+//         try {
+//           const decoded = jwtDecode<UserPayload>(token);
+//           this.user = decoded;
+//           this.isAuthenticated = true;
+//         } catch (err) {
+//           this.logout(); // Pokud je problém s dekódováním tokenu, odhlásíme uživatele
+//         }
+//       } else {
+//         this.isAuthenticated = false;
+//       }
+//     },
+//   },
+// });
+
+
+// src/stores/useAuthStore.ts
+
+import { defineStore } from 'pinia'
+import { loginService, logoutService, getToken } from '@/services/authService'
 import { jwtDecode } from 'jwt-decode';
 
+
 interface UserPayload {
-  email: string;
-  role?: string;
-  exp?: number;
-  [key: string]: any;
+  email: string
+  role?: string
+  exp?: number
+  [key: string]: any
 }
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isAuthenticated: false,
     user: null as UserPayload | null,
+    mode: 'demo' as 'demo' | 'api' // Režim přihlášení
   }),
 
   actions: {
+    setMode(mode: 'demo' | 'api') {
+      this.mode = mode
+    },
+
     async login(email: string, password: string) {
-      try {
-        const token = await loginService(email, password); // Zavoláme login service
-        localStorage.setItem('authToken', token); // Uložíme token do localStorage
-        this.loadUserFromToken(); // Načteme data uživatele z tokenu
-      } catch (error) {
-        console.error('Login failed:', error);
+      if (this.mode === 'api') {
+        // Reálné přihlášení přes API
+        try {
+          const token = await loginService(email, password)
+          localStorage.setItem('authToken', token)
+          this.loadUserFromToken()
+        } catch (err) {
+          throw new Error('Přihlášení selhalo')
+        }
+      } else {
+        // Demo režim – jednoduchá validace
+        const demoEmail = 'admin@example.com'
+        const demoPassword = 'password'
+
+        if (email === demoEmail && password === demoPassword) {
+          // Pokud je přihlášení úspěšné v demo režimu, nastavíme token
+          localStorage.setItem('authToken', 'simulovany-token-jwt')
+          this.loadUserFromToken()
+        } else {
+          throw new Error('Neplatné přihlašovací údaje')
+        }
       }
     },
 
     logout() {
-      logoutService(); // Zavoláme logout service
-      this.isAuthenticated = false;
-      this.user = null;
+      logoutService()
+      this.isAuthenticated = false
+      this.user = null
     },
 
     loadUserFromToken() {
-      const token = getToken();
-      if (token) {
-        try {
-          const decoded = jwtDecode<UserPayload>(token);
-          this.user = decoded;
-          this.isAuthenticated = true;
-        } catch (err) {
-          this.logout(); // Pokud je problém s dekódováním tokenu, odhlásíme uživatele
-        }
-      } else {
-        this.isAuthenticated = false;
+      const token = getToken()
+      if (!token) return
+      try {
+        const decoded = jwtDecode<UserPayload>(token)
+        this.user = decoded
+        this.isAuthenticated = true
+      } catch (err) {
+        this.logout()
       }
-    },
-  },
-});
+    }
+  }
+})
