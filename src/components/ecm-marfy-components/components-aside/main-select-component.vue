@@ -106,7 +106,7 @@ const mainSelect =  useMainSelect();
 
 <template>
     
-<div class="ecm-select">
+<div class="ecm-select" >
   <nav class="ecm-select__tree-nav">
     <ul class="ecm-select__tree">
       <li class="ecm-select__tree-item">

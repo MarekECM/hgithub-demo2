@@ -40,5 +40,7 @@ const sidebarStore = useSidebarStore()
       </section>
     </div>
   </main>
-  <NavtreeMarfy />
+  <NavtreeMarfy>
+    
+  </NavtreeMarfy>
 </template>

@@ -1,4 +1,6 @@
-import './assets/base.scss'
+import './assets/base.scss';
+import '@/services/axiosConfig';
+
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

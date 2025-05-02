@@ -1,5 +1,7 @@
 // ecm marfy
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/useAuthStore'
+
 import sumamriesView from '@/views/ecm-marfy/summariesView.vue'
 import alarmsView from '@/views/ecm-marfy/alarmsView.vue'
 import dailyPlansView from '@/views/ecm-marfy/dailyPlansView.vue'
@@ -29,7 +31,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/:parameter?',
+      path: '/',
+      redirect: '/login'
+    },
+    {
+      path: '/login',
       name: 'login',
       component: loginView
     },
@@ -101,8 +107,28 @@ const router = createRouter({
       name: 'publicity',
       component: publicityView
     },
+    {
+      path: '/login',
+      component: () => import('@/views/loginView.vue')
+    },
+    {
+      path: '/dashboard',
+      component: () => import('@/views/ecm-marfy/homeView.vue'),
+      meta: { requiresAuth: true }
+    }
   ]
 })
 
+
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+  authStore.loadUser()
+
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router;

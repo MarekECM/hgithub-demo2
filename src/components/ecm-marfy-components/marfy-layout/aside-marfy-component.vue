@@ -55,7 +55,7 @@ function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: Node
 
       // Pro všechny elementy s třídou .ecm_treeItemContainer
       treeItems.forEach((treeItem) => {
-        
+
         // Šířka treeItem bude odvozena od šířky sidebaru
         const treeItemWidth = cw - sidebarToTreeItemDiff;
         if (treeItemWidth > 0) {
@@ -156,7 +156,7 @@ const toggleAside = () => {
             <span class="ecm-aside__background-element"></span>
             <div class="ecm-aside__logo">
               <RouterLink :to="{ name: 'homeView' }">   <img class="ecm-aside__logo-image" src="/src/components/img/logo_ecm_dark.png" alt="logo"></RouterLink>
-             
+
             </div>
             <div class="ecm-aside__select">
                 <mainSelectW />
@@ -168,7 +168,7 @@ const toggleAside = () => {
             <input class="ecm-aside__search-input" type="search" placeholder="Hledej">
         </div>
 
-        <div class="ecm-aside__nav-tree-container">
+         <div class="ecm-aside__nav-tree-container">
           <ul class="ecm-aside__nav-tree-main-list">
             <li class="ecm-aside__nav-tree-main-item">
               <details class="ecm-aside__nav-tree-main-details" open>
@@ -588,13 +588,14 @@ const toggleAside = () => {
               </details>
             </li>
           </ul>
-        </div>
+        </div> 
 
-        <div class="ecm-aside__footer">
+         <div class="ecm-aside__footer">
             <span class="ecm-aside__footer-section ecm-aside__footer-section--top">© 2024 - ECM System Solutions s.r.o.</span>
             <span class="ecm-aside__footer-section ecm-aside__footer-section--bottom">ECM marfy Verze 0</span>
-        </div>
+        </div> 
 
+        <slot></slot>
        <div class="ecm-aside__resize"></div>
     </aside>
 </template>
