@@ -1,4 +1,3 @@
-// ecm marfy
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/useAuthStore'
 
@@ -98,11 +97,13 @@ const router = createRouter({
       path: '/komunity-home/:parameter?',
       name: 'komunity-home',
       component: communityHomeView
-    },    {
+    },    
+    {
       path: '/scada/:parameter?',
       name: 'scada',
       component: scadaView
-    },    {
+    },    
+    {
       path: '/publicity/:parameter?',
       name: 'publicity',
       component: publicityView
@@ -119,10 +120,9 @@ const router = createRouter({
   ]
 })
 
-
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const authStore = useAuthStore()
-  authStore.loadUser()
+  authStore.loadUserFromToken() // Opraveno na správnou metodu
 
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
