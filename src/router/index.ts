@@ -31,12 +31,23 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      name: 'Root',
+      beforeEnter: (to, from, next) => {
+        const authStore = useAuthStore();
+        authStore.loadUserFromToken();
+
+        if (authStore.isAuthenticated) {
+          next('/home');
+        } else {
+          next('/login');
+        }
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: loginView
+      component: loginView,
+      meta: { requiresAuth: false }
     },
     {
       path: '/home',
@@ -115,7 +126,6 @@ const router = createRouter({
     {
       path: '/dashboard',
       component: () => import('@/views/ecm-marfy/homeView.vue'),
-      meta: { requiresAuth: true }
     }
   ]
 })
@@ -124,7 +134,7 @@ router.beforeEach((to, _, next) => {
   const authStore = useAuthStore()
   authStore.loadUserFromToken() // Opraveno na správnou metodu
 
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+  if (to.meta.requiresAuth != false && !authStore.isAuthenticated) {
     next('/login')
   } else {
     next()

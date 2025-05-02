@@ -31,9 +31,11 @@ export const useAuthStore = defineStore('auth', {
       if (this.mode === 'api') {
         try {
           const token = await loginService(email, password)
+          console.log(token);
           localStorage.setItem('authToken', token)
           this.loadUserFromToken()
         } catch (err) {
+            console.log(err);
           throw new Error('Přihlášení přes API selhalo')
         }
       } else {
