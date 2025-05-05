@@ -2,8 +2,7 @@
 import axios from 'axios';
 // Simulace přihlašovací služby (tato funkce vrací token)
 export const loginService = async (email: string, password: string): Promise<string> => {
-
-    return axios.post('https://marfy-api-test.ecmsystem.cz/api/Auth/Login', {
+    return axios.post(`${import.meta.env.VITE_API_URL}Auth/Login`, {
       username: email,
       password: password,
       applicationId: '3d7cde1d-5deb-4107-a8a4-8e438a08c9df'

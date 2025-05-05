@@ -88,13 +88,14 @@
     &__nav-tree-main-list {
         display: flex;
         --spacing: 25px;
-        --radius: 75px;
+        --radius: 53px;
         width: 100%;
-        height: calc(100vh - 200px);
+        color: var(--sideMenu-color);
+        // height: calc(100vh - 200px);
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-top: 25px;
+        // padding-top: 25px;
       }
     
       &__nav-tree-container {
@@ -175,6 +176,10 @@
         display: flex;
         align-items: center;
         padding: 0 8px 0 0;
+      }
+
+      &__tree-item-container--no-arrow {
+        padding-left: 20px;
       }
     
       &__nav-tree-main-list li {
@@ -343,6 +348,14 @@
         display: flex !important;
       }
 
+    }
+
+    .ecm-aside__arrow {
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ecm-aside__arrow--open {
+      transform: rotate(90deg);
     }
 
     @media (max-width: 712px) {

@@ -5,12 +5,12 @@ import { ref } from 'vue';
 
 export const useSelectedItemStore = defineStore('selectedItem', () => {
   const selectedItem = ref<string>('Vyberte položku ze seznamu');
+  const selectedOrgId = ref<number | null>(null);
 
-  function setSelectedItem(item: string) {
+  function setSelectedItem(item: string, orgId?: number) {
     selectedItem.value = item;
+    if (orgId !== undefined) selectedOrgId.value = orgId;
   }
 
-  return { selectedItem, setSelectedItem };
-
-  
+  return { selectedItem, selectedOrgId, setSelectedItem };
 });

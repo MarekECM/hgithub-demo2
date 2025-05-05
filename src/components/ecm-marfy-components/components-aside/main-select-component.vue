@@ -13,13 +13,24 @@ const mainSelect = useMainSelect();
 
 const orgList = ref<{ id: number; name: string }[]>([]);
 
+interface Organization {
+      id: number;
+      name: string;
+    }
+
+    interface OrganizationResponse {
+      data: Organization[];
+    }
+
 onMounted(async () => {
-  const response = await axios.get('https://marfy-api-test.ecmsystem.cz/api/Organization/Organizations');
-  orgList.value = response.data;
+    const response: OrganizationResponse = await axios.get<Organization[]>(`${import.meta.env.VITE_API_URL}Organization/Organizations`);
+    orgList.value = response.data
+        .slice()
+        .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'cs', { sensitivity: 'accent', caseFirst: 'upper' }));
 });
 
 function handleSelect(item: { id: number; name: string }) {
-  setSelectedItem(item.name);
+  setSelectedItem(item.name, item.id);
   mainSelect.toggleStyle();
 }
 </script>
@@ -39,7 +50,7 @@ function handleSelect(item: { id: number; name: string }) {
                         class="ecm-select__options"
                         :class="{ 'ecm-select__options--active': mainSelect.isActive, 'ecm-select__options--hidden': !mainSelect.isActive }">
                         <li class="ecm-select__option"
-                            v-for="(item, index) in orgList"
+                            v-for="(item) in orgList"
                             :key="item.id"
                             @click="handleSelect(item)">
                             {{ item.name }}

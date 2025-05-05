@@ -31,7 +31,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: (to) => {
+      redirect: () => {
         const authStore = useAuthStore();
         authStore.loadUserFromToken();
         return authStore.isAuthenticated ? '/home' : '/login';
