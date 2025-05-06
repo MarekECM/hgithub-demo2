@@ -99,7 +99,7 @@
         });
     }
 
-    async function handleNodeClick(node) {
+    async function handleNodeClick(node: any) {
         store.selectedNodeId = node.id;
         console.log(store.selectedNodeId);
         let dashboards = await axios.get(`${import.meta.env.VITE_API_URL}Dashboard`, {
