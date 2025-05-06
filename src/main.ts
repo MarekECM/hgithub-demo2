@@ -1,5 +1,6 @@
 import './assets/base.scss';
 import '@/services/axiosConfig';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 
 import { createApp } from 'vue'
@@ -10,9 +11,17 @@ import router from './router'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
-const app = createApp(App)
+async function initializeApp() {
+    const app = createApp(App)
 
-app.use(createPinia())
-app.use(router)
+    app.use(createPinia())
+    app.use(router)
 
-app.mount('#app')
+    const authStore = useAuthStore();
+
+    await authStore.loadUserFromToken();
+
+    app.mount('#app')
+}
+
+initializeApp();

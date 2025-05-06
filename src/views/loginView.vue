@@ -119,7 +119,7 @@ const login = async (): Promise<void> => {
   <div class="ecm-login">
     <div class="ecm-login__container">
       <div class="ecm-login__header">
-        <img class="ecm-login__header-img" src="/src/components/img/logo_ecm.webp" alt="logo" />
+        <img class="ecm-login__header-img" src="/src/components/img/logo_ecm.png" alt="logo" />
       </div>
       <div class="ecm-login__main">
         <p>Přihlaste se do svého účtu</p>

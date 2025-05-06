@@ -3,10 +3,13 @@ import { ref, computed } from 'vue';
 import { useSidebarStore } from '@/stores/resize'; 
 import { useWindowResize } from '@/composables/gl_resizeWindow';
 import { useUiStore } from '@/stores/uiStore';
+import { useAuthStore } from '../../../stores/useAuthStore';
 
 // Připojení ke store
 const uiStore = useUiStore();
 const sidebarStore = useSidebarStore();
+    const authStore = useAuthStore();
+
 
 // Navigační položky
 let navbar = ref([
@@ -29,7 +32,8 @@ const isWide = computed(() => sidebarStore.isWide);
 // Funkce pro přepínání viditelnosti
 const toggleAside = () => uiStore.toggleAside();
 const toggleNavBar = () => uiStore.toggleNavBar();
-const toggleSidebar = () => uiStore.toggleSidebar();
+    const toggleSidebar = () => uiStore.toggleSidebar();
+    const logout = () => authStore.logout();
 </script>
 
 
@@ -89,11 +93,14 @@ const toggleSidebar = () => uiStore.toggleSidebar();
                     <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" @click="toggleNavBar">
                     <span class="material-icons" style="font-size: 26px;">more_vert</span>
                     <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
+                        <li>
+                            <span class="material-icons" style="font-size: 26px;" @click="logout">logout</span>
+                        </li>
                         <!-- Iterování přes navigační položky -->
                         <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
-                        <RouterLink :to="link.to" active-class="ecm-navbar__active-link" class="ecm-navbar__main-nav-link">
-                            {{ link.text }}
-                        </RouterLink>
+                            <RouterLink :to="link.to" active-class="ecm-navbar__active-link" class="ecm-navbar__main-nav-link">
+                                {{ link.text }}
+                            </RouterLink>
                         </li>
                     </ul>
                     </li>

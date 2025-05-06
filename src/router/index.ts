@@ -32,8 +32,7 @@ const router = createRouter({
     {
       path: '/',
       redirect: () => {
-        const authStore = useAuthStore();
-        authStore.loadUserFromToken();
+          const authStore = useAuthStore();
         return authStore.isAuthenticated ? '/home' : '/login';
       }
     },
@@ -124,15 +123,26 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, _, next) => {
-  const authStore = useAuthStore()
-  authStore.loadUserFromToken() // Opraveno na správnou metodu
+router.beforeEach(async (to, _, next) => {
+    const authStore = useAuthStore()
 
-  if (to.meta.requiresAuth != false && !authStore.isAuthenticated) {
-    next('/login')
-  } else {
-    next()
-  }
-})
+    if (!authStore.isAuthenticated) {
+        await authStore.loadUserFromToken();
+    }
+    console.log(to.path);
+    if (authStore.isAuthenticated) {
+        if (to.path === '/login') {
+            next('/home');
+        } else {
+            next();
+        }
+    } else {
+        if (to.path !== '/login') {
+            next('/login');
+        } else {
+            next();
+        }
+    }
+});
 
 export default router;
