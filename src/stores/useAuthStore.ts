@@ -62,25 +62,53 @@ export const useAuthStore = defineStore('auth', {
             router.push("/login");
         },
 
+        // async loadUserFromToken() {
+        //     if (this.isLoggingOut) {
+        //         this.isLoggingOut = false;
+        //         return;
+        //     }
+        //     try {
+        //         const response = await axios.get(`${import.meta.env.VITE_API_URL}Auth/Me`, {
+        //             withCredentials: true
+        //         })
+        //         if (response.data == "") {
+        //             return;
+        //         }
+        //         this.user = response.data
+        //         this.isAuthenticated = true
+        //     } catch (err) {
+        //         console.warn('Nelze načíst uživatele z cookie:', err)
+        //         this.logout()
+        //     }
+        // }
+
         async loadUserFromToken() {
-            if (this.isLoggingOut) {
-                this.isLoggingOut = false;
-                return;
-            }
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}Auth/Me`, {
-                    withCredentials: true
-                })
-                if (response.data == "") {
-                    return;
-                }
-                this.user = response.data
-                this.isAuthenticated = true
-            } catch (err) {
-                console.warn('Nelze načíst uživatele z cookie:', err)
-                this.logout()
-            }
+    if (this.isLoggingOut) {
+        this.isLoggingOut = false;
+        return;
+    }
+    try {
+        console.log('Volání API:', `${import.meta.env.VITE_API_URL}Auth/Me`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}Auth/Me`, {
+            withCredentials: true
+        });
+        console.log('Odpověď API:', response.data);
+        if (!response.data) {
+            console.warn('Prázdná odpověď od API');
+            return;
         }
+        this.user = response.data;
+        this.isAuthenticated = true;
+    } catch (err) {
+        console.error('Chyba při načítání uživatele:', {
+            message: err.message,
+            status: err.response?.status,
+            data: err.response?.data,
+            headers: err.response?.headers
+        });
+        this.logout();
+    }
+}
 
     }
 })

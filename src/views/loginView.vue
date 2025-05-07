@@ -113,6 +113,12 @@ const login = async (): Promise<void> => {
     alert('Přihlášení selhalo: ' + err.message)
   }
 }
+
+const showPassword = ref(false)
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value
+}
 </script>
 
 <template>
@@ -124,8 +130,16 @@ const login = async (): Promise<void> => {
       <div class="ecm-login__main">
         <p>Přihlaste se do svého účtu</p>
         <form class="ecm-login__form" @submit.prevent="login">
-          <input type="email" v-model="email" placeholder="E-mail" required />
-          <input type="password" v-model="password" placeholder="Heslo" required />
+          <input type="email" name="email" v-model="email" placeholder="E-mail" autocomplete="username" required  />
+          <span class="ecm-login__password-input">
+            <input :type="showPassword ? 'text' : 'password'" name="password" v-model="password" placeholder="Heslo" autocomplete="current-password" required/>
+          <button type="button" @click="togglePasswordVisibility">
+            <span  v-if="showPassword" class="material-icons" style="font-size: 26px;">visibility_off</span>
+            <span  v-else class="material-icons" style="font-size: 26px;">visibility</span>
+          </button>
+
+          </span>
+
           
        
           <div>
@@ -137,7 +151,7 @@ const login = async (): Promise<void> => {
             </label>
           </div>
 
-          <button type="submit">Přihlásit se</button>
+          <button class="ecm-login__submit-button" type="submit">Přihlásit se</button>
         </form>
       </div>
       <div class="ecm-login__footer">
@@ -147,3 +161,4 @@ const login = async (): Promise<void> => {
     </div>
   </div>
 </template>
+

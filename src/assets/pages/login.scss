@@ -67,9 +67,9 @@
         }
     }
 
-    &__form button {
+    &__submit-button {
         min-width: 260px;
-        width: 100%;
+        width: 75%;
         height: 45px;
         border-radius: 5px;
         border: none;
@@ -83,6 +83,43 @@
             background-color: #fff;
             color: #EB3443;
         }
+    }
+
+    &__password-input {
+        position: relative;
+    }
+
+    &__password-input input {
+        min-width: 260px;
+        width: 75%;
+       
+    }
+
+    &__password-input button {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 12px;
+        right: 5px;
+        background-color: transparent;
+        border: none;
+        color: #EB3443;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 15px;
+        transition: var(--transtion3);
+
+        &:hover {
+            background-color: #EB3443;
+            color: #fff;
+        }
+
+    }
+
+    &__main input[type="radio"] {
+        width: 15px;
     }
 
     &__footer {
