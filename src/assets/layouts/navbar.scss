@@ -306,3 +306,16 @@
     }
 }
 
+.device-empty-info {
+  margin: 32px auto;
+  padding: 24px 32px;
+  max-width: 400px;
+  background: #f7f7fa;
+  border: 1.5px dashed #bfc3d1;
+  border-radius: 12px;
+  color: #6b6f7c;
+  text-align: center;
+  font-size: 1.08em;
+  box-shadow: 0 2px 8px 0 rgba(60,60,100,0.04);
+}
+

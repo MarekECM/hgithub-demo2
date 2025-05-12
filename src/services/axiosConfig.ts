@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useAuthStore } from '@/stores/useAuthStore';
+import type { RenewedAccessTokenModel } from '@/interfaces/RenewedAccessTokenModel';
 
 axios.defaults.withCredentials = true;
 
@@ -14,8 +16,9 @@ axios.interceptors.response.use(
                 await refreshAccessToken();
                 return axios(originalRequest); // Retry the failed request
             } catch (refreshError) {
-                // Redirect to login or show error
+                const authStore = useAuthStore();
                 console.error("Session expired");
+                authStore.logout();
                 return Promise.reject(refreshError);
             }
         }
@@ -28,8 +31,8 @@ axios.interceptors.response.use(
 export const refreshAccessToken = async (): Promise<RenewedAccessTokenModel> => {
     try {
         const response = await axios.post<RenewedAccessTokenModel>(
-            `${import.meta.env.VITE_API_URL}Auth/RefreshToken`,
-            null,
+            `${import.meta.env.VITE_API_URL}Auth/RefreshTokenViaCookies`,
+            {},
             { withCredentials: true }
         );
         return response.data;

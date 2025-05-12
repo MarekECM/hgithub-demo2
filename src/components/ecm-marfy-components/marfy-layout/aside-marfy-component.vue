@@ -7,22 +7,36 @@
     import { useMainSelect } from '@/stores/useMainSelect';
     import { useUiStore } from '@/stores/uiStore';
 
+    const emit = defineEmits(['dashboardData']);
+
     const sidebarStore = useSidebarStore();
     const store = useSelectedItemStore();
     const mainSelect = useMainSelect();
     const uiStore = useUiStore();
 
-    const orgTree = ref<any[]>([]);
-
     async function fetchOrgTree(orgId: number | null) {
-        if (!orgId) return;
+        if (orgId && store.idOfLoadedTree === orgId && store.orgTree.length > 0) {
+            store.setIsTreeLoadingTree(false);
+            return;
+        }
+
+        if (!orgId) {
+            store.resetTreeState();
+            return;
+        }
+
+        store.setIsTreeLoadingTree(true);
         try {
             const res = await axios.get(`${import.meta.env.VITE_API_URL}Organization/Tree`, {
                 params: { orgId }
             });
-            orgTree.value = res.data;
+            store.setOrgTreeData(res.data);
+            store.setIdOfLoadedTree(orgId);
         } catch (e) {
-            orgTree.value = [];
+            store.setOrgTreeData([]);
+            store.setIdOfLoadedTree(null);
+        } finally {
+            store.setIsTreeLoadingTree(false);
         }
     }
 
@@ -35,13 +49,17 @@
         return nodes.map(node => {
             const arrowRef = ref<HTMLElement | null>(null);
             const detailsRef = ref<HTMLElement | null>(null);
+            const arrowHover = ref(false);
+            const isExpanded = store.isNodeExpanded(node.id);
 
             function setArrowRotation() {
                 if (arrowRef.value && detailsRef.value) {
                     if ((detailsRef.value as HTMLDetailsElement).open) {
                         arrowRef.value.classList.add('ecm-aside__arrow--open');
+                        store.toggleNodeExpanded(node.id, true);
                     } else {
                         arrowRef.value.classList.remove('ecm-aside__arrow--open');
+                        store.toggleNodeExpanded(node.id, false);
                     }
                 }
             }
@@ -50,16 +68,47 @@
                 if (detailsRef.value) {
                     detailsRef.value.removeEventListener('toggle', setArrowRotation);
                     detailsRef.value.addEventListener('toggle', setArrowRotation);
+
+                    if (store.isNodeExpanded(node.id)) {
+                        (detailsRef.value as HTMLDetailsElement).open = true;
+                    }
+
                     setArrowRotation();
                 }
             });
 
+            function handleArrowClick(e: MouseEvent) {
+                e.stopPropagation();
+                e.preventDefault();
+                if (detailsRef.value) {
+                    (detailsRef.value as HTMLDetailsElement).open = !(detailsRef.value as HTMLDetailsElement).open;
+                }
+            }
+
+            function handleArrowMouseEnter() {
+                arrowHover.value = true;
+                if (arrowRef.value) arrowRef.value.classList.add('ecm-aside__arrow--hover');
+            }
+            function handleArrowMouseLeave() {
+                arrowHover.value = false;
+                if (arrowRef.value) arrowRef.value.classList.remove('ecm-aside__arrow--hover');
+            }
+
             return h('li', { class: 'ecm-aside__nav-tree-main-item', key: node.id }, [
-                h('details', { class: 'ecm-aside__nav-tree-main-details', ref: detailsRef }, [
-                    h('summary', { class: 'ecm-aside__nav-tree-summary-container' }, [
+                h('details', {
+                    class: 'ecm-aside__nav-tree-main-details',
+                    ref: detailsRef,
+                    open: isExpanded
+                }, [
+                    h('summary', { class: 'ecm-aside__nav-tree-summary-container', onClick: (e: MouseEvent) => e.preventDefault() }, [
                         h('div', { class: 'ecm-aside__item-tree-wrap-2' }, [
                             node.children && node.children.length > 0
-                                ? h('span', { class: 'ecm-aside__nav-tree-icon-container-arrow-2' }, [
+                                ? h('span', {
+                                    class: 'ecm-aside__nav-tree-icon-container-arrow-2',
+                                    onClick: handleArrowClick,
+                                    onMouseenter: handleArrowMouseEnter,
+                                    onMouseleave: handleArrowMouseLeave
+                                }, [
                                     h('span', {
                                         class: 'material-icons ecm-aside__test-icon ecm-aside__arrow',
                                         style: 'font-size: 13px;',
@@ -109,6 +158,7 @@
             }
         });
         console.log(dashboards);
+        emit('dashboardData', dashboards.data);
     }
 
     function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
@@ -229,8 +279,14 @@
 
         <div class="ecm-aside__nav-tree-container" style="padding-top: 25px;">
             <ul class="ecm-aside__nav-tree-main-list">
-                <template v-if="orgTree.length">
-                    <component :is="{ render: () => renderTree(orgTree, true) }" />
+                <template v-if="store.isTreeLoadingTree"> 
+                    <li class="ecm-aside__nav-tree-loader">
+                        <span class="ecm-aside__nav-tree-loader-spinner"></span>
+                        <span class="ecm-aside__nav-tree-loader-text">Načítání...</span>
+                    </li>
+                </template>
+                <template v-else-if="store.orgTree.length"> 
+                    <component :is="{ render: () => renderTree(store.orgTree, true) }" />
                 </template>
             </ul>
         </div>

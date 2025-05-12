@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useSidebarStore } from '@/stores/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
@@ -10,10 +11,16 @@ import economicPerformanceComponent from '@/components/ecm-marfy-components/comp
 import batteryDevice from '@/components/ecm-marfy-components/components-devices/battery-device-component.vue'
 import electricityMeter from '@/components/ecm-marfy-components/components-devices/electricitymeter-component.vue'
 import photovoltaicsDevice from '@/components/ecm-marfy-components/components-devices/photovoltaics-device-component.vue'
+import DeviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue'
 
 //Použití store
 const sidebarStore = useSidebarStore()
 
+const dashboardData = ref<any[]>([])
+
+function handleDashboardData(data: any[]) {
+  dashboardData.value = data
+}
 </script>
 
 <template>
@@ -28,19 +35,18 @@ const sidebarStore = useSidebarStore()
       </section>
       <section class="ecm-main__container--secondary">
         <div class="ecm-main__titleDevices">Vaše aktivní zařízení</div>
-        <batteryDevice />
-        <electricityMeter />
-        <photovoltaicsDevice />
-        <batteryDevice />
-        <electricityMeter />
-        <photovoltaicsDevice />
-        <batteryDevice />
-        <electricityMeter />
-        <photovoltaicsDevice />
+        <div v-if="dashboardData.length">
+          <DeviceBox
+            v-for="item in dashboardData"
+            :key="item.nodeID"
+            :data="item"
+          />
+        </div>
+        <template v-else>
+          <div class="device-empty-info">Vyberte uzel pro zobrazení zařízení.</div>
+        </template>
       </section>
     </div>
   </main>
-  <NavtreeMarfy>
-    
-  </NavtreeMarfy>
+  <NavtreeMarfy @dashboardData="handleDashboardData" />
 </template>
