@@ -1,4 +1,4 @@
-interface RenewedAccessTokenModel {
+export interface RenewedAccessTokenModel {
     accessToken: string;
     accessExpiration: string;
     refreshToken: string;

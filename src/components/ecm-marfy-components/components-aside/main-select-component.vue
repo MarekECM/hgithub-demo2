@@ -12,6 +12,7 @@ const setSelectedItem = store.setSelectedItem;
 const mainSelect = useMainSelect();
 
 const orgList = ref<{ id: number; name: string }[]>([]);
+const isLoading = ref(false);
 
 interface Organization {
       id: number;
@@ -22,15 +23,46 @@ interface Organization {
       data: Organization[];
     }
 
+function saveSelectedOrgToStorage(orgId: number, orgName: string) {
+    localStorage.setItem('selectedOrgId', orgId.toString());
+    localStorage.setItem('selectedOrgName', orgName);
+}
+
+function getSelectedOrgFromStorage() {
+    const orgId = localStorage.getItem('selectedOrgId');
+    const orgName = localStorage.getItem('selectedOrgName');
+    
+    return orgId && orgName ? {
+        id: parseInt(orgId),
+        name: orgName
+    } : null;
+}
+
 onMounted(async () => {
-    const response: OrganizationResponse = await axios.get<Organization[]>(`${import.meta.env.VITE_API_URL}Organization/Organizations`);
-    orgList.value = response.data
-        .slice()
-        .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'cs', { sensitivity: 'accent', caseFirst: 'upper' }));
+    isLoading.value = true; 
+    try {
+        const response: OrganizationResponse = await axios.get<Organization[]>(`${import.meta.env.VITE_API_URL}Organization/Organizations`);
+        orgList.value = response.data
+            .slice()
+            .sort((a, b) => (a.name || '').localeCompare(b.name || '', 'cs', { sensitivity: 'accent', caseFirst: 'upper' }));
+
+        const savedOrg = getSelectedOrgFromStorage();
+        
+        if (savedOrg) {
+            setSelectedItem(savedOrg.name, savedOrg.id);
+        } else if (!store.selectedOrgId && orgList.value.length > 0) {
+            const firstOrg = orgList.value[0];
+            setSelectedItem(firstOrg.name, firstOrg.id);
+            saveSelectedOrgToStorage(firstOrg.id, firstOrg.name);
+        }
+    } finally {
+        isLoading.value = false;
+    }
 });
 
 function handleSelect(item: { id: number; name: string }) {
   setSelectedItem(item.name, item.id);
+  saveSelectedOrgToStorage(item.id, item.name);
   mainSelect.toggleStyle();
 }
 </script>
@@ -49,6 +81,9 @@ function handleSelect(item: { id: number; name: string }) {
                     <ul ref="optionList"
                         class="ecm-select__options"
                         :class="{ 'ecm-select__options--active': mainSelect.isActive, 'ecm-select__options--hidden': !mainSelect.isActive }">
+                        <li v-if="isLoading" class="ecm-select__option">
+                            Načítání...
+                        </li>
                         <li class="ecm-select__option"
                             v-for="(item) in orgList"
                             :key="item.id"

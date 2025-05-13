@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useAuthStore } from '@/stores/useAuthStore';
+import type { RenewedAccessTokenModel } from '@/interfaces/RenewedAccessTokenModel';
 
 axios.defaults.withCredentials = true;
 
@@ -13,8 +15,9 @@ axios.interceptors.response.use(
                 await refreshAccessToken();
                 return axios(originalRequest); // Retry the failed request
             } catch (refreshError) {
-                // Redirect to login or show error
+                const authStore = useAuthStore();
                 console.error("Session expired");
+                authStore.logout();
                 return Promise.reject(refreshError);
             }
         }
