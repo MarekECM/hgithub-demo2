@@ -21,9 +21,23 @@
     width: 100%;
     height: 100%;
     display: flex;
+    position: relative;
     //pro img
     background-color: #459dd410; 
+    background: url('@/components/img/baterie.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     align-items: flex-end;
+
+    &-background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+     //  background-color:  rgba(36, 34, 34, 0.623);
+    } 
+
+    
   }
 
   &__date {
@@ -36,6 +50,8 @@
     color: var(--devH2Color);
     font-size: 13px;
     padding: 8px;
+
+  
 
 
     &-value {

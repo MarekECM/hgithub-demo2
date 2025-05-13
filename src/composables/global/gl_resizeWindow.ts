@@ -34,7 +34,6 @@ export function useWindowResize() {
        width: `calc(100% - ${sidebarStore.width}px)`
       };
     } else {
-      // Pokud je šířka okna menší nebo rovná 712px, odeber styly
       return {};
     }
   });

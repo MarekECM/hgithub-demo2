@@ -23,7 +23,10 @@
       height: 100%;
       display: flex;
       //pro img
-      background-color: #459dd410; 
+      background: url('@/components/img/fve.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       align-items: flex-end;
     }
   

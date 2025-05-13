@@ -11,7 +11,9 @@ const sidebarStore = useSidebarStore();
                 <span class="ecm-battery__date-value">24.09.2024</span>
                 <span class="ecm-battery__time-value">12:52</span>
             </div>
+            
         </div>
+        <span class="ecm-battery__img-content-background"></span>
         <div class="ecm-battery__content">
             <div class="ecm-battery__header">
                 Baterie

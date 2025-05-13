@@ -25,7 +25,7 @@ const sidebarStore = useSidebarStore()
                   >power_settings_new</span
                 ></span
               >
-              <span class="ecm_iconBtnTextContent">Ztlupmit všechny plány</span>
+              <span class="ecm_iconBtnTextContent">Ztlumit všechny plány</span>
             </div>
             <div class="ecm_iconBtn">
               <span class="iconContent"
@@ -33,7 +33,7 @@ const sidebarStore = useSidebarStore()
                   >check</span
                 ></span
               >
-              <span class="ecm_iconBtnTextContent">Ztlupmit všechny plány</span>
+              <span class="ecm_iconBtnTextContent">Aktivovat všechny plány</span>
             </div>
           </div>
         </div>
@@ -78,5 +78,6 @@ const sidebarStore = useSidebarStore()
 
 .ecm_iconBtnTextContent {
   margin: 0px 10px;
+  white-space: nowrap;
 }
 </style>

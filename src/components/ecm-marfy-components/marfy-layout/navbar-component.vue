@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useSidebarStore } from '@/stores/resize'; 
-import { useWindowResize } from '@/composables/gl_resizeWindow';
+import { useWindowResize } from '@/composables/global/gl_resizeWindow';
 import { useUiStore } from '@/stores/uiStore';
 import { useAuthStore } from '@/stores/useAuthStore';
 
@@ -66,7 +66,6 @@ const toggleNavBar = () => uiStore.toggleNavBar();
         </div>
         <div class="ecm-navbar__icons">
 
-            
             <nav class="ecm-navbar__secondary-nav">
                 <ul class="ecm-navbar__secondary-nav-list">
                     <!-- Notification item -->
@@ -94,20 +93,16 @@ const toggleNavBar = () => uiStore.toggleNavBar();
                     <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" @click="toggleNavBar">
                     <span class="material-icons" style="font-size: 26px;">more_vert</span>
                     <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
-                        <li>
-                            <span class="material-icons" style="font-size: 26px;" @click="logout">logout</span>
-                        </li>
-                        <li v-if="authStore.user">
-                            <span>{{ authStore.user.name || 'Uživatel' }}</span>
-                            <br />
-                            <span>{{ authStore.user.email }}</span>
+                        <li class="ecm-logout-container" v-if="authStore.user">
+                             <span class="material-icons" style="font-size: 26px;" @click="logout">logout</span>
+                             <span>{{ authStore.user.name || 'Uživatel' }}</span>
                         </li>
                         <!-- Iterování přes navigační položky -->
-                        <!-- <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
+                        <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
                             <RouterLink :to="link.to" active-class="ecm-navbar__active-link" class="ecm-navbar__main-nav-link">
                                 {{ link.text }}
                             </RouterLink>
-                        </li> -->
+                        </li>
                     </ul>
                     </li>
                 </ul>
