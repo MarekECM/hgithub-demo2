@@ -23,7 +23,7 @@ export async function getDashboards(nodeId : number, orgId : number){
                 }
             });
         default:
-            return [];
+            return {data: null};
     }
 }
 

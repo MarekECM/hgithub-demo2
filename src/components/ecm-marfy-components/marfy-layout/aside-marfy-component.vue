@@ -153,7 +153,9 @@
         console.log(store.selectedNodeId);
         let dashboards = await getDashboards(node.id, store.selectedOrgId);
         console.log(dashboards);
-        emit('dashboardData', dashboards.data);
+        if(dashboards.data != null){
+            emit('dashboardData', dashboards.data);
+        }
     }
 
     function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
