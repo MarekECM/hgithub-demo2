@@ -6,7 +6,7 @@
     import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
     import { useMainSelect } from '@/stores/useMainSelect';
     import { useUiStore } from '@/stores/uiStore';
-    import { getDashboards } from '@/services/dashboardService.ts'
+    import { getDashboards } from '@/services/dashboardService'
     const emit = defineEmits(['dashboardData']);
 
     const sidebarStore = useSidebarStore();
@@ -151,7 +151,7 @@
     async function handleNodeClick(node: any) {
         store.selectedNodeId = node.id;
         console.log(store.selectedNodeId);
-        let dashboards = await getDashboards(node.id, store.selectedOrgId);
+        let dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0);
         console.log(dashboards);
         if(dashboards.data != null){
             emit('dashboardData', dashboards.data);
