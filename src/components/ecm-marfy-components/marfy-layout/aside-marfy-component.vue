@@ -6,7 +6,7 @@
     import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
     import { useMainSelect } from '@/stores/useMainSelect';
     import { useUiStore } from '@/stores/uiStore';
-
+    import { getDashboards } from '@/services/dashboardService.ts'
     const emit = defineEmits(['dashboardData']);
 
     const sidebarStore = useSidebarStore();
@@ -151,12 +151,7 @@
     async function handleNodeClick(node: any) {
         store.selectedNodeId = node.id;
         console.log(store.selectedNodeId);
-        let dashboards = await axios.get(`${import.meta.env.VITE_API_URL}Dashboard/GetDashboards`, {
-            params: {
-                nodeId: node.id,
-                orgId: store.selectedOrgId
-            }
-        });
+        let dashboards = await getDashboards(node.id, store.selectedOrgId);
         console.log(dashboards);
         emit('dashboardData', dashboards.data);
     }

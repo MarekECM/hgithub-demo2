@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
 
 import sumamriesView from '@/views/ecm-marfy/summariesView.vue'
 import alarmsView from '@/views/ecm-marfy/alarmsView.vue'
@@ -134,7 +135,9 @@ router.beforeEach(async (to, _, next) => {
         if (to.path === '/login') {
             next('/home');
         } else {
-            next();
+          const store = useSelectedItemStore();
+          store.setSelectedSection(to.path);
+          next();
         }
     } else {
         if (to.path !== '/login') {

@@ -7,6 +7,7 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
     const selectedItem = ref<string>('Vyberte položku ze seznamu');
     const selectedOrgId = ref<number | null>(null);
     const selectedNodeId = ref<number | null>(null);
+    const selectedSection = ref<string | null>(null);
 
     const orgTree = ref<any[]>([]);
     const isTreeLoadingTree = ref(false);
@@ -17,6 +18,10 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
         selectedItem.value = item;
         if (orgId !== undefined) selectedOrgId.value = orgId;
         if (nodeId !== undefined) selectedNodeId.value = nodeId;
+    }
+
+    function setSelectedSection(section : string){
+        selectedSection.value = section;
     }
 
     function setOrgTreeData(data: any[]) {
@@ -63,6 +68,8 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
         resetTreeState,
         toggleNodeExpanded,
         isNodeExpanded,
-        expandedNodeIds
+        expandedNodeIds,
+        setSelectedSection,
+        selectedSection
     };
 });
