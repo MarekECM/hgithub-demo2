@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize';
 import { RouterLink } from 'vue-router';
@@ -19,31 +20,31 @@ function normalizeValue(value: string, unit: string, manualUnit: string): string
 </script>
 
 <template>
-  <div class="ecm-electricity-meter" :class="sidebarStore.dynamicMargin">
-    <div class="ecm-electricity-meter__wrap">
-      <div class="ecm-electricity-meter__img-content">
-        <div class="ecm-electricity-meter__date">
-          <span class="ecm-electricity-meter__date-value">
+  <div class="ecm-location" :class="sidebarStore.dynamicMargin">
+    <div class="ecm-location__wrap">
+      <div class="ecm-location__img-content">
+        <div class="ecm-location__date">
+          <span class="ecm-location__date-value">
             {{ data.lastInsert ? new Date(data.lastInsert).toLocaleDateString('cs-CZ') : '-' }}
           </span>
-          <span class="ecm-electricity-meter__date-time-value">
+          <span class="ecm-location__time-value">
             {{ data.lastInsert ? new Date(data.lastInsert).toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' }) : '-' }}
           </span>
         </div>
       </div>
-      <div class="ecm-electricity-meter__content">
-        <div class="ecm-electricity-meter__header">
-          {{ data.nodeName || 'Elektroměr' }}
+      <div class="ecm-location__content">
+        <div class="ecm-location__header">
+          {{ data.nodeName || 'Lokalita' }}
         </div>
-        <div class="ecm-electricity-meter__main">
-          <span class="ecm-electricity-meter__text">{{ data.elementName }}</span>
-          <span class="ecm-electricity-meter__charge-value">
+        <div class="ecm-location__main">
+          <span class="ecm-location__text">{{ data.elementName }}</span>
+          <span class="ecm-location__charge-value">
             {{ normalizeValue(data.lastValue, data.unit, data.manualUnit) }} {{ data.manualUnit }}
           </span>
         </div>
-        <div class="ecm-electricity-meter__footer">
-          <div class="ecm-electricity-meter__device-button">
-            <RouterLink :to="{ name: 'electricitymeter-detail', params: { id: data.nodeID } }">
+        <div class="ecm-location__footer">
+          <div class="ecm-location__device-button">
+            <RouterLink :to="{ name: 'location-detail', params: { id: data.nodeID } }">
               Zobrazit zařízení
             </RouterLink>
           </div>
@@ -52,5 +53,3 @@ function normalizeValue(value: string, unit: string, manualUnit: string): string
     </div>
   </div>
 </template>
-
-

@@ -1,14 +1,14 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize'
 import { RouterLink } from 'vue-router'
 const sidebarStore = useSidebarStore()
 defineProps<{ data: any }>()
 
-</script>
+</script> -->
 
 <template>
 <div class="ecm-electricity-meter" :class="sidebarStore.dynamicMargin">
-  <div class="ecm-electricity-meter__wrap">
+  <!-- <div class="ecm-electricity-meter__wrap">
       <div class="ecm-electricity-meter__img-content">
         <div class="ecm-electricity-meter__date">
           <span class="ecm-electricity-meter__date-value">
@@ -35,6 +35,6 @@ defineProps<{ data: any }>()
           </div>
         </div>
       </div>
-  </div>
+  </div> -->
 </div>
 </template>

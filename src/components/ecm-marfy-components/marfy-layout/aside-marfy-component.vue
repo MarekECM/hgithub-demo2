@@ -13,32 +13,38 @@
     const store = useSelectedItemStore();
     const mainSelect = useMainSelect();
     const uiStore = useUiStore();
-
+    
     async function fetchOrgTree(orgId: number | null) {
-        if (orgId && store.idOfLoadedTree === orgId && store.orgTree.length > 0) {
-            store.setIsTreeLoadingTree(false);
-            return;
-        }
-
-        if (!orgId) {
-            store.resetTreeState();
-            return;
-        }
-
-        store.setIsTreeLoadingTree(true);
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}Organization/Tree`, {
-                params: { orgId }
-            });
-            store.setOrgTreeData(res.data);
-            store.setIdOfLoadedTree(orgId);
-        } catch (e) {
-            store.setOrgTreeData([]);
-            store.setIdOfLoadedTree(null);
-        } finally {
-            store.setIsTreeLoadingTree(false);
-        }
+    if (!orgId) {
+        store.resetTreeState();
+        return;
     }
+
+    store.setIsTreeLoadingTree(true);
+    try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}Organization/Tree`, {
+            params: { orgId }
+        });
+
+        if (res.data && Array.isArray(res.data)) {
+            store.setOrgTreeData(res.data);
+
+            res.data.forEach((node: any) => {
+                store.toggleNodeExpanded(node.id, true); 
+                if (node.children && node.children.length > 0) {
+                    node.children.forEach((child: any) => {
+                        store.toggleNodeExpanded(child.id, false); 
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        console.error("Failed to fetch organization tree:", e);
+        store.setOrgTreeData([]);
+    } finally {
+        store.setIsTreeLoadingTree(false);
+    }
+}
 
     watch(() => store.selectedOrgId, (orgId) => {
         fetchOrgTree(orgId);
@@ -157,6 +163,8 @@
             emit('dashboardData', dashboards.data);
         }
     }
+
+    
 
     function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
         let x: number;

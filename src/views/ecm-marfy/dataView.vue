@@ -15,6 +15,8 @@ const dashboardData = ref<any[]>([])
 function handleDashboardData(data: any[]) {
   dashboardData.value = data
 }
+
+
 </script>
 
 <template>
