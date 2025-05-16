@@ -5,10 +5,12 @@ import Header from '@/components/ecm-marfy-components/marfy-layout/header-compon
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import alarmsTable from '@/components/ecm-marfy-components/components-alarms/alarms-table-component.vue'
 import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import {useAlarmStore} from "@/stores/useAlarmStore";
 const store = useSelectedItemStore()
 
 //Použití store
 const sidebarStore = useSidebarStore()
+const showAlarmHistory = useAlarmStore().showAlarmHistory;
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const sidebarStore = useSidebarStore()
           <div class="ecm-main__titleDevices">
             <span>{{ store.selectedItem }}</span>
             <div class="alarm-btn-container">
-              <div class="alarm-btn-container__selection-alarms">
+              <div class="alarm-btn-container__selection-alarms" @click="showAlarmHistory">
                 <span class="alarm-btn-container__icon-content">
                   <span class="alarm-btn-container__icon material-icons">
                     format_list_bulleted

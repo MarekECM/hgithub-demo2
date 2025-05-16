@@ -3,6 +3,7 @@ import axios from "axios";
 
 export async function getDashboards(nodeId : number, orgId : number){
     const store = useSelectedItemStore();
+    console.log(nodeId);
     switch(store.selectedSection){
         case "/home":
         case "/data":
@@ -20,6 +21,19 @@ export async function getDashboards(nodeId : number, orgId : number){
                     Preset: -1,
                     From: new Date(),
                     To: new Date(),
+                }
+            });
+        case "/alarmy":
+            return await axios.get(`${import.meta.env.VITE_API_URL}Notifications/Notifications`, {
+                params: {
+                    nodeId: nodeId,
+                    OrganizationId: orgId,
+                }
+            });
+        case "/denni-plany":
+            return await axios.get(`${import.meta.env.VITE_API_URL}DayPlan`, {
+                params: {
+                    nodeId: nodeId
                 }
             });
         default:
