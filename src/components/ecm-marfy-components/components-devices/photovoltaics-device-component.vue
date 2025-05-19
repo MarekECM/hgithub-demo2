@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize';
 import { RouterLink } from 'vue-router';
-import { DeviceData } from '@/interfaces/DeviceData';
+import type { DeviceData } from '@/interfaces/deviceData';
 
 const sidebarStore = useSidebarStore();
 

@@ -10,10 +10,15 @@ import App from './App.vue'
 import router from './router'
 
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
+import PrimeVue from 'primevue/config'
 
 async function initializeApp() {
     const app = createApp(App)
-
+    app.use(PrimeVue)
+    app.use(ConfirmationService);
+    app.use(ToastService);
     app.use(createPinia())
     app.use(router)
 

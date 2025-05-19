@@ -1,9 +1,9 @@
 import { useSelectedItemStore } from "@/stores/useSelectedItemStore";
 import axios from "axios";
+import {useAlarmStore} from "@/stores/useAlarmStore";
 
 export async function getDashboards(nodeId : number, orgId : number){
     const store = useSelectedItemStore();
-    console.log(nodeId);
     switch(store.selectedSection){
         case "/home":
         case "/data":
@@ -19,21 +19,26 @@ export async function getDashboards(nodeId : number, orgId : number){
                     deviceId: nodeId,
                     orgId: orgId,
                     Preset: -1,
-                    From: new Date(),
+                    From: new Date(Date.now() - 24 * 60 * 60 * 1000),
                     To: new Date(),
                 }
             });
         case "/alarmy":
-            return await axios.get(`${import.meta.env.VITE_API_URL}Notifications/Notifications`, {
-                params: {
-                    nodeId: nodeId,
-                    OrganizationId: orgId,
-                }
-            });
+            return await getAlarmList(nodeId, orgId);
         case "/denni-plany":
             return await axios.get(`${import.meta.env.VITE_API_URL}DayPlan`, {
                 params: {
                     nodeId: nodeId
+                }
+            });
+
+        case "/statistiky":
+            return await axios.get(`${import.meta.env.VITE_API_URL}Stats/TimeseriesData`, {
+                params: {
+                    nodeId: nodeId,
+                    Preset: -1,
+                    From: new Date(Date.now() - 24 * 60 * 60 * 1000),
+                    To: new Date(), 
                 }
             });
         default:
@@ -46,6 +51,16 @@ export async function getSummaries(nodeId : number, orgId : number){
         params: {
             nodeId: nodeId,
             orgId: orgId
+        }
+    });
+}
+
+export async function getAlarmList(nodeId : number, orgId : number){
+    await useAlarmStore().fetchAlarmTypes();
+    return await axios.get(`${import.meta.env.VITE_API_URL}Notifications/Notifications`, {
+        params: {
+            nodeId: nodeId,
+            OrganizationId: orgId,
         }
     });
 }

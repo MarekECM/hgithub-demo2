@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
-import { loginService, logoutService } from '@/services/authService'
-import { jwtDecode } from 'jwt-decode'
+import {defineStore} from 'pinia'
+import {loginService, logoutService} from '@/services/authService'
+import {jwtDecode} from 'jwt-decode'
 import axios from 'axios'
 import router from '../router'
 
@@ -8,6 +8,7 @@ interface UserPayload {
     email: string
     role?: string
     exp?: number
+
     [key: string]: any
 }
 
@@ -46,7 +47,7 @@ export const useAuthStore = defineStore('auth', {
 
                 if (email === demoEmail && password === demoPassword) {
                     localStorage.setItem('authToken', 'demo-token')
-                    this.user = { email: demoEmail }
+                    this.user = {email: demoEmail}
                     this.isAuthenticated = true
                 } else {
                     throw new Error('Neplatné demo přihlašovací údaje')
@@ -81,7 +82,6 @@ export const useAuthStore = defineStore('auth', {
                 this.logout()
             }
         }
-
 
 
     }

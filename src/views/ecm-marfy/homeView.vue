@@ -54,7 +54,7 @@ function handleDashboardData(data: any[]) {
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useSidebarStore } from '@/stores/resize';
-import { DeviceData } from '@/interfaces/DeviceData';
+import type { DeviceData } from '@/interfaces/deviceData';
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue';
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue';
 import sectionBanner from '@/components/ecm-marfy-components/components-sectios/section-banner-component.vue';

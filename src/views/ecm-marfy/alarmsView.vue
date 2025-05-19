@@ -8,7 +8,7 @@ import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
 import {useAlarmStore} from "@/stores/useAlarmStore";
 const store = useSelectedItemStore()
 
-//Použití store
+
 const sidebarStore = useSidebarStore()
 const showAlarmHistory = useAlarmStore().showAlarmHistory;
 </script>
