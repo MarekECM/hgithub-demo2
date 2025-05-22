@@ -9,9 +9,9 @@ import { getDashboards } from '@/services/dashboardService';
 
 // Import composables
 import mainSelectW from '../components-aside/main-select-component.vue';
-import { useOrgTree } from '@/composables/ecm-marfy/componenets-aside-ts/useOrgTree';
-import { useTreeNavigation } from '@/composables/ecm-marfy/componenets-aside-ts/useTreeNavigation';
-import { useResizeSidebar } from '@/composables/ecm-marfy/componenets-aside-ts/useResizeSidebar';
+import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTree';
+import { useTreeNavigation } from '@/composables/ecm-marfy/component-aside-ts/useTreeNavigation';
+import { useResizeSidebar } from '@/composables/ecm-marfy/component-aside-ts/useResizeSidebar';
 
 const emit = defineEmits(['dashboardData']);
 

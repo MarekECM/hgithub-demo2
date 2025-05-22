@@ -1,38 +1,38 @@
 //layouts
-@import "layouts/header.scss";
-@import "layouts/aside.scss";
-@import "layouts/navbar.scss";
-@import "layouts/main.scss";
+@import 'layouts/header.scss';
+@import 'layouts/aside.scss';
+@import 'layouts/navbar.scss';
+@import 'layouts/main.scss';
 //pages
-@import "pages/alarms.scss";
-@import "pages/dailyPlans.scss";
-@import "pages/reports.scss";
-@import "pages/login.scss";
-@import "pages/summaries.scss";
+@import 'pages/alarms.scss';
+@import 'pages/dailyPlans.scss';
+@import 'pages/reports.scss';
+@import 'pages/login.scss';
+@import 'pages/summaries.scss';
 //components ecm-marfy
 //main sections
-@import "components/ecm-marfy/components-sections/production.scss";
-@import "components/ecm-marfy/components-sections/consumption.scss";
-@import "components/ecm-marfy/components-sections/economic-performance.scss";
-@import "components/ecm-marfy/components-sections/banner.scss";
+@import 'components/ecm-marfy/components-sections/production.scss';
+@import 'components/ecm-marfy/components-sections/consumption.scss';
+@import 'components/ecm-marfy/components-sections/economic-performance.scss';
+@import 'components/ecm-marfy/components-sections/banner.scss';
 //alarm components
-@import "components/ecm-marfy/components-alarms/table.scss";
+@import 'components/ecm-marfy/components-alarms/table.scss';
 //reports components
-@import "components/ecm-marfy/components-reports/table.scss";
+@import 'components/ecm-marfy/components-reports/table.scss';
 //summaries components
-@import "components/ecm-marfy/components-summaries/total-consumption-energy-component.scss";
-@import "components/ecm-marfy/components-summaries/total-consumption-grid-component.scss";
-@import "components/ecm-marfy/components-summaries/total-supply-battery-component.scss";
-@import "components/ecm-marfy/components-summaries/total-supply-grid-component.scss";
+@import 'components/ecm-marfy/components-summaries/total-consumption-energy-component.scss';
+@import 'components/ecm-marfy/components-summaries/total-consumption-grid-component.scss';
+@import 'components/ecm-marfy/components-summaries/total-supply-battery-component.scss';
+@import 'components/ecm-marfy/components-summaries/total-supply-grid-component.scss';
 //devices components
 //@import "components/ecm-marfy/components-devices/battery-device-component.scss";
-@import "components/ecm-marfy/components-devices/electricity-meter-component.scss";
+@import 'components/ecm-marfy/components-devices/electricity-meter-component.scss';
 //@import "components/ecm-marfy/components-devices/photovoltaics-device-component.scss";
 //@import "components/ecm-marfy/components-devices/locatinon-device-component.scss";
-//aside components 
-@import "components/ecm-marfy/components-aside/select.scss";
+//aside components
+@import 'components/ecm-marfy/components-aside/select.scss';
 //modal windows components
-@import "components/ecm-marfy/components-modal-window/primary-modal-windou.scss";
+@import 'components/ecm-marfy/components-modal-window/primary-modal-windou.scss';
 
 *,
 *::before,
@@ -43,7 +43,8 @@
   font-family: sans-serif;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
@@ -74,7 +75,6 @@ body {
   }
 
   &__container {
-
     &--default {
       width: 100%;
       max-width: 1290px;
@@ -85,7 +85,6 @@ body {
       max-width: none;
     }
   }
-
 }
 
 table {
@@ -97,7 +96,8 @@ thead {
   background-color: var(--tableHeaderBackground);
 }
 
-.tbody, td {
+.tbody,
+td {
   color: var(--text-table);
 }
 
@@ -105,10 +105,11 @@ td {
   border-bottom: 1px solid var(--tableBorderBottom);
 }
 
-td, th {
-text-align: left;
-padding: 25px;
-font-weight: 100;
+td,
+th {
+  text-align: left;
+  padding: 25px;
+  font-weight: 100;
 }
 
 th {
@@ -132,21 +133,21 @@ th {
 
 // scrollbar
 ::-webkit-scrollbar {
-  position: absolute;  
+  position: absolute;
   width: 8px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background-color:  var(--background-track);
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background:var(--background-hndl); 
+  background-color: var(--background-track);
 }
 
-// toggle display block 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--background-hndl);
+}
+
+// toggle display block
 
 .display-block {
   display: block;
@@ -165,28 +166,28 @@ th {
   --body-backgroundColor: #191d23;
   --body-backgroundColorBlur: #f5f6f7cb;
   --ecm-title: #fff;
-  // ECM Marfy Componenets
+  // ECM Marfy component
 
   // Navbar
-  --navbar-backgroundColor: #FFFFFF;
-  --navbar-text-primaryColor: #191D23;
-  --navbar-text-secundaryColor: #EB3443;
-  --navbar-hover-color: #EB3443; 
-  --navbar-text-decorationLinkColor1: #EB3443;
-  --navbar-text-decorationLinkColor2: #E7EAEE;
-  --navbar-iconColor: #191D23;
+  --navbar-backgroundColor: #ffffff;
+  --navbar-text-primaryColor: #191d23;
+  --navbar-text-secundaryColor: #eb3443;
+  --navbar-hover-color: #eb3443;
+  --navbar-text-decorationLinkColor1: #eb3443;
+  --navbar-text-decorationLinkColor2: #e7eaee;
+  --navbar-iconColor: #191d23;
   --colorLink: #000;
 
   // SideNavbar
-  --sideMenu-title: #64748B;
-  --sideMenu-headerBacground: #EB3443; 
+  --sideMenu-title: #64748b;
+  --sideMenu-headerBacground: #eb3443;
   --sideMenu-backgroundColor: #1f262e;
   --sideMenu-iconColorPrim: #a0abbb;
-  --sideMenu-iconColorSec: #EB3443;
-  --sideMenu-hover-itemList: #48AEED;
-  --sideMenu-arrow-color: #EB3443;
+  --sideMenu-iconColorSec: #eb3443;
+  --sideMenu-hover-itemList: #48aeed;
+  --sideMenu-arrow-color: #eb3443;
   --sideMenu-itemList-background: #1f262e;
-  --sideMenu-hovBac: #EB3443;
+  --sideMenu-hovBac: #eb3443;
   --sideMenu-hovColor: #ffffff;
   --sideMenu-itemBac: transparent;
   --sideMenu-line-item: #a0abbb;
@@ -195,7 +196,7 @@ th {
   --sideMenu-ArrowColorHov: #fff;
   --sideMenu-colorFotterPrim: rgb(65, 89, 125);
   --sideMenu-colorFotterSec: #fff;
-  
+
   // mainSelect
   --selectContainerBacground: #fff;
   --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
@@ -210,86 +211,84 @@ th {
   --iconColor-1: #f0f8ff;
 
   --bannerContainerBackground: #202e44;
-  --dotActive: #EB3443;
+  --dotActive: #eb3443;
   --dotInActive: #492f43;
   --bannerHeroTitleColor: #fff;
-  --bannertitleColor: #EB3443;
-  --bannerButtonBackground: #EB3443;
+  --bannertitleColor: #eb3443;
+  --bannerButtonBackground: #eb3443;
   --bannerTextColor: #fff;
 
   // Production container component
-  --production-Background: #A7F3D0;
-  --production-IconWrap-bg: #10B981;
-  --productionIcon-color: #A7F3D0;
-  --production-textColor: #064E3B;
+  --production-Background: #a7f3d0;
+  --production-IconWrap-bg: #10b981;
+  --productionIcon-color: #a7f3d0;
+  --production-textColor: #064e3b;
 
   // Consumption container component
-  --consumption-Background: #FDE68A;
-  --consumption-IconWrap-bg: #F59E0B;
-  --consumptionIcon-color: #FDE68A;
-  --consumption-textColor: #78350F;
+  --consumption-Background: #fde68a;
+  --consumption-IconWrap-bg: #f59e0b;
+  --consumptionIcon-color: #fde68a;
+  --consumption-textColor: #78350f;
 
   // economic-performance container component
   --economic-performance-Background: #1f262e;
   --economic-performance-IconWrap-bg: #505051;
-  --economic-performance-color: #A0ABBB;
-  --economic-performance-mainValue-color: #EB3443;
-  --economic-performance-textColor: #FFF;
+  --economic-performance-color: #a0abbb;
+  --economic-performance-mainValue-color: #eb3443;
+  --economic-performance-textColor: #fff;
 
   // Components-devices
   --batteryValueCharge: #f59e0b;
-  --energyConsumption:  #10B981;
-  --energyOutput: #10B981;
+  --energyConsumption: #10b981;
+  --energyOutput: #10b981;
   --comDevTitleColor: #ffffff;
   --devColorLink: #ffffff;
-  --devButtonBackground:#303945;
-  --devBackgroundContainer: #1F262E;
-  --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-  rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  --devBorder:#3c4d67;
+  --devButtonBackground: #303945;
+  --devBackgroundContainer: #1f262e;
+  --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --devBorder: #3c4d67;
   --devH2Color: #a0abbb;
 
-  //componenets total supplyGrid
+  //component total supplyGrid
   --totalValuesColor: #57657a;
 
-  //componenets total supplyFromBattery
+  //component total supplyFromBattery
   --supblyFromBattery: #98a3b2;
 
-  //componenets total consumptionGrid
+  //component total consumptionGrid
   --consumptionGridValue: #f59e0b;
 
-  //componenets total consumptionEnergy
-  --consumptionEnergyValue: #EB3443;
+  //component total consumptionEnergy
+  --consumptionEnergyValue: #eb3443;
 
   //selection Periods
-  --selectionPeriodsBg: #EB3443;
+  --selectionPeriodsBg: #eb3443;
 
   // dailyPlans
   --dailyPlansBgContainer: #1f262e;
   --btnBgDailyPlans: #1f262e;
   --btnBorderDailyPlans: #3c4d67;
-  --colorIconDpCheck: #10B981;
-  --colorIconDpPower: #EB3443;
+  --colorIconDpCheck: #10b981;
+  --colorIconDpPower: #eb3443;
 
   // Alarms
   --btnBgSelectAlarms: #1f262e;
   --btnBorderAlarms: #3c4d67;
-  --alarmStatus: #EB3443;
-  --oktatus: #10B981;
+  --alarmStatus: #eb3443;
+  --oktatus: #10b981;
   --background-alarm-table: #1f272f;
 
- // reports
- --background-reports-table: #1f272f;
- --btnBgSelectReport: #1f262e;
- --btnBorderReport: #3c4d67;
-
+  // reports
+  --background-reports-table: #1f272f;
+  --btnBgSelectReport: #1f262e;
+  --btnBorderReport: #3c4d67;
 
   //table
   --tableHeaderColor: #a0abbb;
   --tableHeaderBackground: #303945;
   --tableBorderBottom: #303945;
-  --tableAlarmBg: #EB3443; 
-  --tableOkBg: #10B981;
+  --tableAlarmBg: #eb3443;
+  --tableOkBg: #10b981;
   --iconBg-table: #303945;
   --text-table: #fff;
 
@@ -302,7 +301,7 @@ th {
   // Banner
   --heroTitle: 50px;
   --balanceContainer-value: 30px;
-  //Title Section 
+  //Title Section
   --titleSection: 30px;
 
   // scrollbar
@@ -312,23 +311,21 @@ th {
   //handle
   --background-hndl: #535860;
 
-  //Track 
-  --background-track:  #2a3037;
-
-
+  //Track
+  --background-track: #2a3037;
 }
 
 // .ecm_dark-theme {
 //   // Layout
 //   --body-backgroundColor: #F5F6F7;
 //   --body-backgroundColorBlur: #f5f6f7cb;
-//   // ECM Marfy Componenets
+//   // ECM Marfy component
 
 //   // Navbar
 //   --navbar-backgroundColor: #FFFFFF;
 //   --navbar-text-primaryColor: #191D23;
 //   --navbar-text-secundaryColor: #EB3443;
-//   --navbar-hover-color: #EB3443; 
+//   --navbar-hover-color: #EB3443;
 //   --navbar-text-decorationLinkColor1: #EB3443;
 //   --navbar-text-decorationLinkColor2: #E7EAEE;
 //   --navbar-iconColor: #191D23;
@@ -336,7 +333,7 @@ th {
 
 //   // SideNavbar
 //   --sideMenu-title: #64748B;
-//   --sideMenu-headerBacground: #EB3443; 
+//   --sideMenu-headerBacground: #EB3443;
 //   --sideMenu-backgroundColor: #F7F8F9;
 //   --sideMenu-iconColorPrim: #48AEED;
 //   --sideMenu-iconColorSec: #EB3443;
@@ -350,7 +347,7 @@ th {
 //   --sideMenu-color: #4B5768;
 //   --sideMenu-resize: #ddd;
 //   --sideMenu-ArrowColorHov: #fff;
-  
+
 //   // mainSelect
 //   --selectContainerBacground: #fff;
 //   --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
@@ -394,7 +391,6 @@ th {
 //   --devBackgroundContainer: #fff;
 //   --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
 //   rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; ;
- 
 
 //   //table
 //   --tableHeaderColor: #48AEED;
@@ -409,7 +405,6 @@ th {
 //   // Banner
 //   --heroTitle: 50px;
 //   --balanceContainer-value: 30px;
-
 
 //   // scrollbar
 //   --scrollbarBackground: #c9c9c9;

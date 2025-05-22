@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { useAlarms } from '@/composables/ecm-marfy/component-alarm-ts/useAlarms';
+
+const { alarms, handleIconClick } = useAlarms();
+</script>
+
+
 <template>
   <div class="alarm-detail ecm-layout__container--default">
     <table class="alarm-detail__table">
@@ -42,90 +49,3 @@
   </div>
 </template>
 
-
-<script setup lang="ts">
-import {ref, onMounted} from 'vue'
-import {useSelectedItemStore} from "@/stores/useSelectedItemStore";
-import {getAlarmList} from "@/services/dashboardService";
-import {getOneAlarmHistory} from "@/services/alarmService";
-
-
-interface AlarmIcon {
-  icon: string;
-  action: string;
-}
-
-class AlarmModel {
-  alarmId: number;
-  message: string;
-  status: string;
-  icons: AlarmIcon[];
-
-  constructor(
-      alarmId: number,
-      message: string,
-      status: string,
-      icons: AlarmIcon[] = []
-  ) {
-    this.alarmId = alarmId;
-    this.message = message;
-    this.status = status;
-    this.icons = icons;
-  }
-}
-
-const alarms = ref<AlarmModel[]>([])
-
-function handleIconClick(action: string, alarm: AlarmModel) {
-  switch (action) {
-    case 'schedule':
-      getOneAlarmHistory(alarm.alarmId).then(history => {
-        console.log('Alarm History:', history);
-      });
-      break;
-    case 'edit':
-      console.log('Edit clicked for', alarm);
-      break;
-    case 'acknowledge':
-      console.log('Acknowledge clicked for', alarm);
-      break;
-    case 'delete':
-      console.log('Delete clicked for', alarm);
-      break;
-    default:
-      console.warn('Unknown action:', action);
-  }
-}
-
-onMounted(async () => {
-  try {
-    const selectedStore = useSelectedItemStore()
-    const orgId = selectedStore.selectedOrgId;
-    const nodeId = selectedStore.selectedNodeId;
-
-    if (nodeId === null || orgId === null) return;
-
-    const rawAlarms = await getAlarmList(nodeId, orgId)
-
-    alarms.value = rawAlarms.data.map((alarm: any) => {
-      const id = alarm.id;
-      const message = alarm.name || alarm.message || 'Neznámý alarm';
-      const status = alarm.status || 'ok';
-
-      const icons: AlarmIcon[] = status.toLowerCase?.() === 'alarm'
-          ? [{ icon: 'check_circle', action: 'acknowledge' }]
-          : [
-            { icon: 'schedule', action: 'schedule' },
-            { icon: 'edit', action: 'edit' },
-            { icon: 'check_circle', action: 'acknowledge' },
-            { icon: 'delete', action: 'delete' }
-          ];
-
-      return new AlarmModel(id,message, status, icons);
-    });
-
-  } catch (error) {
-    console.error('Failed to load alarms:', error);
-  }
-})
-</script>
