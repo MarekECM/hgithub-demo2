@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
-import DeviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue'
+import deviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue'
 import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
 const store = useSelectedItemStore()
 //Použití store
@@ -26,11 +26,10 @@ function handleDashboardData(data: any[]) {
       <div class="ecm-main__container--primary">
         <div class="ecm-main__titleDevices">{{ store.selectedItem }}</div>
         <div v-if="dashboardData.length">
-          <DeviceBox
-            v-for="item in dashboardData"
-            :key="item.nodeID"
-            :data="item"
-          />
+
+
+      <deviceBox v-for="item in dashboardData" :key="item.nodeID" :data="item" :variant="item.deviceType?.name" />
+
         </div>
         <template v-else>
           <div class="device-empty-info">Vyberte uzel pro zobrazení zařízení.</div>

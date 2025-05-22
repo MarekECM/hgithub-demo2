@@ -67,6 +67,43 @@ function handleSelect(item: { id: number; name: string }) {
 }
 </script>
 
+<!-- <script setup lang="ts">
+import { onMounted } from 'vue';
+import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useMainSelect } from '@/stores/useMainSelect';
+import { useOrganizations } from '@/composables/ecm-marfy/componenets-aside-ts/useSelect'; // tvoje cesta
+
+const store = useSelectedItemStore();
+const mainSelect = useMainSelect();
+const { setSelectedItem } = store;
+
+const {
+  orgList,
+  selectedOrg,
+  orgDetails,
+  isLoading,
+  fetchOrganizations,
+  handleSelect, // volat handleSelect z composable pro zajištění načtení detailů
+} = useOrganizations();
+
+// Při načtení komponenty načti seznam organizací a nastav první (nebo uloženou)
+onMounted(async () => {
+  await fetchOrganizations();
+
+  if (selectedOrg.value) {
+    setSelectedItem(selectedOrg.value.name, selectedOrg.value.id);
+  }
+});
+
+// Tuto funkci můžeš dál používat např. při kliknutí v UI
+function selectOrgFromUI(item: { id: number; name: string }) {
+  handleSelect(item); // nastaví do composable + načte detaily
+  setSelectedItem(item.name, item.id); // nastaví do globálního store
+  mainSelect.toggleStyle(); // UI animace
+}
+</script> -->
+
+
 <template>
     <div class="ecm-select">
         <nav class="ecm-select__tree-nav">

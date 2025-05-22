@@ -1,267 +1,73 @@
+
 <script setup lang="ts">
-    import { ref, watch, onMounted, h, nextTick } from 'vue';
-    import axios from 'axios';
-    import mainSelectW from '../components-aside/main-select-component.vue';
-    import { useSidebarStore } from '@/stores/resize';
-    import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-    import { useMainSelect } from '@/stores/useMainSelect';
-    import { useUiStore } from '@/stores/uiStore';
-    import { getDashboards } from '@/services/dashboardService'
-    const emit = defineEmits(['dashboardData']);
+import { onMounted, watch } from 'vue';
+import { useSidebarStore } from '@/stores/resize';
+import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useMainSelect } from '@/stores/useMainSelect';
+import { useUiStore } from '@/stores/uiStore';
+import { getDashboards } from '@/services/dashboardService';
 
-    const sidebarStore = useSidebarStore();
-    const store = useSelectedItemStore();
-    const mainSelect = useMainSelect();
-    const uiStore = useUiStore();
-    
-    async function fetchOrgTree(orgId: number | null) {
-    if (!orgId) {
-        store.resetTreeState();
-        return;
-    }
+// Import composables
+import mainSelectW from '../components-aside/main-select-component.vue';
+import { useOrgTree } from '@/composables/ecm-marfy/componenets-aside-ts/useOrgTree';
+import { useTreeNavigation } from '@/composables/ecm-marfy/componenets-aside-ts/useTreeNavigation';
+import { useResizeSidebar } from '@/composables/ecm-marfy/componenets-aside-ts/useResizeSidebar';
 
-    store.setIsTreeLoadingTree(true);
-    try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}Organization/Tree`, {
-            params: { orgId }
-        });
+const emit = defineEmits(['dashboardData']);
 
-        if (res.data && Array.isArray(res.data)) {
-            store.setOrgTreeData(res.data);
+const sidebarStore = useSidebarStore();
+const store = useSelectedItemStore();
+const mainSelect = useMainSelect();
+const uiStore = useUiStore();
 
-            res.data.forEach((node: any) => {
-                store.toggleNodeExpanded(node.id, true); 
-                if (node.children && node.children.length > 0) {
-                    node.children.forEach((child: any) => {
-                        store.toggleNodeExpanded(child.id, false); 
-                    });
-                }
-            });
-        }
-    } catch (e) {
-        console.error("Failed to fetch organization tree:", e);
-        store.setOrgTreeData([]);
-    } finally {
-        store.setIsTreeLoadingTree(false);
-    }
+// Composable: načítání stromu
+const { fetchOrgTree } = useOrgTree();
+
+// Funkce pro kliknutí na uzel stromu
+async function handleNodeClick(node: any) {
+  store.selectedNodeId = node.id;
+  console.log('Selected node ID:', store.selectedNodeId);
+
+  const dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0);
+  console.log('Dashboards data:', dashboards);
+
+  if (dashboards.data != null) {
+    emit('dashboardData', dashboards.data);
+  }
 }
 
-    watch(() => store.selectedOrgId, (orgId) => {
-        fetchOrgTree(orgId);
-    }, { immediate: true });
+// Composable: vykreslování stromu (h-function)
+const { renderTree } = useTreeNavigation(handleNodeClick);
 
-    function renderTree(nodes: any[], isRoot = false): any {
-        if (!nodes || !nodes.length) return null;
-        return nodes.map(node => {
-            const arrowRef = ref<HTMLElement | null>(null);
-            const detailsRef = ref<HTMLElement | null>(null);
-            const arrowHover = ref(false);
-            const isExpanded = store.isNodeExpanded(node.id);
+// Composable: resize sidebaru
+const { initResizeFn } = useResizeSidebar();
 
-            function setArrowRotation() {
-                if (arrowRef.value && detailsRef.value) {
-                    if ((detailsRef.value as HTMLDetailsElement).open) {
-                        arrowRef.value.classList.add('ecm-aside__arrow--open');
-                        store.toggleNodeExpanded(node.id, true);
-                    } else {
-                        arrowRef.value.classList.remove('ecm-aside__arrow--open');
-                        store.toggleNodeExpanded(node.id, false);
-                    }
-                }
-            }
+// Watcher na výběr organizace (trigger načtení stromu)
+watch(() => store.selectedOrgId, (orgId) => {
+  fetchOrgTree(orgId, handleNodeClick);
+}, { immediate: true });
 
-            nextTick(() => {
-                if (detailsRef.value) {
-                    detailsRef.value.removeEventListener('toggle', setArrowRotation);
-                    detailsRef.value.addEventListener('toggle', setArrowRotation);
+// Inicializace resize listeneru při načtení
+onMounted(() => {
+  const resize = document.querySelector('.ecm-aside__resize') as HTMLElement;
+  const sidebar = document.querySelector('.ecm-aside') as HTMLElement;
+  const treeItems = document.querySelectorAll('.ecm-aside__nav-tree-container') as NodeListOf<HTMLElement>;
 
-                    if (store.isNodeExpanded(node.id)) {
-                        (detailsRef.value as HTMLDetailsElement).open = true;
-                    }
+  if (resize && sidebar && treeItems.length > 0) {
+    sidebar.style.width = `${sidebarStore.width}px`;
 
-                    setArrowRotation();
-                }
-            });
-
-            function handleArrowClick(e: MouseEvent) {
-                e.stopPropagation();
-                e.preventDefault();
-                if (detailsRef.value) {
-                    (detailsRef.value as HTMLDetailsElement).open = !(detailsRef.value as HTMLDetailsElement).open;
-                }
-            }
-
-            function handleArrowMouseEnter() {
-                arrowHover.value = true;
-                if (arrowRef.value) arrowRef.value.classList.add('ecm-aside__arrow--hover');
-            }
-            function handleArrowMouseLeave() {
-                arrowHover.value = false;
-                if (arrowRef.value) arrowRef.value.classList.remove('ecm-aside__arrow--hover');
-            }
-
-            return h('li', { class: 'ecm-aside__nav-tree-main-item', key: node.id }, [
-                h('details', {
-                    class: 'ecm-aside__nav-tree-main-details',
-                    ref: detailsRef,
-                    open: isExpanded
-                }, [
-                    h('summary', { class: 'ecm-aside__nav-tree-summary-container', onClick: (e: MouseEvent) => e.preventDefault() }, [
-                        h('div', { class: 'ecm-aside__item-tree-wrap-2' }, [
-                            node.children && node.children.length > 0
-                                ? h('span', {
-                                    class: 'ecm-aside__nav-tree-icon-container-arrow-2',
-                                    onClick: handleArrowClick,
-                                    onMouseenter: handleArrowMouseEnter,
-                                    onMouseleave: handleArrowMouseLeave
-                                }, [
-                                    h('span', {
-                                        class: 'material-icons ecm-aside__test-icon ecm-aside__arrow',
-                                        style: 'font-size: 13px;',
-                                        ref: arrowRef
-                                    }, 'arrow_forward_ios')
-                                ])
-                                : null,
-                            h(
-                                'div',
-                                {
-                                    class: [
-                                        'ecm-aside__tree-item-container',
-                                        !(node.children && node.children.length > 0)
-                                            ? 'ecm-aside__tree-item-container--no-arrow'
-                                            : ''
-                                    ].join(' ')
-                                },
-                                [
-                                    isRoot
-                                        ? h('span', { class: 'ecm-aside__nav-tree-icon-container' }, [
-                                            h('span', {
-                                                class: 'material-icons ecm-aside__secondary-icon',
-                                                style: 'font-size: 26px;'
-                                            }, 'adjust')
-                                        ])
-                                        : null,
-                                    h('span', { class: 'ecm-aside__nav-tree-text-content', onClick: () => handleNodeClick(node) }, node.name)
-                                ]
-                            )
-                        ])
-                    ]),
-                    node.children && node.children.length > 0
-                        ? h('ul', { class: 'ecm-aside__nav-tree-main-list' }, renderTree(node.children))
-                        : null
-                ])
-            ]);
-        });
-    }
-
-    async function handleNodeClick(node: any) {
-        store.selectedNodeId = node.id;
-        console.log(store.selectedNodeId);
-        let dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0);
-        console.log(dashboards);
-        if(dashboards.data != null){
-            emit('dashboardData', dashboards.data);
-        }
-    }
-
-    
-
-    function initResizeFn(resize: HTMLElement, sidebar: HTMLElement, treeItems: NodeListOf<HTMLElement>): void {
-        let x: number;
-        let w: number;
-
-        const minWidth = 300;
-        const maxWidth = 1277;
-        const sidebarToTreeItemDiff = 10;
-
-        function startResize(clientX: number): void {
-            x = clientX;
-            const sbWidth = window.getComputedStyle(sidebar).width;
-
-            w = parseInt(sbWidth, 10);
-
-            document.addEventListener('mousemove', rs_mousemoveHandler);
-            document.addEventListener('mouseup', rs_mouseupHandler);
-            document.addEventListener('touchmove', rs_touchmoveHandler);
-            document.addEventListener('touchend', rs_touchendHandler);
-        }
-
-        function rs_mousemoveHandler(e: MouseEvent): void {
-            moveResize(e.clientX);
-        }
-
-        function rs_touchmoveHandler(e: TouchEvent): void {
-            moveResize(e.touches[0].clientX);
-        }
-
-        function moveResize(clientX: number): void {
-            const dx = clientX - x;
-            const cw = w + dx;
-
-            if (cw >= minWidth && cw <= maxWidth) {
-                sidebar.style.width = `${cw}px`;
-                sidebarStore.setWidth(cw);
-
-                treeItems.forEach((treeItem) => {
-                    const treeItemWidth = cw - sidebarToTreeItemDiff;
-                    if (treeItemWidth > 0) {
-                        treeItem.style.width = `${treeItemWidth}px`;
-                    }
-                });
-            }
-        }
-
-        function rs_mouseupHandler(): void {
-            stopResize();
-        }
-
-        function rs_touchendHandler(): void {
-            stopResize();
-        }
-
-        function stopResize(): void {
-            document.body.style.userSelect = '';
-
-            document.removeEventListener('mousemove', rs_mousemoveHandler);
-            document.removeEventListener('mouseup', rs_mouseupHandler);
-            document.removeEventListener('touchmove', rs_touchmoveHandler);
-            document.removeEventListener('touchend', rs_touchendHandler);
-        }
-
-        function rs_mousedownHandler(e: MouseEvent): void {
-            document.body.style.userSelect = 'none';
-            startResize(e.clientX);
-        }
-
-        function rs_touchstartHandler(e: TouchEvent): void {
-            document.body.style.userSelect = 'none';
-            startResize(e.touches[0].clientX);
-        }
-
-        resize.addEventListener('mousedown', rs_mousedownHandler);
-        resize.addEventListener('touchstart', rs_touchstartHandler);
-    }
-
-    onMounted(() => {
-        const resize = document.querySelector('.ecm-aside__resize') as HTMLElement;
-        const sidebar = document.querySelector('.ecm-aside') as HTMLElement;
-        const treeItems = document.querySelectorAll('.ecm-aside__nav-tree-container') as NodeListOf<HTMLElement>;
-
-        if (resize && sidebar && treeItems.length > 0) {
-            sidebar.style.width = `${sidebarStore.width}px`;
-
-            treeItems.forEach((treeItem) => {
-                const initialSidebarWidth = sidebarStore.width;
-                const treeItemWidth = initialSidebarWidth - 5;
-                treeItem.style.width = `${treeItemWidth}px`;
-            });
-
-            initResizeFn(resize, sidebar, treeItems);
-        } else {
-            console.error("Elementy .ecm_resize, .ecm_asideContainer nebo .ecm_treeItemContainer nebyly nalezeny.");
-        }
+    treeItems.forEach((treeItem) => {
+      const treeItemWidth = sidebarStore.width - 5;
+      treeItem.style.width = `${treeItemWidth}px`;
     });
+
+    initResizeFn(resize, sidebar, treeItems);
+  } else {
+    console.error("Elementy .ecm-aside__resize, .ecm-aside nebo .ecm-aside__nav-tree-container nebyly nalezeny.");
+  }
+});
 </script>
+
 
 <template>
     <aside class="ecm-aside" :class="{ 'display-none': uiStore.isAsideVisible, 'display-block': !uiStore.isAsideVisible }">

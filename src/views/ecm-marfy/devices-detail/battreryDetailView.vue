@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
@@ -7,10 +7,10 @@ import navtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-m
 
 //Použití store
 const sidebarStore = useSidebarStore()
-</script>
+</script> -->
 
 <template>
-  <Header/>
+  <!-- <Header/>
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container--primary">
@@ -18,5 +18,6 @@ const sidebarStore = useSidebarStore()
       </div>
     </section>
   </main>
-  <navtreeMarfy />
+  <navtreeMarfy /> -->
+  <div></div>
 </template>

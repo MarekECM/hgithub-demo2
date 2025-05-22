@@ -12,8 +12,8 @@ import reportsView from '@/views/ecm-marfy/reportsView.vue'
 import settingView from '@/views/ecm-marfy/settingView.vue'
 
 // ecm Marfy detaily zarizeni 
-import battreryDetailView from '@/views/ecm-marfy/devices-detail/battreryDetailView.vue'
-import photovoltaicsDetailView from '@/views/ecm-marfy/devices-detail/photovoltaicsDetailView.vue'
+// import battreryDetailView from '@/views/ecm-marfy/devices-detail/battreryDetailView.vue'
+// import photovoltaicsDetailView from '@/views/ecm-marfy/devices-detail/photovoltaicsDetailView.vue'
 import electricityMeterDetailView from '@/views/ecm-marfy/devices-detail/electricityMeterDetailView.vue'
 
 // ecm komunity
@@ -82,16 +82,6 @@ const router = createRouter({
       path: '/nastaveni/:parameter?',
       name: 'setting',
       component: settingView
-    },
-    {
-      path: '/detail-baterie/:parameter?',
-      name: 'battery-detail',
-      component: battreryDetailView
-    },
-    {
-      path: '/detail-fotovoltaiky/:parameter?',
-      name: 'photovoltaics-detail',
-      component: photovoltaicsDetailView
     },
     {
       path: '/detail-elektromeru/:parameter?',

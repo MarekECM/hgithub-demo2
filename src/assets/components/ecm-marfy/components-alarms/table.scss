@@ -25,11 +25,18 @@
             }   
         }
 
+        &__cell--actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         &__icon {
             padding: 3px;
             border-radius: 5px;
             background-color: var(--sideMenu-iconColorPrim);
             color: var(--iconBg-table);
+            cursor: pointer;
         }
 
         &__status--alarm {

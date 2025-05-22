@@ -61,22 +61,25 @@ import sectionBanner from '@/components/ecm-marfy-components/components-sectios/
 import productionSection from '@/components/ecm-marfy-components/components-sectios/production-section-component.vue';
 import consumptionSection from '@/components/ecm-marfy-components/components-sectios/consumption-section-component.vue';
 import economicPerformanceComponent from '@/components/ecm-marfy-components/components-sectios/economic-performance-component.vue';
-import ElectricityMeter from '@/components/ecm-marfy-components/components-devices/electricitymeter-component.vue';
-import Photovoltaic from '@/components/ecm-marfy-components/components-devices/photovoltaics-device-component.vue';
-import Location from '@/components/ecm-marfy-components/components-devices/location-device-component.vue';
+//import ElectricityMeter from '@/components/ecm-marfy-components/components-devices/electricitymeter-component.vue';
+//import Photovoltaic from '@/components/ecm-marfy-components/components-devices/photovoltaics-device-component.vue';
+//import Location from '@/components/ecm-marfy-components/components-devices/location-device-component.vue';
+import deviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue';
 
 const sidebarStore = useSidebarStore();
 
-const electricityMeters = ref<DeviceData[]>([]);
-const photovoltaics = ref<DeviceData[]>([]);
-const location = ref<DeviceData[]>([]);
+// const electricityMeters = ref<DeviceData[]>([]);
+// const photovoltaics = ref<DeviceData[]>([]);
+// const location = ref<DeviceData[]>([]);
 const loading = ref(false);
 const error = ref<string | null>(null);
+const devices = ref<DeviceData[]>([]);
 
 function handleDashboardData(data: DeviceData[]) {
-  electricityMeters.value = data.filter((item) => item.deviceType.name === 'Elektroměr');
-  photovoltaics.value = data.filter((item) => item.deviceType.name === 'Fotovoltaika');
-  location.value = data.filter((item) => item.deviceType.name === 'Lokalita');
+  // electricityMeters.value = data.filter((item) => item.deviceType.name === 'Elektroměr');
+  // photovoltaics.value = data.filter((item) => item.deviceType.name === 'Fotovoltaika');
+  // location.value = data.filter((item) => item.deviceType.name === 'Lokalita');
+    devices.value = data; // Uložíš všechna zařízení
 }
 </script>
 
@@ -94,7 +97,7 @@ function handleDashboardData(data: DeviceData[]) {
         <div class="ecm-main__titleDevices">Vaše aktivní zařízení</div>
         <div v-if="loading">Načítání...</div>
         <div v-else-if="error">Chyba: {{ error }}</div>
-        <div v-else-if="electricityMeters.length || photovoltaics.length || location.length"> 
+        <!-- <div v-else-if="electricityMeters.length || photovoltaics.length || location.length"> 
           <template v-for="meter in electricityMeters" :key="meter.nodeID">
             <ElectricityMeter :data="meter" />
           </template>
@@ -103,13 +106,17 @@ function handleDashboardData(data: DeviceData[]) {
           </template>
           <template v-for="loc in location" :key="loc.nodeID">
             <Location :data="loc" />
-          </template>
-            
-        </div>
-     
+          </template> 
+             
+        </div> -->
+   <template v-for="device in devices" :key="device.nodeID">
+  <deviceBox :data="device" :variant="device.deviceType.name" />
+</template>
       </section>
     </div>
   </main>
   <NavtreeMarfy @dashboardData="handleDashboardData" />
 </template>
+
+
 

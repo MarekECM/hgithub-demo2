@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { useSidebarStore } from '@/stores/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
@@ -6,10 +6,10 @@ import photovoltaicDeviceDetail from '@/components/ecm-marfy-components/componen
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 
 const sidebarStore = useSidebarStore()
-</script>
+</script> -->
 
 <template>
-  <Header />
+  <!-- <Header />
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container--primary">
@@ -17,5 +17,6 @@ const sidebarStore = useSidebarStore()
       </div>
     </section>
   </main>
-  <NavtreeMarfy />
+  <NavtreeMarfy /> -->
+  <div></div>
 </template>
