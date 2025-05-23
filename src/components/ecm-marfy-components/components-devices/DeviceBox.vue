@@ -91,7 +91,6 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
           <span class="ecm-deviceBox__text">{{ data.elementName }}</span>
           <span class="ecm-deviceBox__charge-value">{{ data.lastValue }} {{ data.unit }}</span>
 
-          <!-- Skrytá akční tlačítka -->
           <div style="display: none;">
             <div style="display: flex; justify-content: space-evenly;">
               <button class="ecm-deviceBox__device-button" @click="delDeviceOrElement(data.id, data.nodeID)">
@@ -107,11 +106,14 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
         <div class="ecm-deviceBox__footer">
           <div class="ecm-deviceBox__device-button">
             <RouterLink :to="{ name: 'electricitymeter-detail', params: { id: data.id } }">
-              Zobrazit zařízení <span class="material-icons" style="font-size: 20px;">settings</span>
+              Zobrazit zařízení 
             </RouterLink>
           </div>
         </div>
       </div>
+    </div>
+    <div class="ecm-deviceBox__settings">
+        <span class="material-icons" style="font-size: 20px;">settings</span>
     </div>
   </div>
 </template>
