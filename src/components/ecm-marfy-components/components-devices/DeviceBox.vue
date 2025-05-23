@@ -1,9 +1,13 @@
-<script setup lang="ts">
-import { computed } from 'vue';
+
+ <script setup lang="ts">
+import { computed, ref } from 'vue';
 import { useSidebarStore } from '@/stores/resize';
 import { RouterLink } from 'vue-router';
 import { useConfirm } from 'primevue/useconfirm';
 import { useToast } from 'primevue/usetoast';
+import Dialog from 'primevue/dialog';
+import InputText from 'primevue/inputtext';
+import Button from 'primevue/button';
 
 // Props
 const { data, variant } = defineProps<{
@@ -16,11 +20,12 @@ const sidebarStore = useSidebarStore();
 const confirm = useConfirm();
 const toast = useToast();
 
+// Stav pro zobrazení dialogu a editaci názvu
+const showDialog = ref(false);
+const editedElementName = ref(data.elementName);
 
 // Výpočet třídy pozadí podle typu zařízení
 const backgroundClass = computed(() => {
-
-
   switch (variant) {
     case 'Bateriové úložiště':
       return 'bg-baterky';
@@ -58,13 +63,28 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
       severity: 'danger'
     },
     accept: () => {
-      console.log("DELETE");
-      // TODO: Zavolej mazací funkci
+      console.log("DELETE", { elementId, deviceId });
+      toast.add({ severity: 'success', summary: 'Smazáno', detail: 'Zařízení bylo smazáno', life: 3000 });
+      showDialog.value = false; // Zavře dialog po smazání
+      // TODO: Zavolej mazací funkci (např. API volání)
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Zamítnuto', detail: 'Mazání zrušeno', life: 3000 });
     }
   });
+}
+
+// Uložení změn názvu
+function saveElementName() {
+  if (editedElementName.value.trim() === '') {
+    toast.add({ severity: 'error', summary: 'Chyba', detail: 'Název nemůže být prázdný', life: 3000 });
+    return;
+  }
+  console.log("Uložen nový název:", editedElementName.value);
+  // TODO: Zavolej funkci pro uložení nového názvu (např. API volání)
+  data.elementName = editedElementName.value; // Aktualizace názvu v datech
+  showDialog.value = false; // Zavře dialog
+  toast.add({ severity: 'success', summary: 'Uloženo', detail: 'Název byl aktualizován', life: 3000 });
 }
 </script>
 
@@ -90,17 +110,6 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
         <div class="ecm-deviceBox__main">
           <span class="ecm-deviceBox__text">{{ data.elementName }}</span>
           <span class="ecm-deviceBox__charge-value">{{ data.lastValue }} {{ data.unit }}</span>
-
-          <div style="display: none;">
-            <div style="display: flex; justify-content: space-evenly;">
-              <button class="ecm-deviceBox__device-button" @click="delDeviceOrElement(data.id, data.nodeID)">
-                Smazat
-              </button>
-              <button class="ecm-deviceBox__device-button">
-                Upravit
-              </button>
-            </div>
-          </div>
         </div>
 
         <div class="ecm-deviceBox__footer">
@@ -112,27 +121,41 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
         </div>
       </div>
     </div>
-    <div class="ecm-deviceBox__settings">
-        <span class="material-icons" style="font-size: 20px;">settings</span>
+    <div class="ecm-deviceBox__settings" @click="showDialog = true">
+      <span class="material-icons" style="font-size: 20px;">settings</span>
     </div>
   </div>
+
+  <!-- Dialog pro úpravu a smazání -->
+  <Dialog v-model:visible="showDialog" header="Upravit zařízení" :modal="true" :style="{ width: '400px' }">
+    <div class="p-field">
+      <label for="elementName">Název zařízení</label>
+      <InputText id="elementName" v-model="editedElementName" class="p-inputtext-lg w-full" />
+    </div>
+    <template #footer>
+      <Button label="Zrušit" icon="pi pi-times" class="p-button-text" @click="showDialog = false" />
+      <Button label="Smazat" icon="pi pi-trash" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)" />
+      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="saveElementName" />
+    </template>
+  </Dialog>
 </template>
 
 <style scoped>
+/* Původní styly beze změny */
 .bg-electricity {
-   background: url('@/components/img/elektromer.png');
-         background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
+  background: url('@/components/img/elektromer.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
 }
 
 .bg-pv {
-    background: url('@/components/img/fve.png');
-         background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
+  background: url('@/components/img/fve.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
 }
 
 .bg-location {
@@ -140,35 +163,41 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
 }
 
 .bg-jine {
-     background: url('@/components/img/dum.png');
-         background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
+  background: url('@/components/img/dum.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
 }
 
 .bg-plynoměr {
-     background: url('@/components/img/plyn.png');
-         background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
+  background: url('@/components/img/plyn.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
 }
 
 .bg-baterky {
-     background: url('@/components/img/baterie.png');
-        background-size: contain;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
+  background: url('@/components/img/baterie.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-items: flex-end;
 }
 
 .bg-white {
   background-color: rgba(255, 255, 255, 0.342);
 }
+
+/* Dodatečné styly pro dialog */
+.p-field {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
 </style>
-
-
-
-
