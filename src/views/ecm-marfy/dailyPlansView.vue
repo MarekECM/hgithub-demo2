@@ -20,20 +20,22 @@ const sidebarStore = useSidebarStore()
           <span>{{ store.selectedItem }}</span>
           <div class="ecm_btnContainer">
             <div class="ecm_iconBtn">
-              <span class="iconContent"
-                ><span class="material-icons ecm_powerIcon" style="font-size: 19px"
-                  >power_settings_new</span
-                ></span
-              >
+              <span class="iconContent">
+                <span class="material-icons ecm_powerIcon" style="font-size: 19px">power_settings_new</span>
+              </span>
               <span class="ecm_iconBtnTextContent">Ztlumit všechny plány</span>
             </div>
             <div class="ecm_iconBtn">
-              <span class="iconContent"
-                ><span class="material-icons ecm_checkIcon" style="font-size: 19px"
-                  >check</span
-                ></span
-              >
+              <span class="iconContent">
+                <span class="material-icons ecm_checkIcon" style="font-size: 19px">check</span>
+              </span>
               <span class="ecm_iconBtnTextContent">Aktivovat všechny plány</span>
+            </div>
+            <div class="ecm_iconBtn">
+              <span class="iconContent">
+                 <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
+              </span>
+              <span class="ecm_iconBtnTextContent">Přidat denní plán</span>
             </div>
           </div>
         </div>

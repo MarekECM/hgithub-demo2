@@ -1,4 +1,6 @@
 .alarm-btn-container {
+    display: flex;
+       
     &__selection-alarms {
       width: 180px;
       height: 35px;
@@ -12,6 +14,8 @@
       cursor: pointer;
       border: 1px solid var(--btnBorderAlarms);
       transition: var(--transtion3);
+      margin-left: 10px;
+ 
     }
   
     &__text {

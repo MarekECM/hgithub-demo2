@@ -22,13 +22,21 @@ const showAlarmHistory = useAlarmStore().showAlarmHistory;
           <div class="ecm-main__titleDevices">
             <span>{{ store.selectedItem }}</span>
             <div class="alarm-btn-container">
+              <div class="alarm-btn-container__selection-alarms">
+                <span class="alarm-btn-container__icon-content">
+                  <span class="alarm-btn-container__icon material-icons">
+                    notification_add
+                  </span>
+                </span>
+                <span class="alarm-btn-container__text">Přidat alarm</span>  
+              </div>
               <div class="alarm-btn-container__selection-alarms" @click="showAlarmHistory">
                 <span class="alarm-btn-container__icon-content">
                   <span class="alarm-btn-container__icon material-icons">
                     format_list_bulleted
                   </span>
                 </span>
-                <span class="alarm-btn-container__text">Zobrazit historii</span>
+                <span class="alarm-btn-container__text">Zobrazit historii</span>  
               </div>
             </div>
           </div>
