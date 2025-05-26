@@ -8,6 +8,8 @@ import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import {DeleteDevice, DeleteElement, UpdateElement} from "@/services/deviceService";
+import type {EditDeviceInterface} from "@/interfaces/editDeviceInterface";
 
 // Props
 const { data, variant } = defineProps<{
@@ -62,11 +64,14 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
       label: 'Smazat',
       severity: 'danger'
     },
-    accept: () => {
-      console.log("DELETE", { elementId, deviceId });
+    accept: async () => {
+      showDialog.value = false;
+      
+      let deleteResult = elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId);
+      
+      console.log(deleteResult);
+
       toast.add({ severity: 'success', summary: 'Smazáno', detail: 'Zařízení bylo smazáno', life: 3000 });
-      showDialog.value = false; // Zavře dialog po smazání
-      // TODO: Zavolej mazací funkci (např. API volání)
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Zamítnuto', detail: 'Mazání zrušeno', life: 3000 });
@@ -75,14 +80,13 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
 }
 
 // Uložení změn názvu
-function saveElementName() {
+async function saveElementName(editedElement:any) {
   if (editedElementName.value.trim() === '') {
     toast.add({ severity: 'error', summary: 'Chyba', detail: 'Název nemůže být prázdný', life: 3000 });
     return;
   }
-  console.log("Uložen nový název:", editedElementName.value);
-  // TODO: Zavolej funkci pro uložení nového názvu (např. API volání)
-  data.elementName = editedElementName.value; // Aktualizace názvu v datech
+  editedElement.elementName = editedElementName.value;
+  await UpdateElement(editedElement);// Aktualizace názvu v datech
   showDialog.value = false; // Zavře dialog
   toast.add({ severity: 'success', summary: 'Uloženo', detail: 'Název byl aktualizován', life: 3000 });
 }
@@ -135,7 +139,7 @@ function saveElementName() {
     <template #footer>
       <Button label="Zrušit" icon="pi pi-times" class="p-button-text" @click="showDialog = false" />
       <Button label="Smazat" icon="pi pi-trash" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)" />
-      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="saveElementName" />
+      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="saveElementName(data)" />
     </template>
   </Dialog>
 </template>

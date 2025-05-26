@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
 import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
 import { getAlarmList } from '@/services/dashboardService';
-import { getOneAlarmHistory } from '@/services/alarmService';
+import {deleteAlarm, getOneAlarmHistory} from '@/services/alarmService';
 
 interface AlarmIcon {
   icon: string;
@@ -61,7 +61,7 @@ export function useAlarms() {
     }
   }
 
-  function handleIconClick(action: string, alarm: AlarmModel) {
+  async function handleIconClick(action: string, alarm: AlarmModel) {
     switch (action) {
       case 'schedule':
         getOneAlarmHistory(alarm.alarmId).then((history) => {
@@ -75,7 +75,7 @@ export function useAlarms() {
         console.log('Acknowledge clicked for', alarm);
         break;
       case 'delete':
-        console.log('Delete clicked for', alarm);
+        await deleteAlarm(alarm.alarmId);
         break;
       default:
         console.warn('Unknown action:', action);

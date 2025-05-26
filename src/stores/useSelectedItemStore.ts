@@ -70,6 +70,6 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
         isNodeExpanded,
         expandedNodeIds,
         setSelectedSection,
-        selectedSection
+        selectedSection,
     };
 });
