@@ -1,15 +1,15 @@
 
  <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useSidebarStore } from '@/stores/resize';
+import { useSidebarStore } from '@/stores/ui/resize';
 import { RouterLink } from 'vue-router';
 import { useConfirm } from 'primevue/useconfirm';
 import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import {DeleteDevice, DeleteElement, UpdateElement} from "@/services/deviceService";
-import type {EditDeviceInterface} from "@/interfaces/editDeviceInterface";
+import {DeleteDevice, DeleteElement, UpdateElement} from "@/services/ecm-marfy/devices/deviceService";
+import type {EditDeviceInterface} from "@/interfaces/ecm-marfy/editDeviceInterface";
 
 // Props
 const { data, variant } = defineProps<{

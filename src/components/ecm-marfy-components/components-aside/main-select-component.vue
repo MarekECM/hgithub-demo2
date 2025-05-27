@@ -1,8 +1,8 @@
 
 <script setup lang="ts">
 import { useOrganizationSelect } from '@/composables/ecm-marfy/component-aside-ts/useOrganizationSelect';
-import { useMainSelect } from '@/stores/useMainSelect';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useMainSelect } from '@/stores/ui/useMainSelect';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
 
 const { orgList, isLoading, handleSelect } = useOrganizationSelect();
 const mainSelect = useMainSelect();

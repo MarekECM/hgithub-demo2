@@ -1,5 +1,5 @@
 import { h, nextTick, ref } from 'vue';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
 
 export function useTreeNavigation(handleNodeClick: (node: any) => void) {
   const store = useSelectedItemStore();

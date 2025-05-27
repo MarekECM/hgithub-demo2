@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
@@ -7,7 +7,7 @@ import totalSupplyGrid from '@/components/ecm-marfy-components/components-summar
 import totalSupplyBattery from '@/components/ecm-marfy-components/components-summaries/total-supply-battery-component.vue'
 import totalConsumptionGrid from '@/components/ecm-marfy-components/components-summaries/total-consumption-grid-component.vue'
 import totalConsumptionEnergy from '@/components/ecm-marfy-components/components-summaries/total-consumption-energy-component.vue'
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 const store = useSelectedItemStore()
 
 //Použití store

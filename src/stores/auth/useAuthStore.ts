@@ -1,8 +1,8 @@
 import {defineStore} from 'pinia'
-import {loginService, logoutService} from '@/services/authService'
+import {loginService, logoutService} from '@/services/auth/authService'
 import {jwtDecode} from 'jwt-decode'
 import axios from 'axios'
-import router from '../router'
+import router from '../../router'
 
 interface UserPayload {
     email: string

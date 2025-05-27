@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import alarmsTable from '@/components/ecm-marfy-components/components-alarms/alarms-table-component.vue'
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
-import {useAlarmStore} from "@/stores/useAlarmStore";
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
+import {useAlarmStore} from "@/stores/ecm-marfy/alarms/useAlarmStore";
 const store = useSelectedItemStore()
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useAuthStore } from '@/stores/useAuthStore';
-import type { RenewedAccessTokenModel } from '@/interfaces/RenewedAccessTokenModel';
+import { useAuthStore } from '@/stores/auth/useAuthStore';
+import type { RenewedAccessTokenModel } from '@/interfaces/global/RenewedAccessTokenModel';
 
 axios.defaults.withCredentials = true;
 

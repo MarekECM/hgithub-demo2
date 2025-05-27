@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-import { getAlarmList } from '@/services/dashboardService';
-import {deleteAlarm, getOneAlarmHistory} from '@/services/alarmService';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { getAlarmList } from '@/services/ecm-marfy/dashboard/dashboardService';
+import {deleteAlarm, getOneAlarmHistory} from '@/services/ecm-marfy/alarms/alarmService';
 
 interface AlarmIcon {
   icon: string;

@@ -1,11 +1,11 @@
 
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-import { useSidebarStore } from '@/stores/resize';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-import { useMainSelect } from '@/stores/useMainSelect';
-import { useUiStore } from '@/stores/uiStore';
-import { getDashboards } from '@/services/dashboardService';
+import { useSidebarStore } from '@/stores/ui/resize';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { useMainSelect } from '@/stores/ui/useMainSelect';
+import { useUiStore } from '@/stores/ui/uiStore';
+import { getDashboards } from '@/services/ecm-marfy/dashboard/dashboardService';
 
 // Import composables
 import mainSelectW from '../components-aside/main-select-component.vue';

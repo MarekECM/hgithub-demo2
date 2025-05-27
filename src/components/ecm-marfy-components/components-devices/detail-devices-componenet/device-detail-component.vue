@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 
 const store = useSelectedItemStore()
 
@@ -16,15 +16,16 @@ const store = useSelectedItemStore()
                             <div class="ecm-main__container--secondary">
                             <div class="ecm-main__titleDevices">
                             <span>{{ store.selectedItem }}</span>
-                            <div class="alarm-btn-container">
-                                   <div class="alarm-btn-container__selection-alarms">
-                                   <span class="alarm-btn-container__icon-content">
-                                   <span class="alarm-btn-container__icon material-icons">construction
+                            <div class="device-btn-container">
+                                   <div class="device-btn-container__selection-alarms">
+                                   <span class="device-btn-container__icon-content">
+                                   <span class="device-btn-container__icon material-icons">construction
                                    </span>
                                    </span>
-                                   <span class="alarm-btn-container__text">Vytvořit model zařízení</span>  
+                                   <span class="device-btn-container__text">Vytvořit model zařízení</span>  
                                    </div>
                             </div>
+
                             </div>
                             </div>
                      </div>

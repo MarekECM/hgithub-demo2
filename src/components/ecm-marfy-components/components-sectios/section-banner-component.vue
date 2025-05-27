@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useSidebarStore } from '@/stores/resize';
+import { useSidebarStore } from '@/stores/ui/resize';
 const sidebarStore = useSidebarStore();
 
 const removeDiv = () => {

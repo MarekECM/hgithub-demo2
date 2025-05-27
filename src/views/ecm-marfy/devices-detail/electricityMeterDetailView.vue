@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import electricityMeterDeviceDetail from '@/components/ecm-marfy-components/components-devices/detail-devices-componenet/device-detail-component.vue'

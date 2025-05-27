@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize'; 
+import { useSidebarStore } from '@/stores/ui/resize'; 
 import { useWindowResize } from '@/composables/global/gl_resizeWindow';
-import { useUiStore } from '@/stores/uiStore';
-import { useAuthStore } from '@/stores/useAuthStore';
+import { useUiStore } from '@/stores/ui/uiStore';
+import { useAuthStore } from '@/stores/auth/useAuthStore';
 
 
 // Připojení ke store
@@ -94,8 +94,9 @@ const toggleNavBar = () => uiStore.toggleNavBar();
                     <span class="material-icons" style="font-size: 26px;">more_vert</span>
                     <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
                         <li class="ecm-logout-container" v-if="authStore.user">
+                            <span class="ecm-logout-container__text">Uživatel:<span class="ecm-logout-container__user">{{ authStore.user.name || 'Uživatel' }}</span></span>
                              <span class="material-icons" style="font-size: 26px;" @click="logout">logout</span>
-                             <span>{{ authStore.user.name || 'Uživatel' }}</span>
+                            
                         </li>
                         <!-- Iterování přes navigační položky -->
                         <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">

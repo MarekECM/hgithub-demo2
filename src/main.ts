@@ -31,8 +31,8 @@
 
 // initializeApp();
 import './assets/base.scss';
-import '@/services/axiosConfig';
-import { useAuthStore } from '@/stores/useAuthStore';
+import '@/services/auth/axiosConfig';
+import { useAuthStore } from '@/stores/auth/useAuthStore';
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';

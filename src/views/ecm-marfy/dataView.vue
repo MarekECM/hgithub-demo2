@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 import { ref } from 'vue'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import deviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue'
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 const store = useSelectedItemStore()
 //Použití store
 const sidebarStore = useSidebarStore()

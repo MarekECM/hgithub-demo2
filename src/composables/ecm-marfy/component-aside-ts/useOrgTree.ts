@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
 
 export function useOrgTree() {
   const store = useSelectedItemStore();
