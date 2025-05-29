@@ -46,4 +46,5 @@ const showAlarmHistory = useAlarmStore().showAlarmHistory;
     </section>
   </main>
   <NavtreeMarfy />
+  
 </template>
