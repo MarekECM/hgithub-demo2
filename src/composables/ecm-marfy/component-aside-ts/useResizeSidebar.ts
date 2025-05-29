@@ -1,4 +1,4 @@
-import { useSidebarStore } from '@/stores/resize';
+import { useSidebarStore } from '@/stores/ui/resize';
 
 export function useResizeSidebar() {
   const sidebarStore = useSidebarStore();

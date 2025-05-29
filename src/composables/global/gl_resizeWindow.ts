@@ -1,6 +1,6 @@
 // gl_resizeWindow.ts
 import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize'; 
+import { useSidebarStore } from '@/stores/ui/resize'; 
 
 export function useWindowResize() {
 

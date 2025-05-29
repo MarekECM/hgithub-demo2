@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/useAuthStore'
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import { useAuthStore } from '@/stores/auth/useAuthStore'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 
 import sumamriesView from '@/views/ecm-marfy/summariesView.vue'
 import alarmsView from '@/views/ecm-marfy/alarmsView.vue'

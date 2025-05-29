@@ -1,3 +1,8 @@
+.alarm-detail th:last-child {
+  border-radius: 0 25px 25px 0;
+  border: 1px;
+}
+
 .alarm-detail {
     background-color: var(--background-alarm-table);
     padding: 30px 20px;
@@ -5,15 +10,11 @@
     overflow: hidden;
     margin: 0 auto;
 
- 
+   
         &__cell {
 
             &--name {
-                border-radius: 25px 0px 0px 25px;
-            }
-
-            &--actions {
-                border-radius: 0px 25px 25px 0px;
+                text-align: center;
             }
 
             &--status {
@@ -22,6 +23,7 @@
 
             &--actions {
                 text-align: center;
+                align-items: center;
             }   
         }
 
@@ -29,6 +31,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            & span {
+                margin: 0 5px;
+
+                &:hover {
+                    background-color: white;
+                }
+            }
+                
         }
 
         &__icon {
@@ -68,3 +79,4 @@
         }
  
 }
+

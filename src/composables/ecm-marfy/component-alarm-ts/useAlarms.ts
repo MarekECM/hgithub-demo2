@@ -1,7 +1,8 @@
-import { ref, onMounted } from 'vue';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-import { getAlarmList } from '@/services/dashboardService';
-import {deleteAlarm, getOneAlarmHistory} from '@/services/alarmService';
+import { ref, onMounted, computed } from 'vue';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { getAlarmList } from '@/services/ecm-marfy/dashboard/dashboardService';
+import {deleteAlarm, getOneAlarmHistory} from '@/services/ecm-marfy/alarms/alarmService';
+import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
 
 interface AlarmIcon {
   icon: string;
@@ -28,6 +29,7 @@ export class AlarmModel {
 }
 
 export function useAlarms() {
+  const alarmStore = useAlarmStore();
   const alarms = ref<AlarmModel[]>([]);
   const selectedStore = useSelectedItemStore();
   const selectedAlarm = ref<AlarmModel | null>(null);
@@ -66,9 +68,8 @@ export function useAlarms() {
   async function handleIconClick(action: string, alarm: AlarmModel) {
     switch (action) {
       case 'schedule':
-        getOneAlarmHistory(alarm.alarmId).then((history) => {
-          console.log('Alarm History:', history);
-        });
+        const history = await getOneAlarmHistory(alarm.alarmId);
+        console.log('Alarm History:', history);
         break;
       case 'edit':
         selectedAlarm.value = { ...alarm };
@@ -79,6 +80,7 @@ export function useAlarms() {
         break;
       case 'delete':
         await deleteAlarm(alarm.alarmId);
+        alarmStore.fetchAlarms();
         break;
       default:
         console.warn('Unknown action:', action);
@@ -92,6 +94,6 @@ export function useAlarms() {
     fetchAlarms,
     handleIconClick,
     selectedAlarm,
-    showEditDialog
+    showEditDialog,
   };
 }

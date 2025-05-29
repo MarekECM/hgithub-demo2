@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'

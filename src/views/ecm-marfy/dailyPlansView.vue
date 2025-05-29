@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/resize'
-
+import { useSidebarStore } from '@/stores/ui/resize'
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import dailyPlansDashboard from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
 import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
 import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
 import {onMounted, ref} from "vue";
 import axios from "axios";
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 const store = useSelectedItemStore()
 
 //Použití store
@@ -53,7 +52,7 @@ function handleSubmit(updatedData: Record<string, any>) {
               <span class="iconContent">
                  <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent" @click="addDayPlanClick">Přidat denní plán</span>
+              <span class="ecm_iconBtnTextContent">Přidat denní plán</span>
             </div>
           </div>
         </div>

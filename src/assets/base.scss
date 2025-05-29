@@ -25,10 +25,7 @@
 @import 'components/ecm-marfy/components-summaries/total-supply-battery-component.scss';
 @import 'components/ecm-marfy/components-summaries/total-supply-grid-component.scss';
 //devices components
-//@import "components/ecm-marfy/components-devices/battery-device-component.scss";
-@import 'components/ecm-marfy/components-devices/electricity-meter-component.scss';
-//@import "components/ecm-marfy/components-devices/photovoltaics-device-component.scss";
-//@import "components/ecm-marfy/components-devices/locatinon-device-component.scss";
+@import 'components/ecm-marfy/components-devices/ecm-deviceBox-component.scss';
 //aside components
 @import 'components/ecm-marfy/components-aside/select.scss';
 //modal windows components
@@ -88,13 +85,25 @@ body {
 }
 
 table {
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
-  border-collapse: collapse;
 }
 
-thead {
-  background-color: var(--tableHeaderBackground);
+
+thead th {
+  background-color: var(--tableHeaderBackground); 
+  text-align: center;
 }
+
+thead tr th:first-child {
+  border-radius: 25px 0 0 25px !important; 
+}
+
+thead tr th:last-child {
+  border-radius: 0 25px 25px 0 !important; 
+}
+
 
 .tbody,
 td {
@@ -177,6 +186,13 @@ th {
   --navbar-text-decorationLinkColor2: #e7eaee;
   --navbar-iconColor: #191d23;
   --colorLink: #000;
+  
+  // Navbar icons
+
+  --nav-icon-background: #eb3443;
+  --color-notification: #fff;
+  
+
 
   // SideNavbar
   --sideMenu-title: #64748b;
@@ -277,6 +293,11 @@ th {
   --alarmStatus: #eb3443;
   --oktatus: #10b981;
   --background-alarm-table: #1f272f;
+
+  // devices box
+  --db-hover-efect-background: #fff;
+  --db-hover-efect-color: #000;
+  --img-background: #459dd410
 
   // reports
   --background-reports-table: #1f272f;

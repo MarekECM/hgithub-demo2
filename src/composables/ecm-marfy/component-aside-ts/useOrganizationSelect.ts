@@ -1,7 +1,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useSelectedItemStore } from '@/stores/useSelectedItemStore';
-import { useMainSelect } from '@/stores/useMainSelect';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { useMainSelect } from '@/stores/ui/useMainSelect';
 
 interface Organization {
   id: number;

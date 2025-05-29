@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useSidebarStore } from '@/stores/resize';
+import { useSidebarStore } from '@/stores/ui/resize';
 
 const sidebarStore = useSidebarStore();
 const fontSize = computed(() => (sidebarStore.width > 600 ? '40px' : '8px'));
