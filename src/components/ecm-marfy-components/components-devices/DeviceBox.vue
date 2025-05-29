@@ -9,7 +9,7 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import {DeleteDevice, DeleteElement, UpdateElement} from "@/services/ecm-marfy/devices/deviceService";
-import type {EditDeviceInterface} from "@/interfaces/ecm-marfy/editDeviceInterface";
+import type {EditDeviceInterface} from "@/interfaces/ecm-marfy/devices/editDeviceInterface";
 
 // Props
 const { data, variant } = defineProps<{

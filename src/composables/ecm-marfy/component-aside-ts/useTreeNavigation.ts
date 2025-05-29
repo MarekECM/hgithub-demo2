@@ -42,7 +42,8 @@ export function useTreeNavigation(handleNodeClick: (node: any) => void) {
       return h('li', { class: 'ecm-aside__nav-tree-main-item', key: node.id }, [
         h('details', { class: 'ecm-aside__nav-tree-main-details', ref: detailsRef, open: isExpanded }, [
           h('summary', { class: 'ecm-aside__nav-tree-summary-container', onClick: e => e.preventDefault() }, [
-            h('div', { class: 'ecm-aside__item-tree-wrap-2' }, [
+            h('div', { class: ['ecm-aside__item-tree-wrap-2', store.selectedNodeId === node.id ? 'testtest' : ''
+  ].join(' ') }, [
               node.children?.length
                 ? h('span', {
                     class: 'ecm-aside__nav-tree-icon-container-arrow-2',
@@ -68,7 +69,7 @@ export function useTreeNavigation(handleNodeClick: (node: any) => void) {
                       h('span', { class: 'material-icons ecm-aside__secondary-icon', style: 'font-size: 26px;' }, 'adjust')
                     ])
                   : null,
-                h('span', { class: 'ecm-aside__nav-tree-text-content', onClick: () => handleNodeClick(node) }, node.name)
+                h('span', { class: 'ecm-aside__nav-tree-text-content ', onClick: () => handleNodeClick(node) }, node.name)
               ])
             ])
           ]),

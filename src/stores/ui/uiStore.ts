@@ -5,15 +5,24 @@ export const useUiStore = defineStore('ui', {
     isAsideVisible: false,  // Stav viditelnosti aside
     navBarIcon: false,      // Stav pro ikonu navbaru
     sidebar: false,         // Stav pro sidebar
+    isNotificationBar: false
   }),
   actions: {
     // Funkce pro přepnutí viditelnosti aside
     toggleAside() {
       this.isAsideVisible = !this.isAsideVisible;
     },
-    // Funkce pro přepnutí stavu navbar ikony
+    toggleNotification(){
+      this.isNotificationBar = !this.isNotificationBar;
+    },
+    closeNotification() {
+      this.isNotificationBar = false;
+    },
     toggleNavBar() {
       this.navBarIcon = !this.navBarIcon;
+    },
+      closeNavBar() {
+    this.navBarIcon = false;
     },
     // Funkce pro přepnutí stavu sidebaru
     toggleSidebar() {

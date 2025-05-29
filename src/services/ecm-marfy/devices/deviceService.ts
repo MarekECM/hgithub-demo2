@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {EditDeviceInterface} from "@/interfaces/ecm-marfy/editDeviceInterface";
+import type {EditDeviceInterface} from "@/interfaces/ecm-marfy/devices/editDeviceInterface";
 
 export async function DeleteDevice(nodeId : number){
     return await axios.delete(`${import.meta.env.VITE_API_URL}Device/Node`, {

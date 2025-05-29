@@ -9,6 +9,12 @@
   padding-top: 15px;
   background-color: var(--body-backgroundColor);
 
+  & .material-icons {
+    cursor: pointer;
+    font-size: 26px;
+
+  }
+
   &__container {
     width: calc(100% - 225px);
     height: 100%;
@@ -62,7 +68,6 @@
       height: 100%;
       justify-content: center;
       position: relative;
-      cursor: pointer;
       text-align: center;
       align-items: center;
       transition: var(--transtion3);
@@ -154,13 +159,13 @@
   &__icon-item {
     list-style: none;
     display: flex;
-    cursor: pointer;
     align-items: center;
     transition: var(--transtion3);
     margin: 0 15px;
     background-color: var(--navbar-text-decorationLinkColor2);
     padding: 5px;
     border-radius: 25vh;
+
 
     &--notification {
       position: relative;
@@ -189,7 +194,7 @@
     flex-direction: column;
     height: calc(100vh - 90px);
     z-index: 600;
-    top: 70px;
+    top: 72px;
     overflow-y: auto;
     overflow-x: hidden;
     right: 0;
@@ -300,22 +305,37 @@
 }
 
 .ecm-logout-container {
-  background-color: #ebedf1;
+  //background-color: #ebedf1;
   display: flex;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   justify-content: space-between;
   transition: var(--transtion2);
-
+  border-bottom: 0.1vw solid #dfe1e6;
+  
   &__text {
     display: flex;
     align-items: center;
+     
   }
 
   &__user {
     margin-left: 5px;
+
   }
   
-  &:hover {
-     background-color: #caccd3;
+
+
+  &__logout {
+    background-color: white;
+    padding: 5px;
+    border-radius: 25vh;
+    transition: var(--transtion2);
+ 
+
+    &:hover {
+     background-color: var(--navbar-text-decorationLinkColor2);
+  }
   }
 }
+
+

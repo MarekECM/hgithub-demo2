@@ -288,10 +288,9 @@
     &__item-tree-wrap-2 {
       display: flex;
       align-items: center;
+      min-width: 250px;
     }
 
-
-  
     &__footer {
       display: flex;
       flex-direction: column;
@@ -404,4 +403,11 @@
     100% { transform: rotate(360deg);}
   }
 
+.testtest {
+    background-color: var(--sideMenu-hovBac);
+    color: var(--sideMenu-hovColor);
 
+    & .ecm-aside__arrow--open, .ecm-aside__arrow {
+      color: white;
+    }
+}
