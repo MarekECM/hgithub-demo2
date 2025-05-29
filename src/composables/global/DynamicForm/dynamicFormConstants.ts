@@ -1,4 +1,4 @@
-import {useSelectedItemStore} from "@/stores/useSelectedItemStore";
+import {useSelectedItemStore} from "@/stores/ui/useSelectedItemStore";
 import type {FieldSchema} from "@/interfaces/DynamicFormField";
 import {computed, reactive, ref} from "vue";
 import {getComponent} from "@/composables/global/DynamicForm/dynamicFormFunctions";

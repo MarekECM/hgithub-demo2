@@ -7,7 +7,6 @@ import Checkbox from "primevue/checkbox";
 import Select from "primevue/select";
 import MultiSelect from "primevue/multiselect";
 import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
-import {Exception} from "sass";
 
 export function handleFieldChange(field: FieldSchema, event: any, constants: DynamicFormConstants) {
     let selectedValue = event.value;
@@ -16,15 +15,15 @@ export function handleFieldChange(field: FieldSchema, event: any, constants: Dyn
         selectedValue = event.target.checked;
     }
     if (field.name === 'TemplateId') {
-        const groupField = constants.schemaWithKeys.find(f => f.name === 'GroupIds');
+        const groupField = constants.schemaWithKeys.value.find(f => f.name === 'GroupIds');
         if (groupField) {
             groupField.visible = true;
         }
         return;
     }
     if(field.name === 'CustomMessage'){
-        const messageSubject = constants.schemaWithKeys.find(f => f.name === 'MessageSubject');
-        const message = constants.schemaWithKeys.find(f => f.name === 'Message');
+        const messageSubject = constants.schemaWithKeys.value.find(f => f.name === 'MessageSubject');
+        const message = constants.schemaWithKeys.value.find(f => f.name === 'Message');
         if(messageSubject && message) {
             messageSubject.visible = selectedValue;
             message.visible = selectedValue;
