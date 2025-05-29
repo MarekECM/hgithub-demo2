@@ -40,8 +40,6 @@ export async function getOptions(endpoint: string | undefined, fieldName: string
             if (!value && (param === 'OrgId' || param === "orgId")) {
                 value = constants.store.selectedOrgId;
             }
-            console.log(param);
-            console.log(value);
             finalEndpoint = finalEndpoint.replace(`{${param}}`, value ?? '');
             if(value == null){
                 return;

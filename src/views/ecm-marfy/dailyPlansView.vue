@@ -52,7 +52,7 @@ function handleSubmit(updatedData: Record<string, any>) {
               <span class="iconContent">
                  <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent">Přidat denní plán</span>
+              <span class="ecm_iconBtnTextContent" @click="addDayPlanClick">Přidat denní plán</span>
             </div>
           </div>
         </div>
