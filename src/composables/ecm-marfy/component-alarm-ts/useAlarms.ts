@@ -39,7 +39,7 @@ export function useAlarms() {
         break;
       case 'delete':
         await deleteAlarm(alarm.alarmId);
-        alarmStore.loadAlarms(); // Aktualizuj po smazání
+    alarmStore.fetchAlarms();
         break;
       default:
         console.warn('Unknown action:', action);

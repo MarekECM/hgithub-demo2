@@ -75,7 +75,7 @@ axios.interceptors.response.use(
         // Refreshni access token
         const refreshed = await refreshAccessToken()
         // Ulož nový token do store
-        authStore.token = refreshed.accessToken
+        authStore.setToken(refreshed.accessToken)
 
         // Opakuj původní request s novým tokenem
         originalRequest.headers.Authorization = `Bearer ${refreshed.accessToken}`
