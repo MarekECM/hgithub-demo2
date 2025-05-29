@@ -127,11 +127,7 @@ onUnmounted(() => {
             </RouterLink>
 
             <!-- More item (Navbar toggle) -->
-            <li
-              class="ecm-navbar__icon-item ecm-navbar__icon-item--more"
-              ref="navBarRef"
-              @click="toggleNavBar"
-            >
+            <li  class="ecm-navbar__icon-item ecm-navbar__icon-item--more"  ref="navBarRef"  @click="toggleNavBar"   >
               <span class="material-icons">more_vert</span>
               <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
                 <li class="ecm-logout-container" v-if="authStore.user">

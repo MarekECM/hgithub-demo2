@@ -16,7 +16,7 @@ const emit = defineEmits(['dashboardData']);
 const sidebarStore = useSidebarStore();
 const store = useSelectedItemStore();
 const mainSelect = useMainSelect();
-const uiStore = useUiStore();
+const uiStore = useUiStore(); // <-- používáme pro viditelnost aside
 
 const { fetchOrgTree } = useOrgTree();
 const { renderTree } = useTreeNavigation(handleNodeClick);
@@ -24,15 +24,9 @@ const { initResizeFn } = useResizeSidebar();
 
 const searchTerm = ref('');
 
-
-
 async function handleNodeClick(node: any) {
   store.selectedNodeId = node.id;
-  console.log('Selected node ID:', store.selectedNodeId);
-
   const dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0);
-  console.log('Dashboards data:', dashboards);
-
   if (dashboards.data != null) {
     emit('dashboardData', dashboards.data);
   }
@@ -62,9 +56,16 @@ onMounted(() => {
 });
 </script>
 
+
 <template>
-  <aside class="ecm-aside" :class="{ 'display-none': uiStore.isAsideVisible, 'display-block': !uiStore.isAsideVisible }">
+  <aside class="ecm-aside" :class="{ 'is-visible': uiStore.sidebar }">
+
     <div class="ecm-aside__header">
+<div class="ecm-aside__header-close-btn"  @click="uiStore.sidebar = false">
+  <span class="material-icons">close</span>
+</div>
+         
+
       <span class="ecm-aside__background-element"></span>
       <div class="ecm-aside__logo">
         <RouterLink :to="{ name: 'homeView' }">
@@ -74,7 +75,7 @@ onMounted(() => {
       <div class="ecm-aside__select">
         <!-- Předávám searchTerm jako prop, uprav mainSelectW pokud to nepodporuje -->
         <mainSelectW :filter="searchTerm" />
-      </div>
+      </div>           
     </div>
 
     <div class="ecm-aside__search ecm-aside__search--hidden" :class="{ 'ecm-aside__search--active': mainSelect.isActive }">
