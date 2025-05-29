@@ -30,6 +30,8 @@ export class AlarmModel {
 export function useAlarms() {
   const alarms = ref<AlarmModel[]>([]);
   const selectedStore = useSelectedItemStore();
+  const selectedAlarm = ref<AlarmModel | null>(null);
+  const showEditDialog = ref(false);
 
   async function fetchAlarms() {
     const orgId = selectedStore.selectedOrgId;
@@ -69,7 +71,8 @@ export function useAlarms() {
         });
         break;
       case 'edit':
-        console.log('Edit clicked for', alarm);
+        selectedAlarm.value = { ...alarm };
+        showEditDialog.value = true;
         break;
       case 'acknowledge':
         console.log('Acknowledge clicked for', alarm);
@@ -87,6 +90,8 @@ export function useAlarms() {
   return {
     alarms,
     fetchAlarms,
-    handleIconClick
+    handleIconClick,
+    selectedAlarm,
+    showEditDialog
   };
 }

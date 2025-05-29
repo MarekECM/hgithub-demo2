@@ -5,10 +5,28 @@ import Header from '@/components/ecm-marfy-components/marfy-layout/header-compon
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import dailyPlansDashboard from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
 import { useSelectedItemStore } from '@/stores/useSelectedItemStore'
+import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
+import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
+import {onMounted, ref} from "vue";
+import axios from "axios";
 const store = useSelectedItemStore()
 
 //Použití store
 const sidebarStore = useSidebarStore()
+const {
+  addDayPlanClick,showEditDialog } = useDayPlans();
+
+const editSchema = ref([]);
+
+onMounted(async () => {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`);
+  editSchema.value = res.data;
+  console.log(res.data);
+});
+function handleSubmit(updatedData: Record<string, any>) {
+  console.log('Updated dayPlan:', updatedData);
+  showEditDialog.value = false;
+}
 </script>
 
 <template>
@@ -35,7 +53,7 @@ const sidebarStore = useSidebarStore()
               <span class="iconContent">
                  <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent">Přidat denní plán</span>
+              <span class="ecm_iconBtnTextContent" @click="addDayPlanClick">Přidat denní plán</span>
             </div>
           </div>
         </div>
@@ -44,6 +62,11 @@ const sidebarStore = useSidebarStore()
     </section>
   </main>
   <NavtreeMarfy />
+  <DynamicFormDialog
+      v-model:showDialog="showEditDialog"
+      :schema="editSchema"
+      @submit="handleSubmit"
+  />
 </template>
 
 <style setup lang="scss">

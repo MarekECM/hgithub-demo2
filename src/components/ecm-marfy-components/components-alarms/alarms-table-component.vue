@@ -1,7 +1,24 @@
 <script setup lang="ts">
 import { useAlarms } from '@/composables/ecm-marfy/component-alarm-ts/useAlarms';
+import axios from 'axios';
+import {ref, onMounted} from 'vue'
+import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
 
-const { alarms, handleIconClick } = useAlarms();
+
+const { alarms, handleIconClick, selectedAlarm,
+  showEditDialog } = useAlarms();
+
+const editSchema = ref([]);
+
+onMounted(async () => {
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddNotificationModel`);
+  editSchema.value = res.data;
+  console.log(res.data);
+});
+function handleSubmit(updatedData: Record<string, any>) {
+  console.log('Updated alarm:', updatedData);
+  showEditDialog.value = false;
+}
 </script>
 
 
@@ -46,6 +63,12 @@ const { alarms, handleIconClick } = useAlarms();
       </tr>
       </tbody>
     </table>
+    <DynamicFormDialog
+        v-if="selectedAlarm"
+        v-model:showDialog="showEditDialog"
+        :schema="editSchema"
+        @submit="handleSubmit"
+    />
   </div>
 </template>
 
