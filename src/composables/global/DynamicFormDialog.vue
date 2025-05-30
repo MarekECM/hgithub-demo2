@@ -7,10 +7,12 @@ import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterf
 import {handleFieldChange, handleSubmit} from "@/composables/global/DynamicForm/dynamicFormFunctions"
 import type {FieldSchema} from "@/interfaces/DynamicFormField";
 import {onMounted} from "vue";
+import Toast from "primevue/toast"
 
 const props = defineProps<{
   showDialog: boolean;
   schema: FieldSchema[];
+  dialogName: string;
 }>();
 
 const emit = defineEmits<{
@@ -31,7 +33,7 @@ onMounted(() => {
 <template>
   <Dialog
       v-model:visible="constants.showDialog.value"
-      header="Upravit zařízení"
+      :header=props.dialogName
       :modal="true"
       :style="{ width: '400px' }"
   >
@@ -53,6 +55,7 @@ onMounted(() => {
             :options="field.typeStr.toLowerCase().includes('select') ? constants.selectOptions[field.name] : undefined"
             :optionLabel="field.typeStr.toLowerCase().includes('select') ? 'label' : undefined"
             :optionValue="field.typeStr.toLowerCase().includes('select') ? 'value' : undefined"
+            :virtualScrollerOptions="field.typeStr.toLowerCase().includes('select') ? { itemSize: 40 }:undefined"
             @change="(e: any) => handleFieldChange(field, e,constants)"
         />
       </div>
@@ -62,6 +65,7 @@ onMounted(() => {
       <Button label="Zrušit" icon="pi pi-times" class="p-button-danger" @click="constants.showDialog.value = false" />
       <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="handleSubmit(constants, emit)" />
     </template>
+    <Toast />
   </Dialog>
 </template>
 

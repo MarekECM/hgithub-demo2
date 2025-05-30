@@ -43,7 +43,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config';
-import { Theme } from '@primevue/themes'; // Import Theme
 import material from '@primevue/themes/material'; // Import Material theme
 
 async function initializeApp() {

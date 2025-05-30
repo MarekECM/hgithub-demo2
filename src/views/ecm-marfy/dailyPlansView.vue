@@ -8,6 +8,9 @@ import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayP
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
+import {useToast} from "primevue/usetoast";
+import type {FieldSchema} from "@/interfaces/DynamicFormField";
+import {normalizeEmptyStrings} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 const store = useSelectedItemStore()
 
 //Použití store
@@ -15,16 +18,27 @@ const sidebarStore = useSidebarStore()
 const {
   addDayPlanClick,showEditDialog } = useDayPlans();
 
-const editSchema = ref([]);
+const editSchema = ref<FieldSchema[]>([]);
+const formName = ref('Přidat denní plán');
+const toast = useToast();
 
-onMounted(async () => {
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`);
-  editSchema.value = res.data;
-  console.log(res.data);
-});
-function handleSubmit(updatedData: Record<string, any>) {
-  console.log('Updated dayPlan:', updatedData);
-  showEditDialog.value = false;
+async function addDayPlan(){
+  await addDayPlanClick(editSchema);
+}
+async function handleSubmit(dayPlanData: Record<string, any>) {
+  const normalizedData = normalizeEmptyStrings(dayPlanData);
+  normalizedData.nodeId = store.selectedNodeId;
+  console.log('Trying to add dayPlan:', normalizedData);
+  try {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}DayPlan/AddDayPlan`, normalizedData,{headers: {
+        'Content-Type': 'application/json',
+      },});
+      showEditDialog.value = false;
+  }
+  catch(e : any){
+    console.log("TEST");
+    toast.add({ severity: 'error', summary: 'Error', detail: `Denní plán nebyl vytvořen : ${e.message}`, life: 3000 });
+  }
 }
 </script>
 
@@ -52,7 +66,7 @@ function handleSubmit(updatedData: Record<string, any>) {
               <span class="iconContent">
                  <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent" @click="addDayPlanClick">Přidat denní plán</span>
+              <span class="ecm_iconBtnTextContent" @click="addDayPlan">Přidat denní plán</span>
             </div>
           </div>
         </div>
@@ -65,6 +79,7 @@ function handleSubmit(updatedData: Record<string, any>) {
       v-model:showDialog="showEditDialog"
       :schema="editSchema"
       @submit="handleSubmit"
+      :dialog-name="formName"
   />
 </template>
 

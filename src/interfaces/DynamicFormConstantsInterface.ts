@@ -9,7 +9,7 @@ export interface FieldSchemaWithComponent extends FieldSchema {
 export interface DynamicFormConstants {
     store: ReturnType<typeof useSelectedItemStore>;
     schema: ComputedRef<FieldSchema[]>;
-    schemaWithKeys: ComputedRef<FieldSchema[]>;
+    schemaWithKeys: Ref<FieldSchema[]>;
     schemaWithComponents: ComputedRef<FieldSchemaWithComponent[]>;
     selectOptions: Record<string, any[]>;
     showDialog: Ref<boolean>;

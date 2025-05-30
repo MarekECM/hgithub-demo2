@@ -1,6 +1,6 @@
 import {useSelectedItemStore} from "@/stores/ui/useSelectedItemStore";
 import type {FieldSchema} from "@/interfaces/DynamicFormField";
-import {computed, reactive, ref} from "vue";
+import {computed, reactive, ref, watch} from "vue";
 import {getComponent} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 
 export function getDynamicFormConstants(props: {
@@ -11,12 +11,21 @@ export function getDynamicFormConstants(props: {
 
     const schema = computed(() => props.schema || []);
 
-    const schemaWithKeys = computed(() =>
-        schema.value
-            .filter((field): field is FieldSchema => field != null)
-            .map((field) => ({ ...field }))
-    );
+    const schemaWithKeys = ref<FieldSchema[]>([]);
 
+    watch(
+        schema,
+        (newSchema) => {
+            if (newSchema && newSchema.length) {
+                schemaWithKeys.value = newSchema.map(field => ({
+                    ...field,
+                    visible: field.visible !== false,
+                }));
+            }
+        },
+        { immediate: true }
+    );
+    
     const schemaWithComponents = computed(() =>
         schemaWithKeys.value.map(field => ({
             ...field,

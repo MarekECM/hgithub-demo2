@@ -9,11 +9,10 @@ const { alarms, handleIconClick, selectedAlarm,
   showEditDialog } = useAlarms();
 
 const editSchema = ref([]);
-
+const formName = ref("Upravit alarm")
 onMounted(async () => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddNotificationModel`);
   editSchema.value = res.data;
-  console.log(res.data);
 });
 function handleSubmit(updatedData: Record<string, any>) {
   console.log('Updated alarm:', updatedData);
@@ -68,6 +67,7 @@ function handleSubmit(updatedData: Record<string, any>) {
         v-model:showDialog="showEditDialog"
         :schema="editSchema"
         @submit="handleSubmit"
+        :dialog-name="formName"
     />
   </div>
 </template>
