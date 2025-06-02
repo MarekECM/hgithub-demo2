@@ -21,8 +21,6 @@ onMounted(async () => {
       params: { nodeId }
     })
     console.log('API response:', response.data)
-
-    // Přemapování dat na DayPlanModel
     dayPlans.value = response.data.map((item: any) => ({
       dayPlanId: item.id,
       dayPlanName: item.name
@@ -48,8 +46,10 @@ onMounted(async () => {
             {{ plan.dayPlanName }}
           </td>
           <td class="alarm-detail__cell alarm-detail__cell--actions">
-            <span class="alarm-detail__icon material-icons"> edit</span>
-            <span class="alarm-detail__icon material-icons"> delete</span>
+            <span class="alarm-detail__icon material-icons"> edit </span>
+            <span class="alarm-detail__icon material-icons"> delete </span>
+            <span class="alarm-detail__icon material-icons"> published_with_changes </span>
+            <span class="alarm-detail__icon material-icons"> save </span>
           </td>
         </tr>
       </tbody>
