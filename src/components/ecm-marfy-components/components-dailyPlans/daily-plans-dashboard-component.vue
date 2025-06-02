@@ -1,16 +1,58 @@
 <script setup lang="ts">
-import primaryModalWindow from '@/components/ecm-marfy-components/components-modal-windows/primary-modal-windou.vue'
-import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+import type { DayPlanModel } from '@/interfaces/DayPlan/DayPlanModel'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 
-import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
+const dayPlans = ref<DayPlanModel[]>([])
 
+onMounted(async () => {
+  try {
+    const store = useSelectedItemStore()
+    const nodeId = store.selectedNodeId
+    console.log('nodeId:', nodeId)
 
+    if (!nodeId) {
+      console.warn('Nebyl nalezen nodeId – načítání denních plánů se přeskočí')
+      return
+    }
+
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan`, {
+      params: { nodeId }
+    })
+    console.log('API response:', response.data)
+
+    // Přemapování dat na DayPlanModel
+    dayPlans.value = response.data.map((item: any) => ({
+      dayPlanId: item.id,
+      dayPlanName: item.name
+    }))
+  } catch (error: any) {
+    console.error('Chyba při načítání denních plánů:', error)
+  }
+})
 </script>
 
 <template>
-    <div class="dailyPlans ecm-layout__container--default">
-      
-    </div>
-  
+  <div class="dailyPlans ecm-layout__container--default">
+    <table class="alarm-detail__table">
+      <thead class="alarm-detail__header">
+        <tr class="alarm-detail__row">
+          <th class="alarm-detail__cell alarm-detail__cell--name">NÁZEV</th>
+          <th class="alarm-detail__cell alarm-detail__cell--actions">AKCE</th>
+        </tr>
+      </thead>
+      <tbody class="alarm-detail__body">
+        <tr v-for="plan in dayPlans" :key="plan.dayPlanId" class="alarm-detail__row">
+          <td class="alarm-detail__cell alarm-detail__cell--message">
+            {{ plan.dayPlanName }}
+          </td>
+          <td class="alarm-detail__cell alarm-detail__cell--actions">
+            <span class="alarm-detail__icon material-icons"> edit</span>
+            <span class="alarm-detail__icon material-icons"> delete</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
-
