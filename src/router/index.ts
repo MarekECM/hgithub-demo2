@@ -25,6 +25,7 @@ import publicityView from '@/views/dynamic-web/publicityView.vue'
 
 // Login
 import loginView from '@/views/loginView.vue'
+import {getDashboards} from "@/services/ecm-marfy/dashboard/dashboardService";
 
 
 const router = createRouter({
@@ -120,7 +121,6 @@ router.beforeEach(async (to, _, next) => {
     if (!authStore.isAuthenticated) {
         await authStore.loadUserFromToken();
     }
-    console.log(to.path);
     if (authStore.isAuthenticated) {
         if (to.path === '/login') {
             next('/home');

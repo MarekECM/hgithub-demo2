@@ -13,6 +13,7 @@ const props = defineProps<{
   showDialog: boolean;
   schema: FieldSchema[];
   dialogName: string;
+  formData?: Record<string, any>,
 }>();
 
 const emit = defineEmits<{
@@ -40,7 +41,7 @@ onMounted(() => {
     <template v-for="field in constants.schemaWithComponents.value" :key="field.name">
       <div v-if="field.visible !== false" class="p-field mb-4">
         <label :for="field.name" class="block mb-2">{{ field.label }}: </label>
-  
+        
         <component
             :is="field.component"
             :id="field.name"
@@ -51,6 +52,7 @@ onMounted(() => {
             :inputId="field.name"
             :min="field.validation?.range?.minimum"
             :max="field.validation?.range?.maximum"
+            :placeholder="field.placeHolder"
             :multiple="field.typeStr === 'multiSelect' && field.typeStr.startsWith('List') ? true : undefined"
             :options="field.typeStr.toLowerCase().includes('select') ? constants.selectOptions[field.name] : undefined"
             :optionLabel="field.typeStr.toLowerCase().includes('select') ? 'label' : undefined"
