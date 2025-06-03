@@ -3,6 +3,7 @@ export interface FieldSchema {
     label: string;
     typeStr: string;
     required: boolean;
+    placeHolder: string;
     selectEndpoint: string;
     visible? : boolean;
     endpointParameters?: string[];

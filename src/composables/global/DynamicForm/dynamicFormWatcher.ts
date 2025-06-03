@@ -1,6 +1,7 @@
-import {watch} from "vue";
+import {nextTick, watch} from "vue";
 import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
-import {getOptions, resetOptionsCache} from "@/composables/global/DynamicForm/dynamicFormFunctions"; 
+import {getOptions, resetOptionsCache} from "@/composables/global/DynamicForm/dynamicFormFunctions";
+import { handleFieldChange } from "@/composables/global/DynamicForm/dynamicFormFunctions";
 
 export function dynamicFormWatcher(props: any,constants: DynamicFormConstants ,emit: any) {
     watch(() => props.showDialog, val => (constants.showDialog.value = val));
@@ -10,10 +11,10 @@ export function dynamicFormWatcher(props: any,constants: DynamicFormConstants ,e
         async (newSchema) => {
             resetOptionsCache();
             for (const field of newSchema) {
-                console.log("");
-                if (!field.validation.ignore) {
+                if (constants.formData[field.name] === undefined) {
                     constants.formData[field.name] = field.typeStr === 'checkbox' ? false : '';
                 }
+
                 if (field.typeStr === 'select' || field.typeStr === "multiSelect") {
                     await getOptions(field.selectEndpoint, field.name, constants, field.endpointParameters);
                 }
@@ -21,5 +22,27 @@ export function dynamicFormWatcher(props: any,constants: DynamicFormConstants ,e
         },
         { immediate: true }
     );
-    
+
+    watch(
+        () => props.formData,
+        async (newFormData) => {
+            if (newFormData) {
+                for (const key of Object.keys(newFormData)) {
+                    const field = constants.schemaWithKeys.value.find(f => f.name === key);
+                    if (field) {
+                        constants.formData[key] = newFormData[key];
+                        await handleFieldChange(field, { value: newFormData[key] }, constants);
+                        if (
+                            (field.typeStr === 'select' || field.typeStr === 'multiSelect') &&
+                            field.selectEndpoint
+                        ) {
+                            constants.formData[key] = newFormData[key];
+                        }
+                    }
+                }
+            }
+        },
+        { immediate: true }
+    );
+
 }

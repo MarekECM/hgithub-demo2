@@ -9,8 +9,10 @@ import MultiSelect from "primevue/multiselect";
 import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
 
 export async function handleFieldChange(field: FieldSchema, event: any, constants: DynamicFormConstants) {
+    console.log(field);
+    console.log(event);
     let selectedValue = event.value;
-    if(field.typeStr === 'checkbox') {
+    if(field.typeStr === 'checkbox' && event.value != true) {
         selectedValue = event.target.checked;
     }
     if(field.name === 'CustomMessage') {
@@ -118,7 +120,7 @@ function getValueFromParam(param : string, constants: DynamicFormConstants){
     }
 }
 
-async function updateVariables(constants: DynamicFormConstants,deviceId: number){
+async function updateVariables(constants: DynamicFormConstants, deviceId: number) {
     const endpoint = "Form/GetVariablesFromDevice/{deviceId}";
     const dependentFields = [
         'VariableValueId',
@@ -128,11 +130,12 @@ async function updateVariables(constants: DynamicFormConstants,deviceId: number)
         'VariableMin',
         'VariableMax',
     ];
-    
+
     for (const fieldName of dependentFields) {
         await getOptions(endpoint, fieldName, constants, ['deviceId']);
     }
 }
+
 
 
 function showGroups(constants: DynamicFormConstants){

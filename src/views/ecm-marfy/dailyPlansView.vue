@@ -30,7 +30,7 @@ async function handleSubmit(dayPlanData: Record<string, any>) {
   normalizedData.nodeId = store.selectedNodeId;
   console.log('Trying to add dayPlan:', normalizedData);
   try {
-    const res = await axios.post(`${import.meta.env.VITE_API_URL}DayPlan/AddDayPlan`, normalizedData,{headers: {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}DayPlan/AddOrEditDayPlan`, normalizedData,{headers: {
         'Content-Type': 'application/json',
       },});
       showEditDialog.value = false;
