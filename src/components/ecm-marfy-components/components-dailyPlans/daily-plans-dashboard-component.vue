@@ -3,24 +3,28 @@ import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import type { DayPlanModel } from '@/interfaces/ecm-marfy/DayPlan/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
-import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
-import {useAlarms} from "@/composables/ecm-marfy/component-alarm-ts/useAlarms";
-import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
+import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue"
+import { useDayPlans } from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
 
 const store = useSelectedItemStore()
 const dayPlans = ref<DayPlanModel[]>([])
 
-const {selectedDayPlan,
-  showEditDialog } = useDayPlans();
-const editSchema = ref([]);
-const formName = ref("Upravit denní plán");
-const formData = ref<Record<string, any>>({});
+const {
+  selectedDayPlan,
+  showEditDialog
+} = useDayPlans()
+
+const editSchema = ref([])
+const formName = ref("Upravit denní plán")
+const formData = ref<Record<string, any>>({})
+
 function handleSubmit(updatedData: Record<string, any>) {
-  console.log('Updated dayPlan:', updatedData);
-  showEditDialog.value = false;
+  console.log('Updated dayPlan:', updatedData)
+  showEditDialog.value = false
 }
-function edit(dayPlan: DayPlanModel){
-  selectedDayPlan.value = { ...dayPlan };
+
+function edit(dayPlan: DayPlanModel) {
+  selectedDayPlan.value = { ...dayPlan }
   formData.value = {
     Id: dayPlan.Id,
     Name: dayPlan.Name,
@@ -37,36 +41,26 @@ function edit(dayPlan: DayPlanModel){
     VariableValueId: dayPlan.VariableValueId,
     VariableAttenuationId: dayPlan.VariableAttenuationId,
     VariableAttenuationValueId: dayPlan.VariableAttenuationValueId,
-  };
-  showEditDialog.value = true;
+  }
+  showEditDialog.value = true
 }
 
-async function load(plan: DayPlanModel){
-  const array : number[] = [plan.Id];
-  console.log('array:', array);
-  console.log('load:', plan);
-  const queryString = array.map(id => `dayPlanIds=${id}`).join('&');
-  const res = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan/Load?${queryString}`);
-  console.log(res.data);
+async function load(plan: DayPlanModel) {
+  const array: number[] = [plan.Id]
+  const queryString = array.map(id => `dayPlanIds=${id}`).join('&')
+  const res = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan/Load?${queryString}`)
+  console.log(res.data)
 }
 
-onMounted(async () => {
+async function fetchDayPlans(nodeId: number) {
   try {
-    const store = useSelectedItemStore()
-    const nodeId = store.selectedNodeId
-    console.log('nodeId:', nodeId)
-
-    if (!nodeId) {
-      console.warn('Nebyl nalezen nodeId – načítání denních plánů se přeskočí')
-      return
-    }
-    
     const response = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan`, {
       params: { nodeId }
     })
-    console.log('API response:', response.data)
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`);
-    editSchema.value = res.data;
+
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`)
+    editSchema.value = res.data
+
     dayPlans.value = response.data.map((item: any) => ({
       Id: item.id,
       Name: item.name,
@@ -83,16 +77,46 @@ onMounted(async () => {
       VariableValueId: item.variableValueId,
       VariableAttenuationId: item.variableAttenuationId,
       VariableAttenuationValueId: item.variableAttenuationValueId,
-      
     }))
+
+    localStorage.setItem('cachedDayPlans', JSON.stringify(dayPlans.value))
   } catch (error: any) {
     console.error('Chyba při načítání denních plánů:', error)
     dayPlans.value = []
     localStorage.removeItem('cachedDayPlans')
   }
+}
+
+onMounted(() => {
+  if (!store.selectedNodeId) {
+    const savedId = localStorage.getItem('selectedNodeId')
+    if (savedId) {
+      store.selectedNodeId = parseInt(savedId)
+    }
+  }
+
+  const cachedPlans = localStorage.getItem('cachedDayPlans')
+  if (cachedPlans) {
+    try {
+      dayPlans.value = JSON.parse(cachedPlans)
+    } catch {
+      dayPlans.value = []
+    }
+  }
+
+  if (typeof store.selectedNodeId === 'number' && !isNaN(store.selectedNodeId)) {
+    fetchDayPlans(store.selectedNodeId)
+  }
 })
 
-
+watch(() => store.selectedNodeId, (newNodeId) => {
+  if (typeof newNodeId === 'number' && !isNaN(newNodeId)) {
+    localStorage.setItem('selectedNodeId', newNodeId.toString())
+    fetchDayPlans(newNodeId)
+  } else {
+    dayPlans.value = []
+  }
+})
 </script>
 
 <template>
@@ -118,13 +142,14 @@ onMounted(async () => {
         </tr>
       </tbody>
     </table>
+
     <DynamicFormDialog
-        v-if="selectedDayPlan"
-        v-model:showDialog="showEditDialog"
-        :schema="editSchema"
-        :form-data="formData"
-        @submit="handleSubmit"
-        :dialog-name="formName"
+      v-if="selectedDayPlan"
+      v-model:showDialog="showEditDialog"
+      :schema="editSchema"
+      :form-data="formData"
+      @submit="handleSubmit"
+      :dialog-name="formName"
     />
   </div>
 </template>

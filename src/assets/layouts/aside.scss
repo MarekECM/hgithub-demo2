@@ -473,10 +473,15 @@
   .ecm-aside__resize {
   width: 6px;
   cursor: ew-resize;
-  background-color: #d1d1d1;
+  background-color: transparent;
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
   z-index: 100;
+  transition: var(--transtion2);
+
+    &:hover {
+        background-color: #d1d1d1;
+    }
 }
