@@ -12,8 +12,6 @@ import reportsView from '@/views/ecm-marfy/reportsView.vue'
 import settingView from '@/views/ecm-marfy/settingView.vue'
 
 // ecm Marfy detaily zarizeni 
-// import battreryDetailView from '@/views/ecm-marfy/devices-detail/battreryDetailView.vue'
-// import photovoltaicsDetailView from '@/views/ecm-marfy/devices-detail/photovoltaicsDetailView.vue'
 import electricityMeterDetailView from '@/views/ecm-marfy/devices-detail/electricityMeterDetailView.vue'
 
 // ecm komunity

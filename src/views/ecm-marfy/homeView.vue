@@ -40,9 +40,11 @@ onMounted(() => {
       </section>
       <section class="ecm-main__container--secondary">
         <div class="ecm-main__titleDevices">Vaše aktivní zařízení</div>
-        <template v-for="device in devicesStore.devices" :key="device.nodeID">
-          <deviceBox :data="device" :variant="device.deviceType.name" />
-        </template>
+        <div v-if="devicesStore.devices.length">
+          <template v-for="device in devicesStore.devices" :key="device.nodeID">
+            <deviceBox :data="device" :variant="device.deviceType.name" />
+          </template>
+        </div>
       </section>
     </div>
   </main>

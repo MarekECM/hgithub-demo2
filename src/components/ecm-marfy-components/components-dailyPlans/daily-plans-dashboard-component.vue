@@ -1,32 +1,58 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
-import type { DayPlanModel } from '@/interfaces/DayPlan/DayPlanModel'
+import type { DayPlanModel } from '@/interfaces/ecm-marfy/DayPlan/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 
+const store = useSelectedItemStore()
 const dayPlans = ref<DayPlanModel[]>([])
 
-onMounted(async () => {
+async function fetchDayPlans(nodeId: number) {
   try {
-    const store = useSelectedItemStore()
-    const nodeId = store.selectedNodeId
-    console.log('nodeId:', nodeId)
-
-    if (!nodeId) {
-      console.warn('Nebyl nalezen nodeId – načítání denních plánů se přeskočí')
-      return
-    }
-
     const response = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan`, {
       params: { nodeId }
     })
-    console.log('API response:', response.data)
     dayPlans.value = response.data.map((item: any) => ({
       dayPlanId: item.id,
       dayPlanName: item.name
     }))
+
+    localStorage.setItem('cachedDayPlans', JSON.stringify(dayPlans.value))
   } catch (error: any) {
     console.error('Chyba při načítání denních plánů:', error)
+    dayPlans.value = []
+    localStorage.removeItem('cachedDayPlans')
+  }
+}
+
+onMounted(() => {
+  if (!store.selectedNodeId) {
+    const savedId = localStorage.getItem('selectedNodeId')
+    if (savedId) {
+      store.selectedNodeId = parseInt(savedId)
+    }
+  }
+
+  const cachedPlans = localStorage.getItem('cachedDayPlans')
+  if (cachedPlans) {
+    try {
+      dayPlans.value = JSON.parse(cachedPlans)
+    } catch {
+      dayPlans.value = []
+    }
+  }
+
+  if (typeof store.selectedNodeId === 'number' && !isNaN(store.selectedNodeId)) {
+    fetchDayPlans(store.selectedNodeId)
+  }
+})
+
+watch(() => store.selectedNodeId, (newNodeId) => {
+  if (typeof newNodeId === 'number' && !isNaN(newNodeId)) {
+    localStorage.setItem('selectedNodeId', newNodeId.toString())
+    fetchDayPlans(newNodeId)
+  } else {
+    dayPlans.value = []
   }
 })
 </script>

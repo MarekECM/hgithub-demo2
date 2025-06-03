@@ -1,25 +1,29 @@
-
- <script setup lang="ts">
+<script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useSidebarStore } from '@/stores/ui/resize';
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useConfirm } from 'primevue/useconfirm';
 import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import {DeleteDevice, DeleteElement, UpdateElement} from "@/services/ecm-marfy/devices/deviceService";
+import { DeleteDevice, DeleteElement, UpdateElement } from '@/services/ecm-marfy/devices/deviceService';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTree';
 
 // Props
 const { data, variant } = defineProps<{
   data: any;
-  variant?: string; // "Elektroměr" | "Fotovoltaika" | "Lokalita"
+  variant?: string;
 }>();
 
 // Store a knihovny
 const sidebarStore = useSidebarStore();
 const confirm = useConfirm();
 const toast = useToast();
+const router = useRouter();
+const store = useSelectedItemStore();
+const { fetchOrgTree } = useOrgTree();
 
 // Stav pro zobrazení dialogu a editaci názvu
 const showDialog = ref(false);
@@ -45,10 +49,27 @@ const backgroundClass = computed(() => {
   }
 });
 
+// Funkce pro navigaci a rozbalení stromu
+async function navigateToDevice() {
+  // Nastavíme selectedNodeId pro zvýraznění třídou testtest
+  store.setSelectedItem('', undefined, data.nodeID); 
+
+  // Načteme strom, pokud není načten
+  if (!store.orgTree.length || store.idOfLoadedTree !== store.selectedOrgId) {
+    await fetchOrgTree(store.selectedOrgId);
+  }
+
+  // Rozbalíme cestu k uzlu
+  store.expandNodePath(data.nodeID);
+
+  // Navigace na detail zařízení
+  router.push({ name: 'electricitymeter-detail', params: { id: data.id } });
+}
+
 // Mazání zařízení nebo elementu
 function delDeviceOrElement(elementId: number, deviceId: number) {
-  const message = "Opravdu chcete smazat " + (elementId != null ? "tenhle element" : "tohle zařízení") + "?";
-  
+  const message = `Opravdu chcete smazat ${elementId != null ? 'tenhle element' : 'tohle zařízení'}?`;
+
   confirm.require({
     message,
     header: 'Potvrzení mazání',
@@ -57,36 +78,36 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
     rejectProps: {
       label: 'Zrušit',
       severity: 'secondary',
-      outlined: true
+      outlined: true,
     },
     acceptProps: {
       label: 'Smazat',
-      severity: 'danger'
+      severity: 'danger',
     },
     accept: async () => {
       showDialog.value = false;
-      
-      let deleteResult = elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId);
-      
+
+      const deleteResult = elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId);
+
       console.log(deleteResult);
 
       toast.add({ severity: 'success', summary: 'Smazáno', detail: 'Zařízení bylo smazáno', life: 3000 });
     },
     reject: () => {
       toast.add({ severity: 'error', summary: 'Zamítnuto', detail: 'Mazání zrušeno', life: 3000 });
-    }
+    },
   });
 }
 
 // Uložení změn názvu
-async function saveElementName(editedElement:any) {
+async function saveElementName(editedElement: any) {
   if (editedElementName.value.trim() === '') {
     toast.add({ severity: 'error', summary: 'Chyba', detail: 'Název nemůže být prázdný', life: 3000 });
     return;
   }
   editedElement.elementName = editedElementName.value;
-  await UpdateElement(editedElement);// Aktualizace názvu v datech
-  showDialog.value = false; // Zavře dialog
+  await UpdateElement(editedElement);
+  showDialog.value = false;
   toast.add({ severity: 'success', summary: 'Uloženo', detail: 'Název byl aktualizován', life: 3000 });
 }
 </script>
@@ -117,9 +138,7 @@ async function saveElementName(editedElement:any) {
 
         <div class="ecm-deviceBox__footer">
           <div class="ecm-deviceBox__device-button">
-            <RouterLink :to="{ name: 'electricitymeter-detail', params: { id: data.id } }">
-              Zobrazit zařízení 
-            </RouterLink>
+            <a href="#" @click.prevent="navigateToDevice">Zobrazit zařízení</a>
           </div>
         </div>
       </div>
@@ -129,7 +148,6 @@ async function saveElementName(editedElement:any) {
     </div>
   </div>
 
-  <!-- Dialog pro úpravu a smazání -->
   <Dialog v-model:visible="showDialog" header="Upravit zařízení" :modal="true" :style="{ width: '400px' }">
     <div class="p-field">
       <label for="elementName">Název zařízení</label>
@@ -193,7 +211,6 @@ async function saveElementName(editedElement:any) {
   background-color: rgba(255, 255, 255, 0.342);
 }
 
-/* Dodatečné styly pro dialog */
 .p-field {
   margin-bottom: 1rem;
 }

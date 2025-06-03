@@ -16,7 +16,7 @@ const emit = defineEmits(['dashboardData']);
 const sidebarStore = useSidebarStore();
 const store = useSelectedItemStore();
 const mainSelect = useMainSelect();
-const uiStore = useUiStore(); // <-- používáme pro viditelnost aside
+const uiStore = useUiStore(); 
 
 const { fetchOrgTree } = useOrgTree();
 const { renderTree } = useTreeNavigation(handleNodeClick);

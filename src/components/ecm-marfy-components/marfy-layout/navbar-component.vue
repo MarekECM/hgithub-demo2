@@ -5,12 +5,16 @@ import { useWindowResize } from '@/composables/global/gl_resizeWindow';
 import { useUiStore } from '@/stores/ui/uiStore';
 import { useAuthStore } from '@/stores/auth/useAuthStore';
 import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
+import { useRoute, useRouter } from 'vue-router';
 
 // Připojení ke store
 const uiStore = useUiStore();
 const sidebarStore = useSidebarStore();
 const authStore = useAuthStore();
 const alarmStore = useAlarmStore();
+
+const route = useRoute();
+const router = useRouter();
 
 // Navigační položky
 const navbar = ref([
@@ -30,7 +34,6 @@ const { dynamicStyles } = useWindowResize();
 const isWide = computed(() => sidebarStore.isWide);
 const alarms = computed(() => alarmStore.alarms); // Použij alarmy ze store
 
-//const toggleAside = () => uiStore.toggleAside();
 const toggleNavBar = () => uiStore.toggleNavBar();
 const toggleSidebar = () => uiStore.toggleSidebar();
 const toggleNotification = () => uiStore.toggleNotification();
@@ -48,6 +51,20 @@ function handleClickOutside(event: MouseEvent) {
   }
 }
 
+// Nová funkce pro kontrolu aktivního linku podle začátku cesty
+function isActiveLink(to: any) {
+  const resolved = router.resolve(to);
+  const path = route.path;
+
+  // Pokud jsme v detailu elektroměru, aktivuj položku 'data'
+  if (path.startsWith('/detail-elektromeru')) {
+    return to.name === 'data';
+  }
+
+  // Jinak běžná logika podle startsWith
+  return path.startsWith(resolved.path);
+}
+
 onMounted(() => {
   document.addEventListener('mousedown', handleClickOutside);
 });
@@ -56,6 +73,7 @@ onUnmounted(() => {
   document.removeEventListener('mousedown', handleClickOutside);
 });
 </script>
+
 <template>
   <div class="ecm-navbar" :style="dynamicStyles">
     <div class="ecm-navbar__nav-wrapper">
@@ -67,54 +85,60 @@ onUnmounted(() => {
             </RouterLink>
           </div>
           <div class="ecm-navbar__logo-responsive">
-            <RouterLink :to="{ name: 'homeView' }"
-              ><img src="/src/components/img/icon-logo.webp" alt="Logo" width="72px" height="auto"
-            /></RouterLink>
+            <RouterLink :to="{ name: 'homeView' }">
+              <img src="/src/components/img/icon-logo.webp" alt="Logo" width="72px" height="auto" />
+            </RouterLink>
           </div>
         </div>
+
         <nav class="ecm-navbar__main-nav">
           <ul ref="navList" class="ecm-navbar__main-nav-list">
             <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__main-nav-item">
               <RouterLink
                 :to="link.to"
-                active-class="ecm-navbar__active-link"
-                class="ecm-navbar__main-nav-link"
-                >{{ link.text }}</RouterLink
+                :class="[
+                  'ecm-navbar__main-nav-link',
+                  isActiveLink(link.to) ? 'ecm-navbar__active-link' : ''
+                ]"
               >
+                {{ link.text }}
+              </RouterLink>
               <span
                 :class="[
                   index >= navbar.length - 2
                     ? 'ecm-navbar__link-line--alt'
                     : 'ecm-navbar__link-line',
-                  link.to?.name && $route.name === link.to.name ? 'ecm-navbar__active-line' : ''
+                  isActiveLink(link.to) ? 'ecm-navbar__active-line' : ''
                 ]"
               ></span>
             </li>
           </ul>
         </nav>
       </div>
+
       <div class="ecm-navbar__icons">
         <nav class="ecm-navbar__secondary-nav">
           <ul class="ecm-navbar__secondary-nav-list">
             <!-- Notification item -->
-            <li class="ecm-navbar__icon-item ecm-navbar__icon-item--notification" ref="notificationBarRef"  @click="toggleNotification">
-                    <span class="ecm-navbar__icon-item--notification-number" v-if="alarms.length > 0">
-                    {{ alarms.length }}
-                    </span>
+            <li class="ecm-navbar__icon-item ecm-navbar__icon-item--notification" ref="notificationBarRef" @click="toggleNotification">
+              <span class="ecm-navbar__icon-item--notification-number" v-if="alarms.length > 0">
+                {{ alarms.length }}
+              </span>
               <span class="material-icons">notifications</span>
-                <ul v-if="uiStore.isNotificationBar && alarms.length > 0" class="ecm-navbar__dropdown-2">
-                  <li v-for="(alarm, index) in alarms" :key="index" class="ecm-navbar__dropdown-item">
-                    <router-link
-                      :to="{ name: 'alarms' }"
-                      class="ecm-navbar__dropdown-link"
-                      @click="uiStore.isAsideVisible = false"
-                    >
-                      {{ alarm.name || alarm.title || alarm.message || 'Neznámý alarm' }}
-                    </router-link>
-                  </li>
-                </ul>
+              <ul v-if="uiStore.isNotificationBar && alarms.length > 0" class="ecm-navbar__dropdown-2">
+                <li v-for="(alarm, index) in alarms" :key="index" class="ecm-navbar__dropdown-item">
+                  <router-link
+                    :to="{ name: 'alarms' }"
+                    class="ecm-navbar__dropdown-link"
+                    @click="uiStore.isAsideVisible = false"
+                  >
+                    {{ alarm.name || alarm.title || alarm.message || 'Neznámý alarm' }}
+                  </router-link>
+                </li>
+              </ul>
             </li>
-            <!-- Arrow item (Sidebar toggle) -->
+
+            <!-- Arrow item -->
             <li class="ecm-navbar__icon-item ecm-navbar__icon-item--arrow" @click="toggleSidebar">
               <span class="material-icons">arrow_drop_down</span>
             </li>
@@ -126,27 +150,28 @@ onUnmounted(() => {
               </li>
             </RouterLink>
 
-            <!-- More item (Navbar toggle) -->
-            <li  class="ecm-navbar__icon-item ecm-navbar__icon-item--more"  ref="navBarRef"  @click="toggleNavBar"   >
+            <!-- More (hamburger) -->
+            <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" ref="navBarRef" @click="toggleNavBar">
               <span class="material-icons">more_vert</span>
               <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
                 <li class="ecm-logout-container" v-if="authStore.user">
-                  <span class="ecm-logout-container__text"
-                    >Uživatel:<span class="ecm-logout-container__user">{{
-                      authStore.user.name || 'Uživatel'
-                    }}</span></span
-                  >
-                  <span class="material-icons ecm-logout-container__logout" @click="logout"
-                    >logout</span
-                  >
+                  <span class="ecm-logout-container__text">
+                    Uživatel:
+                    <span class="ecm-logout-container__user">
+                      {{ authStore.user.name || 'Uživatel' }}
+                    </span>
+                  </span>
+                  <span class="material-icons ecm-logout-container__logout" @click="logout">logout</span>
                 </li>
-                <!-- Iterování přes navigační položky -->
 
+                <!-- Hamburger menu items -->
                 <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
                   <RouterLink
                     :to="link.to"
-                    active-class="ecm-navbar__active-link"
-                    class="ecm-navbar__main-nav-link"
+                    :class="[
+                      'ecm-navbar__main-nav-link',
+                      isActiveLink(link.to) ? 'ecm-navbar__active-link' : ''
+                    ]"
                   >
                     {{ link.text }}
                   </RouterLink>
