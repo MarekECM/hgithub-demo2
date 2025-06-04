@@ -18,22 +18,15 @@ const { data, variant } = defineProps<{
   variant?: string;
 }>();
 
+
+
 const settingsIcons = ref([
-  {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => {
-      showDialog.value = true;
-    }
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => {
-      //delDeviceOrElement(data.id, data.nodeID);
-    }
-  }
+  { label: 'Edit', icon: 'edit', command: () => (showDialog.value = true) },
+  { label: 'Delete', icon: 'delete', command: () => delDeviceOrElement(data.id, data.nodeID) },
 ]);
+
+
+
 
 // Store a knihovny
 const sidebarStore = useSidebarStore();
@@ -161,22 +154,25 @@ async function saveElementName(editedElement: any) {
         </div>
       </div>
     </div>
-<!--    <div class="ecm-deviceBox__settings" @click="showDialog = true">-->
-<!--      <span class="material-icons" style="font-size: 20px;">settings</span>-->
-<!--    </div>-->
-    <SpeedDial
+      <SpeedDial
         :model="settingsIcons"
         direction="down"
-        style="position: absolute; left: calc(100% - 1.8rem); top: calc(0% - 1.2rem);color: white;"
         :buttonClass="'p-button-rounded p-button-text'"
-        icon="material-icons"
-        class="relative"
-        
-    >
-      <template #icon>
-        <span class="material-icons" style="color: white;">settings</span>
-      </template>
-    </SpeedDial>
+        class="ecm-deviceBox__settings"
+      >
+        <template #icon>
+          <span class="material-icons ecm-deviceBox__settings-icon">settings</span>
+        </template>
+<template #item="{ item }">
+  <button
+    class="p-speeddial-action p-button p-button-rounded"
+    @click="event => item.command && item.command({ originalEvent: event, item })"
+  >
+    <span class="material-icons">{{ item.icon }}</span>
+  </button>
+</template>>
+
+      </SpeedDial>
   </div>
 
   <Dialog v-model:visible="showDialog" header="Upravit zařízení" :modal="true" :style="{ width: '400px' }">
@@ -250,5 +246,10 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
+}
+
+.material-icons {
+  font-size: 24px;
+  vertical-align: middle;
 }
 </style>
