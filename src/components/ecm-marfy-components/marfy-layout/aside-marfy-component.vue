@@ -26,7 +26,7 @@ const searchTerm = ref('');
 
 async function handleNodeClick(node: any) {
   store.selectedNodeId = node.id;
-  const dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0);
+  const dashboards = await getDashboards(node.id ?? 0, store.selectedOrgId ?? 0, node.deviceTypeID == null);
   console.log(dashboards.data);
   if (dashboards.data != null) {
     emit('dashboardData', dashboards.data);

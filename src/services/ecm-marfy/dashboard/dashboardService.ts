@@ -3,15 +3,13 @@ import axios from "axios";
 import {useAlarmStore} from "@/stores/ecm-marfy/alarms/useAlarmStore";
 
 
-export async function getDashboards(nodeId: number, orgId: number) {
+export async function getDashboards(nodeId: number, orgId: number, isNodeDevice: boolean) {
     const store = useSelectedItemStore();
 
     switch (store.selectedSection) {
         case "/home":
         case "/data":
-            return await axios.get(`${import.meta.env.VITE_API_URL}Dashboard/GetDashboards`, {
-                params: { nodeId, orgId }
-            });
+            return isNodeDevice ? await GetDevices(nodeId,orgId):await GetElements(nodeId,orgId);
 
         case "/souhrny":
             return await axios.get(`${import.meta.env.VITE_API_URL}Device/DeviceDashboard/${nodeId}`, {
@@ -57,11 +55,19 @@ export async function getDashboards(nodeId: number, orgId: number) {
     }
 }
 
-export async function getSummaries(nodeId : number, orgId : number){
-    return await axios.get(`${import.meta.env.VITE_API_URL}Dashboard/GetDashboards`, {
-        params: {
+export async function GetDevices(nodeId: number, orgId: number){
+    return await axios.get(`${import.meta.env.VITE_API_URL}DashBoard/GetDevices`, {
+        params:{
             nodeId: nodeId,
-            orgId: orgId
+            orgId: orgId,
+        }
+    });
+}
+export async function GetElements(nodeId: number, orgId: number){
+    return await axios.get(`${import.meta.env.VITE_API_URL}DashBoard/GetElements`,{
+        params:{
+            nodeId: nodeId,
+            orgId: orgId,
         }
     });
 }

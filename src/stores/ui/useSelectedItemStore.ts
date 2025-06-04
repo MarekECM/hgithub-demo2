@@ -8,6 +8,7 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
   const selectedItem = ref<string>('Vyberte položku ze seznamu');
   const selectedOrgId = ref<number | null>(null);
   const selectedNodeId = ref<number | null>(null);
+  const isNodeLeaf = ref<boolean>(true);
   const selectedSection = ref<string | null>(null);
   const orgTree = ref<OrgNode[]>([]);
   const isTreeLoadingTree = ref(false);
