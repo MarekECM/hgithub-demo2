@@ -94,23 +94,10 @@ onUnmounted(() => {
         <nav class="ecm-navbar__main-nav">
           <ul ref="navList" class="ecm-navbar__main-nav-list">
             <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__main-nav-item">
-              <RouterLink
-                :to="link.to"
-                :class="[
-                  'ecm-navbar__main-nav-link',
-                  isActiveLink(link.to) ? 'ecm-navbar__active-link' : ''
-                ]"
-              >
+              <RouterLink :to="link.to" :class="['ecm-navbar__main-nav-link', isActiveLink(link.to) ? 'ecm-navbar__active-link' : '' ]">
                 {{ link.text }}
               </RouterLink>
-              <span
-                :class="[
-                  index >= navbar.length - 2
-                    ? 'ecm-navbar__link-line--alt'
-                    : 'ecm-navbar__link-line',
-                  isActiveLink(link.to) ? 'ecm-navbar__active-line' : ''
-                ]"
-              ></span>
+              <span :class="[index >= navbar.length - 2 ? 'ecm-navbar__link-line--alt' : 'ecm-navbar__link-line', isActiveLink(link.to) ? 'ecm-navbar__active-line' : '' ]"></span>
             </li>
           </ul>
         </nav>
@@ -125,13 +112,9 @@ onUnmounted(() => {
                 {{ alarms.length }}
               </span>
               <span class="material-icons">notifications</span>
-              <ul v-if="uiStore.isNotificationBar && alarms.length > 0" class="ecm-navbar__dropdown-2">
+              <ul v-if="uiStore.isNotificationBar && alarms.length > 0" class="ecm-navbar__dropdown-notification">
                 <li v-for="(alarm, index) in alarms" :key="index" class="ecm-navbar__dropdown-item">
-                  <router-link
-                    :to="{ name: 'alarms' }"
-                    class="ecm-navbar__dropdown-link"
-                    @click="uiStore.isAsideVisible = false"
-                  >
+                  <router-link :to="{ name: 'alarms' }" class="ecm-navbar__dropdown-link" @click="uiStore.isAsideVisible = false">
                     {{ alarm.name || alarm.title || alarm.message || 'Neznámý alarm' }}
                   </router-link>
                 </li>
@@ -153,19 +136,20 @@ onUnmounted(() => {
             <!-- More (hamburger) -->
             <li class="ecm-navbar__icon-item ecm-navbar__icon-item--more" ref="navBarRef" @click="toggleNavBar">
               <span class="material-icons">more_vert</span>
-              <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown">
-                <li class="ecm-logout-container" v-if="authStore.user">
-                  <span class="ecm-logout-container__text">
+              <ul v-if="uiStore.navBarIcon" class="ecm-navbar__dropdown-menu">
+                <li class="ecm-navbar__dropdown-menu-logout-item" v-if="authStore.user">
+                  <span class="ecm-navbar__dropdown-menu-logout-item-text">
                     Uživatel:
-                    <span class="ecm-logout-container__user">
+                    <span class="ecm-navbar__dropdown-menu-logout-item-user">
                       {{ authStore.user.name || 'Uživatel' }}
                     </span>
                   </span>
-                  <span class="material-icons ecm-logout-container__logout" @click="logout">logout</span>
+                  <span class="material-icons ecm-navbar__dropdown-menu-logout-item-icon" @click="logout">logout</span>
                 </li>
 
+
                 <!-- Hamburger menu items -->
-                <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-item">
+                <li v-for="(link, index) in navbar" :key="index" class="ecm-navbar__dropdown-menu-item">
                   <RouterLink
                     :to="link.to"
                     :class="[
@@ -185,26 +169,3 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style setup lang="scss">
-.ecm-navbar__dropdown-2 {
-  background-color: rgb(255, 252, 252);
-  width: 300px;
-  height: 100vh;
-  position: absolute;
-  top: 54px;
-  right: -135px;
-
-  & li {
-    padding: 0.3rem 0.8rem;
-    text-align: left;
-  }
-
-  & li a {
-    padding: 0px;
-    padding-left: 5px;
-    border-bottom: 1px solid #ccc;
-    height: 50px;
-    background-color: rgba(255, 0, 0, 0.089);
-  }
-}
-</style>

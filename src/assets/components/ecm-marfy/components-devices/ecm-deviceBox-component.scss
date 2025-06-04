@@ -1,206 +1,197 @@
 .ecm-deviceBox {
-    display: inline-block;
+  display: inline-block;
+  width: 100%;
+  max-width: 410px;
+  height: 225px;
+  background-color: var(--devices-container-background);
+  border-radius: 20px;
+  margin: 0 15px 29px;
+  padding: 15px;
+  box-shadow: var(--devices-box-shadow);
+  border: 1px solid var(--devices-border-color);
+  position: relative;
+
+  &__wrap {
     width: 100%;
-    max-width: 410px;
-    height: 225px;
-    background-color: var(--devBackgroundContainer);
-    border-radius: 20px;
-    margin: 0 15px 29px;
-    padding: 15px;
-    box-shadow: var(--devBoxShadow);
-    border: 1px solid var(--devBorder);
-    position: relative;
-  
-    &__wrap {
-      width: 100%;
-      height: 100%;
-      display: flex;
-    }
-  
-    &__img-content {
-      max-width: 150px;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      //pro img
-      background-color: var(--img-background); 
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      align-items: flex-end;
-    }
-  
-    &__date {
-      width: 100%;
-      height: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      color: var(--devH2Color);
-      font-size: 13px;
-      padding: 8px;
-  
-      &-value {
-        color: inherit;
-      }
-  
-      &-time-value {
-        color: inherit;
-      }
-    }
-  
-    &__content {
-      display: flex;
-      text-align: left;
-      flex-direction: column;
-      justify-content: space-between;
-      padding-left: 15px;
-    }
-  
-    &__header {
-      color: var(--comDevTitleColor);
-      font-size: 25px;
-    }
-  
-    &__main {
-      display: flex;
-      flex-direction: column;
-  
+    height: 100%;
+    display: flex;
+  }
 
+  &__img-content {
+    max-width: 150px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    //pro img
+    background-color: var(--img-background);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: flex-end;
+  }
+
+  &__date {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--devices-heading-color);
+    font-size: 13px;
+    padding: 8px;
+
+    &-value {
+      color: inherit;
     }
 
-    &__text {
-      color: var(--devH2Color);
-      width: 100%;
-      max-width: 255px;
+    &-time-value {
+      color: inherit;
     }
+  }
 
-    &__charge-value {
-      color: var(--batteryValueCharge);
-      font-size: var(--balanceContainer-value);
-    }
-  
-    &__footer {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+  &__content {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 15px;
+  }
 
-    }
+  &__header {
+    color: var(--devices-title-color);
+    font-size: 25px;
+  }
 
-    &__device-button {
-      width: 180px;
-      height: 35px;
-      background-color: var(--devButtonBackground);
-      color: var(--devColorLink);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 25vh;
-      cursor: pointer;
+  &__main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__text {
+    color: var(--devices-heading-color);
+    width: 100%;
+    max-width: 255px;
+  }
+
+  &__charge-value {
+    color: var(--devices-battery-charge-color);
+    font-size: var(--balanceContainer-value);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__device-button {
+    width: 180px;
+    height: 35px;
+    background-color: var(--devices-button-background);
+    color: var(--devices-link-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25vh;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: var(--transtion2);
+
+    a {
+      color: inherit;
       text-decoration: none;
-      padding: 10px 15px;
-      transition: var(--transtion2);
-
-      a {
-        color: inherit;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: center;
-
-      }
-
-      &:hover {
-        background-color: var(--db-hover-efect-background);
-        color:var(--db-hover-efect-color)
-      }
-
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
     }
 
-   &__settings {
+    &:hover {
+      background-color: var(--devices-hover-icon-background-color);
+      color: var(--devices-hover-icon-color);
+    }
+  }
+
+  &__settings {
     position: absolute;
     top: -10px;
     right: -15px;
-    color: var(--devColorLink);
+    color: var(--devices-link-color);
     width: 30px;
     height: 30px;
     border-radius: 50vh;
-    background-color: var(--devButtonBackground);
+    background-color: var(--devices-button-background);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transtion2);
-    border: 1px solid var(--devBorder);
+    border: 1px solid var(--devices-border-color);
 
     &:hover {
-       background-color: var(--db-hover-efect-background);
-      color:var(--db-hover-efect-color)
+      background-color: var(--devices-hover-icon-background-color);
+      color: var(--devices-hover-icon-color);
     }
-   }
   }
+}
 
-  @media (max-width: 1536px) {
-    .ecm-electricity-meter {
-         
+@media (max-width: 1536px) {
+  .ecm-electricity-meter {
+    width: 100%;
+    max-width: 365px;
+    margin: 0 15px 30px;
+
+    &__device-button {
+      max-width: 180px;
       width: 100%;
-      max-width: 365px;
-      margin: 0 15px 30px;
-      
-      &__device-button {
-        max-width: 180px;
-        width: 100%;
-      }
     }
   }
+}
 
+@media (max-width: 712px) {
+  .ecm-electricity-meter {
+    width: 100%;
+    max-width: none;
+    margin: 0 0 30px;
 
-  @media (max-width: 712px) {
-    .ecm-electricity-meter {
-         
+    &__content {
       width: 100%;
-      max-width: none;
-      margin: 0 0 30px;
-
-      &__content {
-        width: 100%;
-      }
     }
   }
+}
 
-  .device-btn-container {
+.device-btn-container {
+  display: flex;
+
+  &__selection-alarms {
+    width: 215px;
+    height: 35px;
+    background-color: var(--btnBgSelectAlarms);
+    border-radius: 5px;
+    font-size: 15px;
     display: flex;
-       
-    &__selection-alarms {
-      width: 215px;
-      height: 35px;
-      background-color: var(--btnBgSelectAlarms);
-      border-radius: 5px;
-      font-size: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px;
-      cursor: pointer;
-      border: 1px solid var(--btnBorderAlarms);
-      transition: var(--transtion3);
-      margin-left: 10px;
- 
-    }
-  
-    &__text {
-      width: 100%;
-    }
-  
-    &__icon-content {
-      padding: 0;
-      display: flex;
-      font-size: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid var(--btnBorderAlarms);
+    transition: var(--transtion3);
+    margin-left: 10px;
+  }
 
-      & .material-icons {
-        font-size: 24px;
-      }
+  &__text {
+    width: 100%;
+  }
+
+  &__icon-content {
+    padding: 0;
+    display: flex;
+    font-size: 10px;
+
+    & .material-icons {
+      font-size: 24px;
     }
+  }
 }

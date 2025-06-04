@@ -62,9 +62,9 @@ onMounted(() => {
   <aside class="ecm-aside" :class="{ 'is-visible': uiStore.sidebar }">
 
     <div class="ecm-aside__header">
-<div class="ecm-aside__header-close-btn"  @click="uiStore.sidebar = false">
-  <span class="material-icons">close</span>
-</div>
+      <div class="ecm-aside__header-close-btn"  @click="uiStore.sidebar = false">
+        <span class="material-icons">close</span>
+      </div>
          
 
       <span class="ecm-aside__background-element"></span>
@@ -74,23 +74,16 @@ onMounted(() => {
         </RouterLink>
       </div>
       <div class="ecm-aside__select">
-        <!-- Předávám searchTerm jako prop, uprav mainSelectW pokud to nepodporuje -->
         <mainSelectW :filter="searchTerm" />
       </div>           
     </div>
 
     <div class="ecm-aside__search ecm-aside__search--hidden" :class="{ 'ecm-aside__search--active': mainSelect.isActive }">
       <span class="ecm-aside__search-icon material-icons">search</span>
-      <input
-        v-model="searchTerm"
-        class="ecm-aside__search-input"
-        type="search"
-        placeholder="Hledej"
-        autocomplete="off"
-      />
+      <input v-model="searchTerm" class="ecm-aside__search-input" type="search" placeholder="Hledej" autocomplete="off"/>
     </div>
 
-    <div class="ecm-aside__nav-tree-container" style="padding-top: 25px;">
+    <div class="ecm-aside__nav-tree-container">
       <ul class="ecm-aside__nav-tree-main-list">
         <template v-if="store.isTreeLoadingTree">
           <li class="ecm-aside__nav-tree-loader">
@@ -114,12 +107,3 @@ onMounted(() => {
   </aside>
 </template>
 
-<style scoped>
-.display-block {
-  display: flex;
-}
-
-.display-none {
-  display: none;
-}
-</style>

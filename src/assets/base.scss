@@ -90,20 +90,18 @@ table {
   width: 100%;
 }
 
-
 thead th {
-  background-color: var(--tableHeaderBackground); 
+  background-color: var(--tableHeaderBackground);
   text-align: center;
 }
 
 thead tr th:first-child {
-  border-radius: 25px 0 0 25px !important; 
+  border-radius: 25px 0 0 25px !important;
 }
 
 thead tr th:last-child {
-  border-radius: 0 25px 25px 0 !important; 
+  border-radius: 0 25px 25px 0 !important;
 }
-
 
 .tbody,
 td {
@@ -175,64 +173,82 @@ th {
   --body-backgroundColor: #191d23;
   --body-backgroundColorBlur: #f5f6f7cb;
   --ecm-title: #fff;
-  // ECM Marfy component
+
+  // ECM Marfy Layout components
 
   // Navbar
-  --navbar-backgroundColor: #ffffff;
-  --navbar-text-primaryColor: #191d23;
-  --navbar-text-secundaryColor: #eb3443;
+  --navbar-background-color: #ffffff;
+  --navbar-text-primary-color: #191d23;
+  --navbar-text-secondary-color: #eb3443;
   --navbar-hover-color: #eb3443;
-  --navbar-text-decorationLinkColor1: #eb3443;
-  --navbar-text-decorationLinkColor2: #e7eaee;
-  --navbar-iconColor: #191d23;
-  --colorLink: #000;
-  
-  // Navbar icons
+  --navbar-hover-background-color: #eb3443;
+  --navbar-hover-text-color: #ffffff;
+  --navbar-active-link-color: #eb3443;
+  --navbar-hover-border-bottom-link-color: #eb3443;
+  --navbar-active-link-border-bottom-color: #eb3443;
+  --navbar-border-bottom-link-color: #e7eaee;
+  --navbar-icon-background-color: #e7eaee;
+  --navbar-icon-hover-color: #fff;
+  --navbar-icon-hover-background-color: #191d23;
+  --navbar-drop-down-logout-section-border-bottom-color: #dfe1e6;
+  --navbar-drop-down-logout-section-icon-background-color: #e7eaee;
+  --navbar-drop-down-logout-section-hover-icon-background-color: #191d23;
+  --navbar-notification-drop-down-link-text-color: #191d23;
+  --navabr-notification-drop-down-li-item-background-color:rgba(255, 0, 0, 0.089);
+  --navabr-notification-drop-down-li-item-hover-background-color: rgba(255, 0, 0, 0.2);
 
-  --nav-icon-background: #eb3443;
+  // Navbar Icons
+  --navbar-icon-size: 26px;
+
+  // Navbar notification icons
+  --nav-notification-icon-background: #eb3443;
   --color-notification: #fff;
-  
+  --font-size-number: 13px;
 
-
-  // SideNavbar
-  --sideMenu-title: #64748b;
-  --sideMenu-headerBacground: #eb3443;
-  --sideMenu-backgroundColor: #1f262e;
-  --sideMenu-iconColorPrim: #a0abbb;
-  --sideMenu-iconColorSec: #eb3443;
-  --sideMenu-hover-itemList: #48aeed;
-  --sideMenu-arrow-color: #eb3443;
-  --sideMenu-itemList-background: #1f262e;
-  --sideMenu-hovBac: #eb3443;
-  --sideMenu-hovColor: #ffffff;
-  --sideMenu-itemBac: transparent;
-  --sideMenu-line-item: #a0abbb;
-  --sideMenu-color: #a0abbb;
-  --sideMenu-resize: #a0abbb;
-  --sideMenu-ArrowColorHov: #fff;
-  --sideMenu-colorFotterPrim: rgb(65, 89, 125);
-  --sideMenu-colorFotterSec: #fff;
+  // AsideNavBar color
+  --aside-navbar-background-logo-element-color: #eb3443;
+  --aside-navbar-background-color: #1f262e;
+  --aside-navbar-icon-primary-color: #ccd2da;
+  --aside-navbar-icon-secondary-color: #eb3443;
+  --aside-navbar-hover-item-list-color: #48aeed;
+  --aside-navbar-arrow-color: #eb3443;
+  --aside-navbar-item-list-background: #1f262e;
+  --aside-navbar-hover-background-color: #eb3443;
+  --aside-navbar-hover-text-color: #ffffff;
+  --aside-navbar-item-background-color: transparent;
+  --aside-navbar-line-item-color: #383c41;
+  --aside-navbar-text-color: #a0abbb;
+  --aside-navbar-resize-color: #a0abbb;
+  --aside-navbar-arrow-hover-color: #ffffff;
+  --aside-navbar-footer-primary-text-color: #41597d;
+  --aside-navbar-footer-secondary-color: #ffffff;
+  --aside-navbar-close-button-background-color: #ffffff;
+  --aside-navbar-close-button-border-color: #000000;
+  --aside-navbar-search-input-background-color: #ffffff;
+  --aside-navbar-search-input-focus-background-color: #f0f0f0;
+  --aside-navbar-search-input-focus-text-color: #000000;
+  --aside-navbar-search-input-placeholder-color: #aaa;
+  --aside-navbar-spiner-color: #191d23;
+  --aside-navbar-border-top: #eb3443;
 
   // mainSelect
-  --selectContainerBacground: #fff;
-  --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
-  --textColorhov: #fff;
+  --aside-select-container-background: #fff;
+  --aside-select-text-color-hover: #fff;
+  --aside-select-hover-text-color: #eb3443;
 
   //components
 
   // Banner
-  --background-1: #459dd410;
-  --background-2: #191d23;
+  --banner-container-background: #202e44;
+  --banner-dot-active: #eb3443;
+  --banner-dot-inactive: #492f43;
 
-  --iconColor-1: #f0f8ff;
-
-  --bannerContainerBackground: #202e44;
-  --dotActive: #eb3443;
-  --dotInActive: #492f43;
-  --bannerHeroTitleColor: #fff;
-  --bannertitleColor: #eb3443;
-  --bannerButtonBackground: #eb3443;
-  --bannerTextColor: #fff;
+  --banner-hero-title-color: #fff;
+  --banner-title-color: #eb3443;
+  --banner-button-background: #eb3443;
+  --banner-text-color: #fff;
+  --baner-icon-border: #fff;
+  --banner-close-icon-color: #fff;
 
   // Production container component
   --production-Background: #a7f3d0;
@@ -254,16 +270,18 @@ th {
   --economic-performance-textColor: #fff;
 
   // Components-devices
-  --batteryValueCharge: #f59e0b;
-  --energyConsumption: #10b981;
-  --energyOutput: #10b981;
-  --comDevTitleColor: #ffffff;
-  --devColorLink: #ffffff;
-  --devButtonBackground: #303945;
-  --devBackgroundContainer: #1f262e;
-  --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  --devBorder: #3c4d67;
-  --devH2Color: #a0abbb;
+  --devices-battery-charge-color: #f59e0b;
+  --devices-energy-consumption-color: #10b981;
+  --devices-energy-output-color: #10b981;
+  --devices-title-color: #ffffff;
+  --devices-link-color: #ffffff;
+  --devices-button-background: #303945;
+  --devices-container-background: #1f262e;
+  --devices-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --devices-border-color: #3c4d67;
+  --devices-heading-color: #a0abbb;
+  --devices-hover-icon-background-color: #fff;
+  --devices-hover-icon-color: #000;
 
   //component total supplyGrid
   --totalValuesColor: #57657a;
@@ -280,6 +298,18 @@ th {
   //selection Periods
   --selectionPeriodsBg: #eb3443;
 
+  //login
+  --login-container-bacground: #e7ecf3;
+  --login-input-border-color: rgb(206, 205, 205);
+  --login-submit-button-background-color: #eb3443;
+  --login-submit-button-text-color: #fff;
+  --login-hover-submit-button-background-color: #fff;
+  --login-hover-submit-button-text-color: #eb3443;
+  --login-input-icon-show-password-color: #eb3443;
+  --login-hover-input-icon-background-color: #eb3443;
+  --login-link-text-color: #eb3443;
+  --login-hover-link-text-color: #b90b1a;
+
   // dailyPlans
   --dailyPlansBgContainer: #1f262e;
   --btnBgDailyPlans: #1f262e;
@@ -293,16 +323,6 @@ th {
   --alarmStatus: #eb3443;
   --oktatus: #10b981;
   --background-alarm-table: #1f272f;
-
-  // devices box
-  --db-hover-efect-background: #fff;
-  --db-hover-efect-color: #000;
-  --img-background: #459dd410
-
-  // reports
-  --background-reports-table: #1f272f;
-  --btnBgSelectReport: #1f262e;
-  --btnBorderReport: #3c4d67;
 
   //table
   --tableHeaderColor: #a0abbb;
@@ -336,98 +356,4 @@ th {
   --background-track: #2a3037;
 }
 
-// .ecm_dark-theme {
-//   // Layout
-//   --body-backgroundColor: #F5F6F7;
-//   --body-backgroundColorBlur: #f5f6f7cb;
-//   // ECM Marfy component
-
-//   // Navbar
-//   --navbar-backgroundColor: #FFFFFF;
-//   --navbar-text-primaryColor: #191D23;
-//   --navbar-text-secundaryColor: #EB3443;
-//   --navbar-hover-color: #EB3443;
-//   --navbar-text-decorationLinkColor1: #EB3443;
-//   --navbar-text-decorationLinkColor2: #E7EAEE;
-//   --navbar-iconColor: #191D23;
-//   --colorLink: #000;
-
-//   // SideNavbar
-//   --sideMenu-title: #64748B;
-//   --sideMenu-headerBacground: #EB3443;
-//   --sideMenu-backgroundColor: #F7F8F9;
-//   --sideMenu-iconColorPrim: #48AEED;
-//   --sideMenu-iconColorSec: #EB3443;
-//   --sideMenu-hover-itemList: #48AEED;
-//   --sideMenu-arrow-color: #EB3443;
-//   --sideMenu-itemList-background: #E7EAEE;
-//   --sideMenu-hovBac: #DAEFFB;
-//   --sideMenu-hovColor: #48AEED;
-//   --sideMenu-itemBac: #dee2e6;
-//   --sideMenu-line-item: #d5d9dd;
-//   --sideMenu-color: #4B5768;
-//   --sideMenu-resize: #ddd;
-//   --sideMenu-ArrowColorHov: #fff;
-
-//   // mainSelect
-//   --selectContainerBacground: #fff;
-//   --boxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px 5px;
-//   --textColorhov: #fff;
-
-//   // Banner
-//   --bannerContainerBackground: #031723;
-//   --dotActive: #EB3443;
-//   --dotInActive: #311C29;
-//   --bannerHeroTitleColor: #fff;
-//   --bannertitleColor: #EB3443;
-//   --bannerButtonBackground: #EB3443;
-//   --bannerTextColor: #fff;
-
-//   // Production container component
-//   --production-Background: #A7F3D0;
-//   --production-IconWrap-bg: #10B981;
-//   --productionIcon-color: #A7F3D0;
-//   --production-textColor: #064E3B;
-
-//   // Consumption container component
-//   --consumption-Background: #FDE68A;
-//   --consumption-IconWrap-bg: #F59E0B;
-//   --consumptionIcon-color: #FDE68A;
-//   --consumption-textColor: #78350F;
-
-//   // Result container component
-//   --result-Background: #191D23;
-//   --result-IconWrap-bg: #505051;
-//   --resultIcon-color: #A0ABBB;
-//   --result-mainValue-color: #EB3443;
-//   --result-textColor: #FFF;
-
-//   // Components-devices
-//   --batteryValueCharge: #f59e0b;
-//   --energyConsumption:  #10B981;
-//   --energyOutput: #10B981;
-//   --comDevTitleColor: #191d23;
-//   --devColorLink: #0e5c8d;
-//   --devButtonBackground:#daeffb;
-//   --devBackgroundContainer: #fff;
-//   --devBoxShadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-//   rgba(0, 0, 0, 0.05) 0px 4px 6px -2px; ;
-
-//   //table
-//   --tableHeaderColor: #48AEED;
-//   --tableHeaderBackground: #EBEBEB;
-
-//   //transition
-//   --transtion1: 0.1s;
-//   --transtion2: 0.2s;
-//   --transtion3: 0.3s;
-
-//   //FontSize
-//   // Banner
-//   --heroTitle: 50px;
-//   --balanceContainer-value: 30px;
-
-//   // scrollbar
-//   --scrollbarBackground: #c9c9c9;
-//   --scrollbarColor: #d5d9dd;
-// }
+//.ecm_dark-theme
