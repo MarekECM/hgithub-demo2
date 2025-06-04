@@ -163,14 +163,14 @@ async function saveElementName(editedElement: any) {
         <template #icon>
           <span class="material-icons ecm-deviceBox__settings-icon">settings</span>
         </template>
-<template #item="{ item }">
-  <button
-    class="p-speeddial-action p-button p-button-rounded"
-    @click="event => item.command && item.command({ originalEvent: event, item })"
-  >
-    <span class="material-icons">{{ item.icon }}</span>
-  </button>
-</template>>
+        <template #item="{ item }">
+          <button
+            class="p-speeddial-action p-button p-button-rounded"
+            @click="event => item.command && item.command({ originalEvent: event, item })"
+          >
+            <span class="material-icons">{{ item.icon }}</span>
+          </button>
+        </template>>
 
       </SpeedDial>
   </div>
