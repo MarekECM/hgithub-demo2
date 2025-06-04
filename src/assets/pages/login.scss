@@ -15,7 +15,7 @@
         width: 100%;
         max-width: 350px;
         height: 425px;
-        background-color: #E7ECF3;
+        background-color: var(--login-container-bacground);
         border-radius: 25px;
         display: flex;
         align-items: stretch;
@@ -56,7 +56,7 @@
         max-width: 260px;
         width: 75%;
         height: 45px;
-        border: 1px solid rgb(206, 205, 205);
+        border: 1px solid var(--login-input-border-color);
         border-radius: 5px;
         padding-left: 10px;
         margin: 5px 0;
@@ -74,14 +74,14 @@
         border-radius: 5px;
         border: none;
         margin-top: 5px;
-        background-color: #EB3443;
-        color: #fff;
+        background-color: var(--login-submit-button-background-color);
+        color: var(--login-submit-button-text-color);
         cursor: pointer;
         transition: var(--transtion3);
 
         &:hover {
-            background-color: #fff;
-            color: #EB3443;
+            background-color: var(--login-hover-submit-button-background-color);
+            color: var(--login-hover-submit-button-text-color);
         }
     }
 
@@ -103,7 +103,7 @@
         right: 5px;
         background-color: transparent;
         border: none;
-        color: #EB3443;
+        color: var(--login-input-icon-show-password-color);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -112,7 +112,7 @@
         transition: var(--transtion3);
 
         &:hover {
-            background-color: #EB3443;
+            background-color: var(--login-hover-input-icon-background-color);
             color: #fff;
         }
 
@@ -124,7 +124,7 @@
 
     &__footer {
        display: flex;
-       color: #EB3443;
+       color: var(--login-link-text-color);
        font-size: 13px;
        flex-direction: column;
        align-items: center;
@@ -136,7 +136,7 @@
         transition: var(--transtion3);
 
         &:hover {
-            color: #b90b1a;
+            color: var(-login-hover-link-text-color);
         }
     }
 

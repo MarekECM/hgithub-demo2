@@ -1,7 +1,7 @@
 .ecm-banner {
     max-width: 1290px;
     width: 100%;
-    background-color: var(--bannerContainerBackground);
+    background-color: var(--banner-container-background);
     margin: 15px;
     border-radius: 20px;
     display: flex;
@@ -35,18 +35,18 @@
     }
 
     &__dot--active {
-    background-color: var(--dotActive);
+    background-color: var(--banner-dot-active);
     }
 
     &__dot--inactive {
-    background-color: var(--dotInActive);
+    background-color: var(--banner-dot-inactive);
     }
   
     &__hero-title {
       width: 100%;
       max-width: 470px;
       font-size: var(--heroTitle);
-      color: var(--bannerHeroTitleColor);
+      color: var(--banner-hero-title-color);
     }
   
     &__footer {
@@ -58,7 +58,7 @@
   
     &__title {
       font-size: 18px;
-      color: var(--bannertitleColor);
+      color: var(--banner-title-color);
       padding: 20px 0;
 
 
@@ -68,8 +68,8 @@
       max-width: 180px;
       width: 100%;
       height: 40px;
-      background-color: var(--bannerButtonBackground);
-      color: var(--bannerTextColor);
+      background-color: var(--banner-button-background);
+      color: var(--banner-text-color);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -81,7 +81,7 @@
       width: 25px;
       height: 25px;
       border-radius: 25vh;
-      border: 1px solid #fff;
+      border: 1px solid var(--baner-icon-border);
       position: absolute;
       right: 15px;
       top: 15px;
@@ -92,7 +92,7 @@
   
       .ecm-banner__icon {
         font-size: 16px;
-        color: #fff;
+        color: var(--banner-close-icon-color);
       }
     }
 

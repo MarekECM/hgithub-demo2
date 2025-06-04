@@ -102,8 +102,10 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
       severity: 'danger',
     },
     accept: async () => {
-      showDialog.value = false;
-      const deleteResult = elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId);
+      showDialog.value = false
+
+      const deleteResult =
+        elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId)
 
       console.log(deleteResult);
 
