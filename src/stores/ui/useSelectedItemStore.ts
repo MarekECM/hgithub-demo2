@@ -1,12 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import type {OrgNode} from "@/interfaces/ecm-marfy/Organization/OrgNodeInterface";
 
-interface OrgNode {
-  id: number;
-  name: string;
-  children?: OrgNode[];
-  [key: string]: any; 
-}
 
 export const useSelectedItemStore = defineStore('selectedItem', () => {
   // Stavové proměnné

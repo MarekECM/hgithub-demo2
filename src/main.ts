@@ -11,8 +11,8 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config';
-import material from '@primevue/themes/material'; 
-
+import material from '@primevue/themes/material';
+import 'primeicons/primeicons.css'
 async function initializeApp() {
     const app = createApp(App);
 

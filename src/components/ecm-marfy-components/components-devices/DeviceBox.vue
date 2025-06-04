@@ -7,6 +7,7 @@ import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
+import SpeedDial from 'primevue/speeddial'
 import { DeleteDevice, DeleteElement, UpdateElement } from '@/services/ecm-marfy/devices/deviceService';
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
 import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTree';
@@ -16,6 +17,23 @@ const { data, variant } = defineProps<{
   data: any;
   variant?: string;
 }>();
+
+const settingsIcons = ref([
+  {
+    label: 'Edit',
+    icon: 'pi pi-pencil',
+    command: () => {
+      showDialog.value = true;
+    }
+  },
+  {
+    label: 'Delete',
+    icon: 'pi pi-trash',
+    command: () => {
+      //delDeviceOrElement(data.id, data.nodeID);
+    }
+  }
+]);
 
 // Store a knihovny
 const sidebarStore = useSidebarStore();
@@ -69,7 +87,6 @@ async function navigateToDevice() {
 // Mazání zařízení nebo elementu
 function delDeviceOrElement(elementId: number, deviceId: number) {
   const message = `Opravdu chcete smazat ${elementId != null ? 'tenhle element' : 'tohle zařízení'}?`;
-
   confirm.require({
     message,
     header: 'Potvrzení mazání',
@@ -86,7 +103,6 @@ function delDeviceOrElement(elementId: number, deviceId: number) {
     },
     accept: async () => {
       showDialog.value = false;
-
       const deleteResult = elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId);
 
       console.log(deleteResult);
@@ -143,9 +159,22 @@ async function saveElementName(editedElement: any) {
         </div>
       </div>
     </div>
-    <div class="ecm-deviceBox__settings" @click="showDialog = true">
-      <span class="material-icons" style="font-size: 20px;">settings</span>
-    </div>
+<!--    <div class="ecm-deviceBox__settings" @click="showDialog = true">-->
+<!--      <span class="material-icons" style="font-size: 20px;">settings</span>-->
+<!--    </div>-->
+    <SpeedDial
+        :model="settingsIcons"
+        direction="down"
+        style="position: absolute; left: calc(100% - 1.8rem); top: calc(0% - 1.2rem);color: white;"
+        :buttonClass="'p-button-rounded p-button-text'"
+        icon="material-icons"
+        class="relative"
+        
+    >
+      <template #icon>
+        <span class="material-icons" style="color: white;">settings</span>
+      </template>
+    </SpeedDial>
   </div>
 
   <Dialog v-model:visible="showDialog" header="Upravit zařízení" :modal="true" :style="{ width: '400px' }">

@@ -43,6 +43,7 @@ export function useAlarms() {
 
     try {
       const rawAlarms = await getAlarmList(nodeId, orgId);
+      console.log(rawAlarms);
       alarms.value = rawAlarms.data.map((alarm: any) => {
         const id = alarm.id;
         const message = alarm.name || alarm.message || 'Neznámý alarm';
