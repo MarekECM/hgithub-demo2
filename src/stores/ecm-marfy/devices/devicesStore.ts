@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData';
 
 export const useDevicesStore = defineStore('devices', {
   state: () => ({
-    devices: ref<DeviceData[]>([]),
-    lastFetched: ref<number | null>(null),
+    devices: [] as DeviceData[],
+    lastFetched: null as number | null,
   }),
   actions: {
     setDevices(data: DeviceData[]) {
@@ -18,3 +17,4 @@ export const useDevicesStore = defineStore('devices', {
     },
   },
 });
+

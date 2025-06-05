@@ -64,6 +64,8 @@ export const useSelectedItemStore = defineStore('selectedItem', () => {
     return expandedNodeIds.value.has(nodeId);
   }
 
+  
+
   // Nalezení cesty k uzlu ve stromu
   function findNodePath(nodes: OrgNode[], targetNodeId: number): OrgNode[] | null {
     for (const node of nodes) {

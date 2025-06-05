@@ -46,7 +46,7 @@ onMounted(async () => {
         <div class="ecm-main__titleDevices">Vaše aktivní zařízení</div>
         <div v-if="devicesStore.devices.length">
           <template v-for="device in devicesStore.devices" :key="device.nodeID">
-            <deviceBox :data="device" :variant="device.deviceType.name" />
+         <deviceBox :data="device" :variant="device.deviceType?.name || ''" />
           </template>
         </div>
       </section>

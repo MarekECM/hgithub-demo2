@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useSidebarStore } from '@/stores/ui/resize';
-import { useRouter } from 'vue-router';
+//import { useRouter } from 'vue-router';
 import { useConfirm } from 'primevue/useconfirm';
 import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
@@ -13,16 +13,27 @@ import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
 import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTree';
 
 // Props
-const { data, variant } = defineProps<{
+// const { data, variant } = defineProps<{
+//   data: any;
+//   variant?: string;
+// }>();
+
+
+const props = defineProps<{
+  parameter?: string;
   data: any;
   variant?: string;
 }>();
+;
+
+const showDialog = ref(false);
+const editedElementName = ref(props.data.elementName);
 
 
 
 const settingsIcons = ref([
   { label: 'Edit', icon: 'edit', command: () => (showDialog.value = true) },
-  { label: 'Delete', icon: 'delete', command: () => delDeviceOrElement(data.id, data.nodeID) },
+  { label: 'Delete', icon: 'delete', command: () => delDeviceOrElement(props.data.id, props.data.nodeID) },
 ]);
 
 
@@ -32,17 +43,19 @@ const settingsIcons = ref([
 const sidebarStore = useSidebarStore();
 const confirm = useConfirm();
 const toast = useToast();
-const router = useRouter();
+//const router = useRouter();
 const store = useSelectedItemStore();
 const { fetchOrgTree } = useOrgTree();
 
 // Stav pro zobrazení dialogu a editaci názvu
-const showDialog = ref(false);
-const editedElementName = ref(data.elementName);
+
+
+
+
 
 // Výpočet třídy pozadí podle typu zařízení
 const backgroundClass = computed(() => {
-  switch (variant) {
+  switch (props.variant) {
     case 'Bateriové úložiště':
       return 'bg-baterky';
     case 'Plynoměr':
@@ -60,23 +73,16 @@ const backgroundClass = computed(() => {
   }
 });
 
+
 // Funkce pro navigaci a rozbalení stromu
 async function navigateToDevice() {
-  // Nastavíme selectedNodeId pro zvýraznění třídou testtest
-  store.setSelectedItem('', undefined, data.nodeID); 
-
-  // Načteme strom, pokud není načten
+  store.setSelectedItem(props.data.elementName, undefined, props.data.nodeID); // Nastav elementName místo prázdného stringu
   if (!store.orgTree.length || store.idOfLoadedTree !== store.selectedOrgId) {
     await fetchOrgTree(store.selectedOrgId);
   }
-
-  // Rozbalíme cestu k uzlu
-  store.expandNodePath(data.nodeID);
-
-  // Navigace na detail zařízení
-  router.push({ name: 'electricitymeter-detail', params: { id: data.id } });
+  store.expandNodePath(props.data.nodeID);
+  //router.push({ name: 'device-detail', params: { parameter: props.data.nodeID } }); // Změna z 'id' na 'parameter'
 }
-
 // Mazání zařízení nebo elementu
 function delDeviceOrElement(elementId: number, deviceId: number) {
   const message = `Opravdu chcete smazat ${elementId != null ? 'tenhle element' : 'tohle zařízení'}?`;
@@ -139,7 +145,7 @@ async function saveElementName(editedElement: any) {
 
       <div class="ecm-deviceBox__content">
         <div class="ecm-deviceBox__header">
-          {{ data.nodeName || 'Zařízení' }}
+         {{ data.name || data.nodeName || 'Zařízení' }}
         </div>
 
         <div class="ecm-deviceBox__main">

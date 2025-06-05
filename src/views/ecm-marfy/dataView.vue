@@ -14,14 +14,14 @@ const devicesStore = useDevicesStore();
 
 function handleDashboardData(data: DeviceData[]) {
   devicesStore.setDevices(data);
-  localStorage.setItem('devices', JSON.stringify(data));
 }
 
+// Nepoužíváme už žádné localStorage, protože používáme Pinia
+
+// Pokud chceš, můžeš zde načítat data z API nebo jiného zdroje,
+// ale zatím necháme store prázdný po reloadu.
 onMounted(() => {
-  const savedDevices = localStorage.getItem('devices');
-  if (savedDevices) {
-    devicesStore.setDevices(JSON.parse(savedDevices));
-  }
+  // Můžeš tu načíst data např. z API, nebo pouze inicializovat store, pokud chceš.
 });
 </script>
 
@@ -33,7 +33,7 @@ onMounted(() => {
         <div class="ecm-main__titleDevices">{{ store.selectedItem }}</div>
         <div v-if="devicesStore.devices.length">
           <template v-for="device in devicesStore.devices" :key="device.nodeID">
-            <deviceBox :data="device" :variant="device.deviceType.name" />
+             <deviceBox :data="device" :variant="device.deviceType?.name || '' " />
           </template>
         </div>
         <div v-else>
@@ -44,3 +44,4 @@ onMounted(() => {
   </main>
   <NavtreeMarfy @dashboardData="handleDashboardData" />
 </template>
+
