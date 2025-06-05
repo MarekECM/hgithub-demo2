@@ -187,9 +187,15 @@ async function saveElementName(editedElement: any) {
       <InputText id="elementName" v-model="editedElementName" class="p-inputtext-lg w-full" />
     </div>
     <template #footer>
-      <Button label="Zrušit" icon="pi pi-times" class="p-button-text" @click="showDialog = false" />
-      <Button label="Smazat" icon="pi pi-trash" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)" />
-      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="saveElementName(data)" />
+      <Button label="Zrušit" class="p-button-text" @click="showDialog = false">
+          <span class="material-icons">cancel</span> Zrušit
+      </Button>
+      <Button label="Smazat" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)">
+        <span class="material-icons">delete</span> Smazat
+      </Button>
+      <Button label="Uložit" class="p-button-success" @click="saveElementName(data)">
+         <span class="material-icons">save</span> Uložit
+      </Button>
     </template>
   </Dialog>
 </template>
