@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import { useSidebarStore } from '@/stores/ui/resize'
 import { useDevicesStore } from '@/stores/ecm-marfy/devices/devicesStore'
-import { fetchAndStoreDevices } from '@/composables/ecm-marfy/componenet-devices-ts/fetchDevices'
+import { fetchAndStoreDevices } from '@/composables/ecm-marfy/componenet-devices-ts/data/fetchDevices'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData'
 
