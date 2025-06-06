@@ -4,45 +4,19 @@ import axios from 'axios'
 import type { DayPlanModel } from '@/interfaces/ecm-marfy/DayPlan/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue"
-import { useDayPlans } from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
+import {useAddDayPlanForm} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
+import {useToast} from "primevue/usetoast";
 
 const store = useSelectedItemStore()
 const dayPlans = ref<DayPlanModel[]>([])
-
-const {
-  selectedDayPlan,
-  showEditDialog
-} = useDayPlans()
-
-const editSchema = ref([])
-const formName = ref("Upravit denní plán")
-const formData = ref<Record<string, any>>({})
-
-function handleSubmit(updatedData: Record<string, any>) {
-  console.log('Updated dayPlan:', updatedData)
-  showEditDialog.value = false
-}
+const toast = useToast();
+const editDayPlanForm = useAddDayPlanForm(toast);
+const selectedDayPlan = ref<DayPlanModel | null>(null);
 
 function edit(dayPlan: DayPlanModel) {
-  selectedDayPlan.value = { ...dayPlan }
-  formData.value = {
-    Id: dayPlan.Id,
-    Name: dayPlan.Name,
-    NodeId: dayPlan.NodeId,
-    UnitId: dayPlan.UnitId,
-    DeviceId: dayPlan.DeviceId,
-    DayPlanTypeId: dayPlan.DayPlanTypeId,
-    MinMaxVariable: dayPlan.MinMaxVariable,
-    MinValue: dayPlan.MinValue,
-    MaxValue: dayPlan.MaxValue,
-    VariableMin: dayPlan.VariableMin,
-    VariableMax: dayPlan.VariableMax,
-    VariableTimeId: dayPlan.VariableTimeId,
-    VariableValueId: dayPlan.VariableValueId,
-    VariableAttenuationId: dayPlan.VariableAttenuationId,
-    VariableAttenuationValueId: dayPlan.VariableAttenuationValueId,
-  }
-  showEditDialog.value = true
+  selectedDayPlan.value = {...dayPlan};
+  editDayPlanForm.formData.value = { ...dayPlan };
+  editDayPlanForm.openForm(); 
 }
 
 async function load(plan: DayPlanModel) {
@@ -59,7 +33,7 @@ async function fetchDayPlans(nodeId: number) {
     })
 
     const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`)
-    editSchema.value = res.data
+    editDayPlanForm.editSchema.value = res.data
 
     dayPlans.value = response.data.map((item: any) => ({
       Id: item.id,
@@ -145,11 +119,11 @@ watch(() => store.selectedNodeId, (newNodeId) => {
 
     <DynamicFormDialog
       v-if="selectedDayPlan"
-      v-model:showDialog="showEditDialog"
-      :schema="editSchema"
-      :form-data="formData"
-      @submit="handleSubmit"
-      :dialog-name="formName"
+      v-model:showDialog="editDayPlanForm.showEditDialog.value"
+      :schema="editDayPlanForm.editSchema.value"
+      :form-data="editDayPlanForm.formData"
+      @submit="editDayPlanForm.handleSubmit"
+      :dialog-name="editDayPlanForm.formName"
     />
   </div>
 </template>

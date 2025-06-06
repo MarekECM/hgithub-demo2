@@ -24,7 +24,7 @@ export function dynamicFormWatcher(props: any,constants: DynamicFormConstants ,e
     );
 
     watch(
-        () => props.formData,
+        () => props.formData?.value,
         async (newFormData) => {
             if (newFormData) {
                 for (const key of Object.keys(newFormData)) {
@@ -42,7 +42,7 @@ export function dynamicFormWatcher(props: any,constants: DynamicFormConstants ,e
                 }
             }
         },
-        { immediate: true }
+        { immediate: true, deep: true }
     );
 
 }

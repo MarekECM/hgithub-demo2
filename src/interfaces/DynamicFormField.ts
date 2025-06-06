@@ -6,6 +6,7 @@ export interface FieldSchema {
     placeHolder: string;
     selectEndpoint: string;
     visible? : boolean;
+    defaultValue? : string,
     endpointParameters?: string[];
     validation: {
         email: boolean;

@@ -4,7 +4,7 @@ import Dialog from 'primevue/dialog';
 import {dynamicFormWatcher} from "@/composables/global/DynamicForm/dynamicFormWatcher";
 import {getDynamicFormConstants} from "@/composables/global/DynamicForm/dynamicFormConstants";
 import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
-import {handleFieldChange, handleSubmit} from "@/composables/global/DynamicForm/dynamicFormFunctions"
+import {handleFieldChange, handleSubmit, parseDefaultValue} from "@/composables/global/DynamicForm/dynamicFormFunctions"
 import type {FieldSchema} from "@/interfaces/DynamicFormField";
 import {onMounted} from "vue";
 import Toast from "primevue/toast"
@@ -14,6 +14,7 @@ const props = defineProps<{
   schema: FieldSchema[];
   dialogName: string;
   formData?: Record<string, any>,
+  formModelName?: string
 }>();
 
 const emit = defineEmits<{
@@ -26,8 +27,12 @@ const constants : DynamicFormConstants = getDynamicFormConstants(props);
 
 onMounted(() => {
   dynamicFormWatcher(props, constants, emit);
+  for (const field of constants.schema.value) {
+    if (constants.formData[field.name] === undefined && field.defaultValue !== undefined) {
+      constants.formData[field.name] = parseDefaultValue(field);
+    }
+  }
 });
-
 </script>
 
 
@@ -67,7 +72,6 @@ onMounted(() => {
       <Button label="Zrušit" icon="pi pi-times" class="p-button-danger" @click="constants.showDialog.value = false" />
       <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="handleSubmit(constants, emit)" />
     </template>
-    <Toast />
   </Dialog>
 </template>
 

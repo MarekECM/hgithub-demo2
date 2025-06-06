@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
 import { useAlarmWatcher } from '@/composables/ecm-marfy/component-alarm-ts/useAlarmWatcher';
+import Toast from "primevue/toast";
 
 const alarmStore = useAlarmStore();
 useAlarmWatcher(); // Aktivuj sledování změn organizace/uzlu
@@ -20,10 +21,10 @@ onUnmounted(() => {
 
 <template>
     <div class="ecm-layout ecm-layout__default">
+      <Toast />
       <RouterView/>
       <ConfirmDialog>
       </ConfirmDialog>
-      <Toast />
     </div>     
 </template>
 

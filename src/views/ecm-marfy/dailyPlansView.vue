@@ -1,49 +1,23 @@
 <script setup lang="ts">
-import { useSidebarStore } from '@/stores/ui/resize'
+import {useSidebarStore} from '@/stores/ui/resize'
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
-import dailyPlansDashboard from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
+import dailyPlansDashboard
+  from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
 import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
-import {useDayPlans} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
-import {onMounted, ref} from "vue";
-import axios from "axios";
-import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
+import {useAddDayPlanForm} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
+import {useSelectedItemStore} from '@/stores/ui/useSelectedItemStore'
 import {useToast} from "primevue/usetoast";
-import type {FieldSchema} from "@/interfaces/DynamicFormField";
-import {normalizeEmptyStrings} from "@/composables/global/DynamicForm/dynamicFormFunctions";
-const store = useSelectedItemStore()
 
+const store = useSelectedItemStore()
+const toast = useToast();
+const addDayPlanForm = useAddDayPlanForm(toast);
 //Použití store
 const sidebarStore = useSidebarStore()
-const {
-  addDayPlanClick,showEditDialog } = useDayPlans();
-
-const editSchema = ref<FieldSchema[]>([]);
-const formName = ref('Přidat denní plán');
-const toast = useToast();
-
-async function addDayPlan(){
-  await addDayPlanClick(editSchema);
-}
-async function handleSubmit(dayPlanData: Record<string, any>) {
-  const normalizedData = normalizeEmptyStrings(dayPlanData);
-  normalizedData.nodeId = store.selectedNodeId;
-  console.log('Trying to add dayPlan:', normalizedData);
-  try {
-    const res = await axios.post(`${import.meta.env.VITE_API_URL}DayPlan/AddOrEditDayPlan`, normalizedData,{headers: {
-        'Content-Type': 'application/json',
-      },});
-      showEditDialog.value = false;
-  }
-  catch(e : any){
-    console.log("TEST");
-    toast.add({ severity: 'error', summary: 'Error', detail: `Denní plán nebyl vytvořen : ${e.message}`, life: 3000 });
-  }
-}
 </script>
 
 <template>
-  <Header />
+  <Header/>
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container--primary">
@@ -66,20 +40,20 @@ async function handleSubmit(dayPlanData: Record<string, any>) {
               <span class="iconContent">
                  <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent" @click="addDayPlan">Přidat denní plán</span>
+              <span class="ecm_iconBtnTextContent" @click="addDayPlanForm.openForm()">Přidat denní plán</span>
             </div>
           </div>
         </div>
-        <dailyPlansDashboard />
+        <dailyPlansDashboard/>
       </div>
     </section>
   </main>
-  <NavtreeMarfy />
+  <NavtreeMarfy/>
   <DynamicFormDialog
-      v-model:showDialog="showEditDialog"
-      :schema="editSchema"
-      @submit="handleSubmit"
-      :dialog-name="formName"
+      v-model:showDialog="addDayPlanForm.showEditDialog.value"
+      :schema="addDayPlanForm.editSchema.value"
+      @submit="addDayPlanForm.handleSubmit"
+      :dialog-name="addDayPlanForm.formName"
   />
 </template>
 

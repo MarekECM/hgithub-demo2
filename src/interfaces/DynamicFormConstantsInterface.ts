@@ -14,4 +14,5 @@ export interface DynamicFormConstants {
     selectOptions: Record<string, any[]>;
     showDialog: Ref<boolean>;
     formData: Record<string, any>;
+    formModelName?: string;
 }

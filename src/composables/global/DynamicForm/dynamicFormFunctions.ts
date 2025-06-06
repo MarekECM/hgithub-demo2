@@ -7,54 +7,74 @@ import Checkbox from "primevue/checkbox";
 import Select from "primevue/select";
 import MultiSelect from "primevue/multiselect";
 import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
+import {useDynamicFieldChanges} from "@/composables/global/DynamicForm/dynamicFieldChanges";
 
 export async function handleFieldChange(field: FieldSchema, event: any, constants: DynamicFormConstants) {
-    console.log(field);
-    console.log(event);
     let selectedValue = event.value;
-    if(field.typeStr === 'checkbox' && event.value != true) {
+    const dynamicFieldChanges = useDynamicFieldChanges(constants);
+    const selectedOption = constants.selectOptions[field.name]?.find(
+        opt => opt.value === selectedValue
+    );
+    if (field.typeStr === 'checkbox' && event.value != true && event.target != undefined) {
         selectedValue = event.target.checked;
-    }
-    if(field.name === 'CustomMessage') {
-        const messageSubject = constants.schemaWithKeys.value.find(f => f.name === 'MessageSubject');
-        const message = constants.schemaWithKeys.value.find(f => f.name === 'Message');
-
-        if(messageSubject && message) {
-            messageSubject.visible = selectedValue;
-            message.visible = selectedValue;
-        }
     }
     switch (field.name) {
         case 'TemplateId':
-            showGroups(constants);
+            dynamicFieldChanges.templateIdFieldUpdate()
             break;
         case 'CustomMessage':
-            showMessageFields(constants,selectedValue);
+            dynamicFieldChanges.customMessageFieldUpdate(selectedValue);
             break;
         case 'DeviceId':
-            await updateVariables(constants,selectedValue);
+            await dynamicFieldChanges.deviceIdFieldUpdate(getUnitDependentFields(constants.formModelName));
             break;
         case 'MinMaxVariable':
-            showMinMaxVariable(constants,selectedValue);
+            dynamicFieldChanges.minMaxVariableFieldUpdate(selectedValue);
+            break;
+        case 'MeasurementId':
+            await dynamicFieldChanges.measurementIdFieldUpdate(selectedOption.unitTypeId);
+            break;
+        case 'UnitId':
+            dynamicFieldChanges.unitFieldUpdate();
+            break;
+        case "AutomaticRead":
+            dynamicFieldChanges.automaticReadFieldUpdate();
+            break;
+        case "ManualWrite":
+            dynamicFieldChanges.manualWriteFieldUpdate(selectedValue);
+            break;
+        case "Expression":
+            dynamicFieldChanges.expressionFieldUpdate(selectedValue);
+            break;
+        case "UnitExpression":
+            dynamicFieldChanges.unitExpressionFieldUpdate(selectedValue);
+            break;
+        case "Prediction":
+            dynamicFieldChanges.predictionFieldChange(selectedValue);
+            break;
+        case "SpotPrices":
+            dynamicFieldChanges.spotPricesFieldChange(selectedValue);
             break;
     }
 }
 
 const optionsCache = new Map();
+
 export function resetOptionsCache() {
     optionsCache.clear();
 }
-export async function getOptions(endpoint: string | undefined, fieldName: string, constants : DynamicFormConstants,parameters?: string[],) {
+
+export async function getOptions(endpoint: string | undefined, fieldName: string, constants: DynamicFormConstants, parameters?: string[],) {
     if (!endpoint) return;
     let finalEndpoint = endpoint;
     if (parameters && parameters.length) {
         for (const param of parameters) {
             let value = constants.formData[param];
-            if (!value){
-                value = getValueFromParam(param,constants);
+            if (!value) {
+                value = getValueFromParam(param, constants);
             }
             finalEndpoint = finalEndpoint.replace(`{${param}}`, value ?? '');
-            if(value == null || value == ''){
+            if (value == null || value == '') {
                 return;
             }
         }
@@ -66,16 +86,16 @@ export async function getOptions(endpoint: string | undefined, fieldName: string
     }
 
     const response = await axios.get(`${import.meta.env.VITE_API_URL}${finalEndpoint}`);
-    const options = response.data.map((item: { id: any; name: string }) => ({
+    const options = response.data.map((item: { id: any; name: string, unitTypeId: number | null }) => ({
         label: item.name,
         value: item.id,
+        unitTypeId: item.unitTypeId ?? null
     }));
 
     optionsCache.set(finalEndpoint, options);
-    
+
     constants.selectOptions[fieldName] = options;
 }
-
 export function normalizeEmptyStrings(obj: Record<string, any>) {
     const normalized: Record<string, any> = {};
     for (const key in obj) {
@@ -87,8 +107,7 @@ export function normalizeEmptyStrings(obj: Record<string, any>) {
     }
     return normalized;
 }
-
-export function getComponent(type: string,endpoint?:string) {
+export function getComponent(type: string, endpoint?: string) {
     switch (type) {
         case 'text':
             return InputText;
@@ -106,69 +125,49 @@ export function getComponent(type: string,endpoint?:string) {
             return InputText;
     }
 }
+export function parseDefaultValue(field: FieldSchema): any {
+    const val = field.defaultValue;
+    if (val === undefined || val === null) return undefined;
 
+    switch (field.typeStr) {
+        case 'number':
+            return Number(val);
+        case 'checkbox':
+            return val === 'true';
+        case 'date':
+            return new Date(val);
+        case 'text':
+        default:
+            return val;
+    }
+}
+function getUnitDependentFields(modelName : string | undefined){
+    switch (modelName) {
+        case "AddDayPlanFormModel":
+            return [
+                'VariableValueId',
+                'VariableTimeId',
+                'VariableAttenuationId',
+                'VariableAttenuationValueId',
+                'VariableMin',
+                'VariableMax',
+            ];
+        default:
+            return ["VariableId"];
+    }
+}
 export function handleSubmit(constants: DynamicFormConstants, emit: any) {
     emit('submit', constants.formData);
 }
-function getValueFromParam(param : string, constants: DynamicFormConstants){
-    switch(param){
+
+function getValueFromParam(param: string, constants: DynamicFormConstants) {
+    switch (param) {
         case 'OrgId':
         case 'orgId':
             return constants.store.selectedOrgId;
         case 'deviceId':
             return constants.formData.DeviceId;
+        case 'measurementId':
+            return constants.formData.MeasurementId;
     }
 }
-
-async function updateVariables(constants: DynamicFormConstants, deviceId: number) {
-    const endpoint = "Form/GetVariablesFromDevice/{deviceId}";
-    const dependentFields = [
-        'VariableValueId',
-        'VariableTimeId',
-        'VariableAttenuationId',
-        'VariableAttenuationValueId',
-        'VariableMin',
-        'VariableMax',
-    ];
-
-    for (const fieldName of dependentFields) {
-        await getOptions(endpoint, fieldName, constants, ['deviceId']);
-    }
-}
-
-
-
-function showGroups(constants: DynamicFormConstants){
-    const groupField = constants.schemaWithKeys.value.find(f => f.name === 'GroupIds');
-    if (groupField) {
-        groupField.visible = true;
-    }
-    return;
-}
-
-function showMessageFields(constants: DynamicFormConstants,selectedValue: boolean){
-    const messageSubject = constants.schemaWithKeys.value.find(f => f.name === 'MessageSubject');
-    const message = constants.schemaWithKeys.value.find(f => f.name === 'Message');
-    if(messageSubject && message) {
-        messageSubject.visible = selectedValue;
-        message.visible = selectedValue;
-    }
-    return;
-}
-
-function showMinMaxVariable(constants: DynamicFormConstants,selectedValue: boolean){
-    const minField = constants.schemaWithKeys.value.find(f => f.name === 'MinValue');
-    const maxField = constants.schemaWithKeys.value.find(f => f.name === 'MaxValue');
-    const variableMin = constants.schemaWithKeys.value.find(f => f.name === 'VariableMin');
-    const variableMax = constants.schemaWithKeys.value.find(f => f.name === 'VariableMax');
-    
-    
-    if(minField && maxField && variableMin && variableMax) {
-        minField.visible = !selectedValue;
-        maxField.visible = !selectedValue;
-        variableMin.visible = selectedValue;
-        variableMax.visible = selectedValue;
-    }
-    return;
-}
-

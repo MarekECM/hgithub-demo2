@@ -1,11 +1,15 @@
 import {useSelectedItemStore} from "@/stores/ui/useSelectedItemStore";
 import type {FieldSchema} from "@/interfaces/DynamicFormField";
-import {computed, reactive, ref, watch} from "vue";
+import {computed, isRef, reactive, ref, watch} from "vue";
+import type {Ref} from "vue";
 import {getComponent} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 
 export function getDynamicFormConstants(props: {
     showDialog: boolean;
     schema: FieldSchema[];
+    formData?: Record<string, any>,
+    dialogName: string;
+    formModelName?: string;
 }) {
     const store = useSelectedItemStore();
 
@@ -13,18 +17,16 @@ export function getDynamicFormConstants(props: {
 
     const schemaWithKeys = ref<FieldSchema[]>([]);
 
-    watch(
-        schema,
-        (newSchema) => {
-            if (newSchema && newSchema.length) {
-                schemaWithKeys.value = newSchema.map(field => ({
+    watch(schema, (newSchema) => {
+        if (newSchema && newSchema.length) {
+            schemaWithKeys.value = newSchema.map(field =>
+                reactive({
                     ...field,
                     visible: field.visible !== false,
-                }));
-            }
-        },
-        { immediate: true }
-    );
+                })
+            );
+        }
+    }, { immediate: true });
     
     const schemaWithComponents = computed(() =>
         schemaWithKeys.value.map(field => ({
@@ -35,8 +37,8 @@ export function getDynamicFormConstants(props: {
     const selectOptions = reactive<Record<string, any[]>>({});
 
     const showDialog = ref(props.showDialog);
-    const formData = reactive<Record<string, any>>({});
-    
+    const formData = isRef(props.formData) ? props.formData : ref(props.formData ?? {});
+    const formModelName = props.formModelName;
     
     
     return {
@@ -47,5 +49,6 @@ export function getDynamicFormConstants(props: {
         selectOptions,
         showDialog,
         formData,
+        formModelName,
     }
 }
