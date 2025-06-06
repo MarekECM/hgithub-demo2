@@ -31,6 +31,7 @@ export function useOrganizationSelect() {
       const response = await axios.get<Organization[]>(
         `${import.meta.env.VITE_API_URL}Organization/Organizations`
       );
+     
       orgList.value = response.data.sort((a, b) =>
         a.name.localeCompare(b.name, 'cs', {
           sensitivity: 'accent',

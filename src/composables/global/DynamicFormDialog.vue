@@ -33,6 +33,7 @@ onMounted(() => {
     }
   }
 });
+
 </script>
 
 
@@ -69,9 +70,14 @@ onMounted(() => {
     </template>
 
     <template #footer>
-      <Button label="Zrušit" icon="pi pi-times" class="p-button-danger" @click="constants.showDialog.value = false" />
-      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="handleSubmit(constants, emit)" />
+  <Button class="p-button p-button-danger" @click="constants.showDialog.value = false">
+    <span class="material-icons">cancel</span> Zrušit
+  </Button>
+  <Button class="p-button p-button-success" @click="handleSubmit(constants, emit)">
+    <span class="material-icons">save</span> Uložit
+  </Button>
     </template>
+    <Toast />
   </Dialog>
 </template>
 

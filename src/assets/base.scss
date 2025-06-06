@@ -31,6 +31,8 @@
 //modal windows components
 @import 'components/ecm-marfy/components-modal-window/primary-modal-windou.scss';
 
+@import 'primeVue/forms.scss';
+
 *,
 *::before,
 *::after {
@@ -281,7 +283,8 @@ th {
   --devices-border-color: #3c4d67;
   --devices-heading-color: #a0abbb;
   --devices-hover-icon-background-color: #fff;
-  --devices-hover-icon-color: #000;
+  --devices-hover-icon-color: #191d23;
+  --devices-color-icon:  #fff;
 
   //component total supplyGrid
   --totalValuesColor: #57657a;
@@ -354,6 +357,12 @@ th {
 
   //Track
   --background-track: #2a3037;
+
+
+}
+
+.pi {
+  font-family: 'primeicons' !important;
 }
 
 //.ecm_dark-theme

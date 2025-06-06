@@ -1,5 +1,7 @@
 // src/interfaces/DeviceData.ts
 export interface DeviceData {
+  id?: number; // Přidána volitelná vlastnost id
+  name: string;
   nodeID: number;
   nodeName: string;
   lastValue: string;

@@ -115,12 +115,10 @@
   }
 
   &__settings {
-    position: absolute;
+    position: absolute !important;
     top: -10px;
     right: -15px;
     color: var(--devices-link-color);
-    width: 30px;
-    height: 30px;
     border-radius: 50vh;
     background-color: var(--devices-button-background);
     display: flex;
@@ -130,10 +128,10 @@
     transition: var(--transtion2);
     border: 1px solid var(--devices-border-color);
 
-    &:hover {
-      background-color: var(--devices-hover-icon-background-color);
-      color: var(--devices-hover-icon-color);
+    &-icon {
+      color: var(--devices-color-icon);
     }
+
   }
 }
 
@@ -195,3 +193,53 @@
     }
   }
 }
+
+////////////////////
+// PrimeVue styly //
+////////////////////
+
+.ecm-deviceBox .p-speeddial-button {
+  width: 30px !important;
+  height: 30px !important;
+  &:hover {
+      background-color: var(--devices-hover-icon-background-color) !important;
+    }
+}
+
+.ecm-deviceBox {
+  .p-button {
+    padding: 0;
+    width: 30px;
+    height: 30px !important;
+    background-color: var(--devices-button-background);
+    color: var(--devices-link-color) !important;
+    border: 1px solid var(--devices-border-color) !important;
+
+    &:hover {
+      color: var(--devices-hover-icon-color) !important;
+      background-color: var(--devices-hover-icon-background-color) !important;
+
+      .ecm-deviceBox__settings-icon {
+         color: var(--devices-hover-icon-color);
+      }
+    }
+  }
+}
+
+.ecm-deviceBox .p-speeddial-list {
+  position: absolute;
+  top: 35px !important;
+  padding: 5px !important;
+  border-radius: 25px;
+}
+
+.ecm-deviceBox .p-speeddial-open  {
+  height: 120px;
+}
+
+.ecm-deviceBox .p-speeddial {
+  justify-content: flex-start;
+}
+
+
+

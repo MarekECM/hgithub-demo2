@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
+import { onMounted } from 'vue';
 import { useSidebarStore } from '@/stores/ui/resize';
 import { useDevicesStore } from '@/stores/ecm-marfy/devices/devicesStore';
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData';
@@ -18,15 +18,14 @@ const toast = useToast();
 const addMeasurementForm = useAddMeasurementForm(toast);
 function handleDashboardData(data: DeviceData[]) {
   devicesStore.setDevices(data);
-  localStorage.setItem('devices', JSON.stringify(data));
 }
 
+// Nepoužíváme už žádné localStorage, protože používáme Pinia
+
+// Pokud chceš, můžeš zde načítat data z API nebo jiného zdroje,
+// ale zatím necháme store prázdný po reloadu.
 onMounted(() => {
-  const savedDevices = localStorage.getItem('devices');
-  console.log(savedDevices);
-  if (savedDevices) {
-    devicesStore.setDevices(JSON.parse(savedDevices));
-  }
+  // Můžeš tu načíst data např. z API, nebo pouze inicializovat store, pokud chceš.
 });
 </script>
 
@@ -35,17 +34,7 @@ onMounted(() => {
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container--primary">
-        <div class="ecm-main__titleDevices">
-          <span>{{ store.selectedItem }}</span>
-          <div class="ecm_btnContainer">
-            <div class="ecm_iconBtn">
-              <span class="iconContent">
-                <span class="material-icons ecm_powerIcon" style="font-size: 19px">add</span>
-              </span>
-              <span class="ecm_iconBtnTextContent" @click="addMeasurementForm.openForm">Přidat veličinu</span>
-            </div>
-          </div>
-        </div>
+        <div class="ecm-main__titleDevices">{{ store.selectedItem }}</div>
         <div v-if="devicesStore.devices.length">
           <template v-for="device in devicesStore.devices" :key="device.nodeID">
             <deviceBox :data="device" :variant="device.deviceType.name" />

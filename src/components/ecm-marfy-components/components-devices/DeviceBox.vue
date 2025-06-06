@@ -1,133 +1,29 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useSidebarStore } from '@/stores/ui/resize';
-import { useRouter } from 'vue-router';
-import { useConfirm } from 'primevue/useconfirm';
-import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
-import SpeedDial from 'primevue/speeddial'
-import { DeleteDevice, DeleteElement, UpdateElement } from '@/services/ecm-marfy/devices/deviceService';
-import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
-import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTree';
+import SpeedDial from 'primevue/speeddial';
+import { useDeviceBox } from '@/composables/ecm-marfy/componenet-devices-ts/ui/useDeviceBox';
+import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData';
 
-// Props
-const { data, variant } = defineProps<{
-  data: any;
+
+// Definice props s explicitním typem
+const props = defineProps<{
+  parameter?: string;
+  data: DeviceData;
   variant?: string;
 }>();
 
-const settingsIcons = ref([
-  {
-    label: 'Edit',
-    icon: 'pi pi-pencil',
-    command: () => {
-      showDialog.value = true;
-    }
-  },
-  {
-    label: 'Delete',
-    icon: 'pi pi-trash',
-    command: () => {
-      //delDeviceOrElement(data.id, data.nodeID);
-    }
-  }
-]);
-
-// Store a knihovny
-const sidebarStore = useSidebarStore();
-const confirm = useConfirm();
-const toast = useToast();
-const router = useRouter();
-const store = useSelectedItemStore();
-const { fetchOrgTree } = useOrgTree();
-
-// Stav pro zobrazení dialogu a editaci názvu
-const showDialog = ref(false);
-const editedElementName = ref(data.elementName);
-
-// Výpočet třídy pozadí podle typu zařízení
-const backgroundClass = computed(() => {
-  switch (variant) {
-    case 'Bateriové úložiště':
-      return 'bg-baterky';
-    case 'Plynoměr':
-      return 'bg-plynoměr';
-    case 'Elektroměr':
-      return 'bg-electricity';
-    case 'Fotovoltaika':
-      return 'bg-pv';
-    case 'Lokalita':
-      return 'bg-location';
-    case 'Jiné':
-      return 'bg-jine';
-    default:
-      return '';
-  }
-});
-
-// Funkce pro navigaci a rozbalení stromu
-async function navigateToDevice() {
-  // Nastavíme selectedNodeId pro zvýraznění třídou testtest
-  store.setSelectedItem('', undefined, data.nodeID); 
-
-  // Načteme strom, pokud není načten
-  if (!store.orgTree.length || store.idOfLoadedTree !== store.selectedOrgId) {
-    await fetchOrgTree(store.selectedOrgId);
-  }
-
-  // Rozbalíme cestu k uzlu
-  store.expandNodePath(data.nodeID);
-
-  // Navigace na detail zařízení
-  router.push({ name: 'electricitymeter-detail', params: { id: data.id } });
-}
-
-// Mazání zařízení nebo elementu
-function delDeviceOrElement(elementId: number, deviceId: number) {
-  const message = `Opravdu chcete smazat ${elementId != null ? 'tenhle element' : 'tohle zařízení'}?`;
-  confirm.require({
-    message,
-    header: 'Potvrzení mazání',
-    icon: 'pi pi-info-circle',
-    rejectLabel: 'Zrušit',
-    rejectProps: {
-      label: 'Zrušit',
-      severity: 'secondary',
-      outlined: true,
-    },
-    acceptProps: {
-      label: 'Smazat',
-      severity: 'danger',
-    },
-    accept: async () => {
-      showDialog.value = false
-
-      const deleteResult =
-        elementId != null ? await DeleteElement(elementId) : await DeleteDevice(deviceId)
-
-      console.log(deleteResult);
-
-      toast.add({ severity: 'success', summary: 'Smazáno', detail: 'Zařízení bylo smazáno', life: 3000 });
-    },
-    reject: () => {
-      toast.add({ severity: 'error', summary: 'Zamítnuto', detail: 'Mazání zrušeno', life: 3000 });
-    },
-  });
-}
-
-// Uložení změn názvu
-async function saveElementName(editedElement: any) {
-  if (editedElementName.value.trim() === '') {
-    toast.add({ severity: 'error', summary: 'Chyba', detail: 'Název nemůže být prázdný', life: 3000 });
-    return;
-  }
-  editedElement.elementName = editedElementName.value;
-  await UpdateElement(editedElement);
-  showDialog.value = false;
-  toast.add({ severity: 'success', summary: 'Uloženo', detail: 'Název byl aktualizován', life: 3000 });
-}
+const {
+  showDialog,
+  editedElementName,
+  settingsIcons,
+  backgroundClass,
+  navigateToDevice,
+  delDeviceOrElement,
+  saveElementName,
+  sidebarStore,
+} = useDeviceBox(props);
 </script>
 
 <template>
@@ -146,7 +42,7 @@ async function saveElementName(editedElement: any) {
 
       <div class="ecm-deviceBox__content">
         <div class="ecm-deviceBox__header">
-          {{ data.nodeName || 'Zařízení' }}
+          {{ data.name || data.nodeName || 'Zařízení' }}
         </div>
 
         <div class="ecm-deviceBox__main">
@@ -161,20 +57,22 @@ async function saveElementName(editedElement: any) {
         </div>
       </div>
     </div>
-<!--    <div class="ecm-deviceBox__settings" @click="showDialog = true">-->
-<!--      <span class="material-icons" style="font-size: 20px;">settings</span>-->
-<!--    </div>-->
     <SpeedDial
-        :model="settingsIcons"
-        direction="down"
-        style="position: absolute; left: calc(100% - 1.8rem); top: calc(0% - 1.2rem);color: white;"
-        :buttonClass="'p-button-rounded p-button-text'"
-        icon="material-icons"
-        class="relative"
-        
+      :model="settingsIcons"
+      direction="down"
+      :buttonClass="'p-button-rounded p-button-text'"
+      class="ecm-deviceBox__settings"
     >
       <template #icon>
-        <span class="material-icons" style="color: white;">settings</span>
+        <span class="material-icons ecm-deviceBox__settings-icon">settings</span>
+      </template>
+      <template #item="{ item }">
+        <button
+          class="p-speeddial-action p-button p-button-rounded"
+          @click="event => item.command && item.command({ originalEvent: event, item })"
+        >
+          <span class="material-icons">{{ item.icon }}</span>
+        </button>
       </template>
     </SpeedDial>
   </div>
@@ -185,9 +83,15 @@ async function saveElementName(editedElement: any) {
       <InputText id="elementName" v-model="editedElementName" class="p-inputtext-lg w-full" />
     </div>
     <template #footer>
-      <Button label="Zrušit" icon="pi pi-times" class="p-button-text" @click="showDialog = false" />
-      <Button label="Smazat" icon="pi pi-trash" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)" />
-      <Button label="Uložit" icon="pi pi-check" class="p-button-success" @click="saveElementName(data)" />
+      <Button label="Zrušit" class="p-button-text" @click="showDialog = false">
+        <span class="material-icons">cancel</span> Zrušit
+      </Button>
+      <Button label="Smazat" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)">
+        <span class="material-icons">delete</span> Smazat
+      </Button>
+      <Button label="Uložit" class="p-button-success" @click="saveElementName(data)">
+        <span class="material-icons">save</span> Uložit
+      </Button>
     </template>
   </Dialog>
 </template>
@@ -250,5 +154,10 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
+}
+
+.material-icons {
+  font-size: 24px;
+  vertical-align: middle;
 }
 </style>

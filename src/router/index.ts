@@ -12,7 +12,7 @@ import reportsView from '@/views/ecm-marfy/reportsView.vue'
 import settingView from '@/views/ecm-marfy/settingView.vue'
 
 // ecm Marfy detaily zarizeni 
-import electricityMeterDetailView from '@/views/ecm-marfy/devices-detail/electricityMeterDetailView.vue'
+//import deviceDetailView from '@/views/ecm-marfy/devices-detail/deviceDetailView.vue'
 
 // ecm komunity
 import communityHomeView from '@/views/community/community-homeView.vue'
@@ -82,11 +82,13 @@ const router = createRouter({
       name: 'setting',
       component: settingView
     },
-    {
-      path: '/detail-elektromeru/:parameter?',
-      name: 'electricitymeter-detail',
-      component: electricityMeterDetailView
-    },
+  //  {
+  //   path: '/detail-zarizeni/:parameter',
+  //   name: 'device-detail',
+  //   component: () => import('@/views/ecm-marfy/devices-detail/deviceDetailView.vue'),
+  //   props: true,
+    
+  //   },
     {
       path: '/komunity-home/:parameter?',
       name: 'komunity-home',
@@ -102,14 +104,14 @@ const router = createRouter({
       name: 'publicity',
       component: publicityView
     },
-    {
-      path: '/login',
-      component: () => import('@/views/loginView.vue')
-    },
-    {
-      path: '/dashboard',
-      component: () => import('@/views/ecm-marfy/homeView.vue'),
-    }
+    // {
+    //   path: '/login',
+    //   component: () => import('@/views/loginView.vue')
+    // },
+    // {
+    //   path: '/dashboard',
+    //   component: () => import('@/views/ecm-marfy/homeView.vue'),
+    // }
   ]
 })
 

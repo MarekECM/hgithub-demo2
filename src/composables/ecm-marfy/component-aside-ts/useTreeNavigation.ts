@@ -35,8 +35,7 @@ export function useTreeNavigation(handleNodeClick: (node: any) => void) {
         e.preventDefault()
         e.stopPropagation()
         if (detailsRef.value) {
-          ;(detailsRef.value as HTMLDetailsElement).open = !(detailsRef.value as HTMLDetailsElement)
-            .open
+          ;(detailsRef.value as HTMLDetailsElement).open = !(detailsRef.value as HTMLDetailsElement).open
         }
       }
 
