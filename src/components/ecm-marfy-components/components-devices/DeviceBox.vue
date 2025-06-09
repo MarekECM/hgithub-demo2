@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import Dialog from 'primevue/dialog';
-import InputText from 'primevue/inputtext';
-import Button from 'primevue/button';
-import SpeedDial from 'primevue/speeddial';
-import { useDeviceBox } from '@/composables/ecm-marfy/componenet-devices-ts/ui/useDeviceBox';
-import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData';
-
+import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
+import Button from 'primevue/button'
+import SpeedDial from 'primevue/speeddial'
+import { useDeviceBox } from '@/composables/ecm-marfy/componenet-devices/ui/useDeviceBox'
+import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData'
 
 // Definice props s explicitním typem
 const props = defineProps<{
-  parameter?: string;
-  data: DeviceData;
-  variant?: string;
-}>();
+  parameter?: string
+  data: DeviceData
+  variant?: string
+}>()
 
 const {
   showDialog,
@@ -22,8 +21,8 @@ const {
   navigateToDevice,
   delDeviceOrElement,
   saveElementName,
-  sidebarStore,
-} = useDeviceBox(props);
+  sidebarStore
+} = useDeviceBox(props)
 </script>
 
 <template>
@@ -35,7 +34,14 @@ const {
             {{ data.lastInsert ? new Date(data.lastInsert).toLocaleDateString('cs-CZ') : '-' }}
           </span>
           <span class="ecm-deviceBox__date-time-value">
-            {{ data.lastInsert ? new Date(data.lastInsert).toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' }) : '-' }}
+            {{
+              data.lastInsert
+                ? new Date(data.lastInsert).toLocaleTimeString('cs-CZ', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })
+                : '-'
+            }}
           </span>
         </div>
       </div>
@@ -69,7 +75,7 @@ const {
       <template #item="{ item }">
         <button
           class="p-speeddial-action p-button p-button-rounded"
-          @click="event => item.command && item.command({ originalEvent: event, item })"
+          @click="(event) => item.command && item.command({ originalEvent: event, item })"
         >
           <span class="material-icons">{{ item.icon }}</span>
         </button>
@@ -77,7 +83,12 @@ const {
     </SpeedDial>
   </div>
 
-  <Dialog v-model:visible="showDialog" header="Upravit zařízení" :modal="true" :style="{ width: '400px' }">
+  <Dialog
+    v-model:visible="showDialog"
+    header="Upravit zařízení"
+    :modal="true"
+    :style="{ width: '400px' }"
+  >
     <div class="p-field">
       <label for="elementName">Název zařízení</label>
       <InputText id="elementName" v-model="editedElementName" class="p-inputtext-lg w-full" />
@@ -86,7 +97,11 @@ const {
       <Button label="Zrušit" class="p-button-text" @click="showDialog = false">
         <span class="material-icons">cancel</span> Zrušit
       </Button>
-      <Button label="Smazat" class="p-button-danger" @click="delDeviceOrElement(data.id, data.nodeID)">
+      <Button
+        label="Smazat"
+        class="p-button-danger"
+        @click="delDeviceOrElement(data.id, data.nodeID)"
+      >
         <span class="material-icons">delete</span> Smazat
       </Button>
       <Button label="Uložit" class="p-button-success" @click="saveElementName(data)">

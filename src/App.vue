@@ -1,30 +1,27 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
-import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
-import { useAlarmWatcher } from '@/composables/ecm-marfy/component-alarm-ts/useAlarmWatcher';
-import Toast from "primevue/toast";
+import { onMounted, onUnmounted } from 'vue'
+import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore'
+import { useAlarmWatcher } from '@/composables/ecm-marfy/component-alarm/useAlarmWatcher'
+import Toast from 'primevue/toast'
 
-const alarmStore = useAlarmStore();
-useAlarmWatcher(); // Aktivuj sledování změn organizace/uzlu
+const alarmStore = useAlarmStore()
+useAlarmWatcher() // Aktivuj sledování změn organizace/uzlu
 
-let intervalId: number | null = null;
+let intervalId: number | null = null
 
 onMounted(() => {
-  intervalId = alarmStore.startFetchingAlarms();
-});
+  intervalId = alarmStore.startFetchingAlarms()
+})
 
 onUnmounted(() => {
-  if (intervalId) alarmStore.stopFetchingAlarms(intervalId);
-});
+  if (intervalId) alarmStore.stopFetchingAlarms(intervalId)
+})
 </script>
 
-
 <template>
-    <div class="ecm-layout ecm-layout__default">
-      <Toast />
-      <RouterView/>
-      <ConfirmDialog>
-      </ConfirmDialog>
-    </div>     
+  <div class="ecm-layout ecm-layout__default">
+    <Toast />
+    <RouterView />
+    <ConfirmDialog> </ConfirmDialog>
+  </div>
 </template>
-

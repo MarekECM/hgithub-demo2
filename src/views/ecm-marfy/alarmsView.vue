@@ -15,37 +15,38 @@ const sidebarStore = useSidebarStore()
 
 <template>
   <Header />
-  <main class="ecm-main" :style="sidebarStore.dynamicStyles">
-    <section class="ecm-main__wrap">
-      <div class="ecm-main__container--primary">
-        <div class="ecm-main__container--secondary">
-          <div class="ecm-main__titleDevices">
-            <span>{{ store.selectedItem }}</span>
-            <div class="alarm-btn-container">
-              <div class="alarm-btn-container__selection-alarms">
-                <span class="alarm-btn-container__icon-content">
-                  <span class="alarm-btn-container__icon material-icons">
-                    notification_add
-                  </span>
+<main class="ecm-main" :style="sidebarStore.dynamicStyles">
+  <section class="ecm-main__wrap">
+    <div class="ecm-main__container-primary">
+      <div class="ecm-main__container--secondary">
+        <div class="ecm-main__title-devices">
+          <span>{{ store.selectedItem }}</span>
+          <div class="alarm-btn-container">
+            <!-- @click="showAlarmHistory" -->
+            <div class="alarm-btn-container__selection-alarms" >
+              <span class="alarm-btn-container__icon-content">
+                <span class="alarm-btn-container__icon material-icons">
+                  notification_add
                 </span>
-                <span class="alarm-btn-container__text">Přidat alarm</span>  
-              </div>
-              <!-- @click="showAlarmHistory" toto bylo u tridy alarm-btn-container__selection-alarms --> 
-              <div class="alarm-btn-container__selection-alarms" >
-                <span class="alarm-btn-container__icon-content">
-                  <span class="alarm-btn-container__icon material-icons">
-                    format_list_bulleted
-                  </span>
+              </span>
+              <span class="alarm-btn-container__text">Přidat alarm</span>  
+            </div>
+            <div class="alarm-btn-container__selection-alarms">
+              <span class="alarm-btn-container__icon-content">
+                <span class="alarm-btn-container__icon material-icons">
+                  format_list_bulleted
                 </span>
-                <span class="alarm-btn-container__text">Zobrazit historii</span>  
-              </div>
+              </span>
+              <span class="alarm-btn-container__text">Zobrazit historii</span>  
             </div>
           </div>
         </div>
-        <alarmsTable />
       </div>
-    </section>
-  </main>
+      <alarmsTable />
+    </div>
+  </section>
+</main>
+
   <NavtreeMarfy />
   
 </template>

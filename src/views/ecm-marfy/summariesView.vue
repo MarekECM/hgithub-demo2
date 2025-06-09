@@ -16,36 +16,37 @@ const sidebarStore = useSidebarStore()
 
 <template>
   <Header />
-  <main class="ecm-main" :style="sidebarStore.dynamicStyles">
-    <section class="ecm-main__wrap">
-      <div class="ecm-main__container--primary">
-        <div class="ecm-main__titleDevices">
-          <span>{{ store.selectedItem }}</span>
-          <div class="summaries-selection-periods">
-            <div class="summaries-selection-periods__icon">
-              <span class="material-icons summaries-selection-periods__icon-calendar"
-                >calendar_today</span
-              >
-            </div>
-            <span class="summaries-selection-periods__text">včera</span>
-            <div class="summaries-selection-periods__icon">
-              <span class="material-icons summaries-selection-periods__icon-arrow"
-                >keyboard_arrow_down</span
-              >
-            </div>
+<main class="ecm-main" :style="sidebarStore.dynamicStyles">
+  <section class="ecm-main__wrap">
+    <div class="ecm-main__container-primary">
+      <div class="ecm-main__title-devices">
+        <span>{{ store.selectedItem }}</span>
+        <div class="summaries-selection-periods">
+          <div class="summaries-selection-periods__icon">
+            <span class="material-icons summaries-selection-periods__icon-calendar">
+              calendar_today
+            </span>
+          </div>
+          <span class="summaries-selection-periods__text">včera</span>
+          <div class="summaries-selection-periods__icon">
+            <span class="material-icons summaries-selection-periods__icon-arrow">
+              keyboard_arrow_down
+            </span>
           </div>
         </div>
-        <totalSupplyGrid />
-        <totalSupplyBattery />
-        <totalConsumptionGrid />
-        <totalConsumptionEnergy />
-        <totalSupplyGrid />
-        <totalSupplyGrid />
-        <totalSupplyBattery />
-        <totalConsumptionGrid />
       </div>
-    </section>
-  </main>
+      <totalSupplyGrid />
+      <totalSupplyBattery />
+      <totalConsumptionGrid />
+      <totalConsumptionEnergy />
+      <totalSupplyGrid />
+      <totalSupplyGrid />
+      <totalSupplyBattery />
+      <totalConsumptionGrid />
+    </div>
+  </section>
+</main>
+
   <NavtreeMarfy />
 </template>
 

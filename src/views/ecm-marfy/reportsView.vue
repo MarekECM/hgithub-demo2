@@ -11,25 +11,26 @@ const sidebarStore = useSidebarStore()
 
 <template>
   <Header />
-  <main class="ecm-main" :style="sidebarStore.dynamicStyles">
-    <section class="ecm-main__wrap">
-      <div class="ecm-main__container--primary">
-        <div class="ecm-main__titleDevices">
-          <span>Výkazy</span>
-          <div class="reports-btn-container">
-            <div class="reports-btn-container__selection-reportss">
-              <span class="reports-btn-container__icon-content">
-                <span class="reports-btn-container__icon material-icons">
-                  format_list_bulleted
-                </span>
+<main class="ecm-main" :style="sidebarStore.dynamicStyles">
+  <section class="ecm-main__wrap">
+    <div class="ecm-main__container-primary">
+      <div class="ecm-main__title-devices">
+        <span>Výkazy</span>
+        <div class="reports-btn-container">
+          <div class="reports-btn-container__selection-reports">
+            <span class="reports-btn-container__icon-content">
+              <span class="reports-btn-container__icon material-icons">
+                format_list_bulleted
               </span>
-              <span class="reports-btn-container__text">Zobrazit historii</span>
-            </div>
+            </span>
+            <span class="reports-btn-container__text">Zobrazit historii</span>
           </div>
         </div>
-        <reportsTable />
       </div>
-    </section>
-  </main>
+      <reportsTable />
+    </div>
+  </section>
+</main>
+
   <NavtreeMarfy />
 </template>

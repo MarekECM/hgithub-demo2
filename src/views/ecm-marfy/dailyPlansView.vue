@@ -1,59 +1,59 @@
 <script setup lang="ts">
-import {useSidebarStore} from '@/stores/ui/resize'
+import { useSidebarStore } from '@/stores/ui/resize'
 import Header from '@/components/ecm-marfy-components/marfy-layout/header-component.vue'
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
-import dailyPlansDashboard
-  from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
-import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue";
-import {useAddDayPlanForm} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans";
-import {useSelectedItemStore} from '@/stores/ui/useSelectedItemStore'
-import {useToast} from "primevue/usetoast";
+import dailyPlansDashboard from '@/components/ecm-marfy-components/components-dailyPlans/daily-plans-dashboard-component.vue'
+import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
+import { useAddDayPlanForm } from '@/composables/ecm-marfy/component-day-plan/useDayPlans'
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
+import { useToast } from 'primevue/usetoast'
 
 const store = useSelectedItemStore()
-const toast = useToast();
-const addDayPlanForm = useAddDayPlanForm(toast);
+const toast = useToast()
+const addDayPlanForm = useAddDayPlanForm(toast)
 //Použití store
 const sidebarStore = useSidebarStore()
 </script>
 
 <template>
-  <Header/>
+  <Header />
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
-      <div class="ecm-main__container--primary">
-        <div class="ecm-main__titleDevices">
+      <div class="ecm-main__container-primary">
+        <div class="ecm-main__title-devices">
           <span>{{ store.selectedItem }}</span>
-          <div class="ecm_btnContainer">
-            <div class="ecm_iconBtn">
-              <span class="iconContent">
-                <span class="material-icons ecm_powerIcon" style="font-size: 19px">power_settings_new</span>
+          <div class="ecm-main__btn-container">
+            <div class="ecm-main__icon-btn">
+              <span class="ecm-main__icon-content">
+                <span class="material-icons ecm-main__power-icon">power_settings_new</span>
               </span>
-              <span class="ecm_iconBtnTextContent">Ztlumit všechny plány</span>
+              <span class="ecm-main__icon-btn-text">Ztlumit všechny plány</span>
             </div>
-            <div class="ecm_iconBtn">
-              <span class="iconContent">
-                <span class="material-icons ecm_checkIcon" style="font-size: 19px">check</span>
+            <div class="ecm-main__icon-btn">
+              <span class="ecm-main__icon-content">
+                <span class="material-icons ecm-main__check-icon">check</span>
               </span>
-              <span class="ecm_iconBtnTextContent">Aktivovat všechny plány</span>
+              <span class="ecm-main__icon-btn-text">Aktivovat všechny plány</span>
             </div>
-            <div class="ecm_iconBtn">
-              <span class="iconContent">
-                 <span class="material-icons ecm_powerIcon" style="font-size: 19px">event</span>
+            <div class="ecm-main__icon-btn" @click="addDayPlanForm.openForm()">
+              <span class="ecm-main__icon-content">
+                <span class="material-icons ecm-main__event-icon">event</span>
               </span>
-              <span class="ecm_iconBtnTextContent" @click="addDayPlanForm.openForm()">Přidat denní plán</span>
+              <span class="ecm-main__icon-btn-text">Přidat denní plán</span>
             </div>
           </div>
         </div>
-        <dailyPlansDashboard/>
+        <dailyPlansDashboard />
       </div>
     </section>
   </main>
-  <NavtreeMarfy/>
+
+  <NavtreeMarfy />
   <DynamicFormDialog
-      v-model:showDialog="addDayPlanForm.showEditDialog.value"
-      :schema="addDayPlanForm.editSchema.value"
-      @submit="addDayPlanForm.handleSubmit"
-      :dialog-name="addDayPlanForm.formName"
+    v-model:showDialog="addDayPlanForm.showEditDialog.value"
+    :schema="addDayPlanForm.editSchema.value"
+    @submit="addDayPlanForm.handleSubmit"
+    :dialog-name="addDayPlanForm.formName"
   />
 </template>
 

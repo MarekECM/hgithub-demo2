@@ -29,7 +29,7 @@
 //aside components
 @import 'components/ecm-marfy/components-aside/select.scss';
 //modal windows components
-@import 'components/ecm-marfy/components-modal-window/primary-modal-windou.scss';
+@import 'components/ecm-marfy/components-modal-window/primary-modal-window.scss';
 
 @import 'primeVue/forms.scss';
 
@@ -125,7 +125,7 @@ th {
   color: var(--tableHeaderColor);
 }
 
-// dynamicke tridy components-sectios
+// dynamicke tridy components-sections
 .dynamic-margin {
   margin: 15px 0px !important;
 }
@@ -196,7 +196,7 @@ th {
   --navbar-drop-down-logout-section-icon-background-color: #e7eaee;
   --navbar-drop-down-logout-section-hover-icon-background-color: #191d23;
   --navbar-notification-drop-down-link-text-color: #191d23;
-  --navabr-notification-drop-down-li-item-background-color:rgba(255, 0, 0, 0.089);
+  --navabr-notification-drop-down-li-item-background-color: rgba(255, 0, 0, 0.089);
   --navabr-notification-drop-down-li-item-hover-background-color: rgba(255, 0, 0, 0.2);
 
   // Navbar Icons
@@ -284,7 +284,7 @@ th {
   --devices-heading-color: #a0abbb;
   --devices-hover-icon-background-color: #fff;
   --devices-hover-icon-color: #191d23;
-  --devices-color-icon:  #fff;
+  --devices-color-icon: #fff;
 
   //component total supplyGrid
   --totalValuesColor: #57657a;
@@ -343,10 +343,10 @@ th {
 
   //FontSize
   // Banner
-  --heroTitle: 50px;
-  --balanceContainer-value: 30px;
+  --hero-title-font-size: 50px;
+  --balance-container-value-font-size: 30px;
   //Title Section
-  --titleSection: 30px;
+  --title-section-font-size: 30px;
 
   // scrollbar
   --scrollbarBackground: #c9c9c9;
@@ -357,8 +357,6 @@ th {
 
   //Track
   --background-track: #2a3037;
-
-
 }
 
 .pi {

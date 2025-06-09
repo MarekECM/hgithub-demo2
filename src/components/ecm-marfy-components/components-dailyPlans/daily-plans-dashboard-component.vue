@@ -4,10 +4,9 @@ import axios from 'axios'
 import type { DayPlanModel } from '@/interfaces/ecm-marfy/dailyPlans/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
-import { useAddDayPlanForm } from '@/composables/ecm-marfy/component-day-plan-ts/useDayPlans'
+import { useAddDayPlanForm } from '@/composables/ecm-marfy/component-day-plan/useDayPlans'
 import { useDayPlanStore } from '@/stores/ecm-marfy/daily-plans/dailyPlansStore'
 import { useToast } from 'primevue/usetoast'
-
 
 const store = useSelectedItemStore()
 const dayPlanStore = useDayPlanStore()
@@ -24,7 +23,7 @@ function edit(dayPlan: DayPlanModel) {
 
 async function load(plan: DayPlanModel) {
   const array: number[] = [plan.Id]
-  const queryString = array.map(id => `dayPlanIds=${id}`).join('&')
+  const queryString = array.map((id) => `dayPlanIds=${id}`).join('&')
   const res = await axios.get(`${import.meta.env.VITE_API_URL}DayPlan/Load?${queryString}`)
   console.log(res.data)
 }
@@ -53,7 +52,7 @@ async function fetchDayPlans(nodeId: number) {
       VariableTimeId: item.variableTimeId,
       VariableValueId: item.variableValueId,
       VariableAttenuationId: item.variableAttenuationId,
-      VariableAttenuationValueId: item.variableAttenuationValueId,
+      VariableAttenuationValueId: item.variableAttenuationValueId
     }))
 
     dayPlans.value = fetchedPlans
@@ -75,15 +74,18 @@ onMounted(() => {
   }
 })
 
-watch(() => store.selectedNodeId, (newNodeId) => {
-  if (typeof newNodeId === 'number' && !isNaN(newNodeId)) {
-    dayPlanStore.setSelectedNodeId(newNodeId)
-    fetchDayPlans(newNodeId)
-  } else {
-    dayPlans.value = []
-    dayPlanStore.clearDayPlans()
+watch(
+  () => store.selectedNodeId,
+  (newNodeId) => {
+    if (typeof newNodeId === 'number' && !isNaN(newNodeId)) {
+      dayPlanStore.setSelectedNodeId(newNodeId)
+      fetchDayPlans(newNodeId)
+    } else {
+      dayPlans.value = []
+      dayPlanStore.clearDayPlans()
+    }
   }
-})
+)
 </script>
 
 <template>
@@ -103,7 +105,9 @@ watch(() => store.selectedNodeId, (newNodeId) => {
           <td class="alarm-detail__cell alarm-detail__cell--actions">
             <span class="alarm-detail__icon material-icons" @click="edit(plan)"> edit </span>
             <span class="alarm-detail__icon material-icons"> delete </span>
-            <span class="alarm-detail__icon material-icons" @click="load(plan)"> published_with_changes </span>
+            <span class="alarm-detail__icon material-icons" @click="load(plan)">
+              published_with_changes
+            </span>
             <span class="alarm-detail__icon material-icons"> save </span>
           </td>
         </tr>

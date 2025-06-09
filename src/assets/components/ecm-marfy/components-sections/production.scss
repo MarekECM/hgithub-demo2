@@ -26,12 +26,12 @@
 
   &__title {
     padding: 0 5px 0 0;
-      font-weight: bold;
+    font-weight: bold;
   }
 
   &__subtitle {
-      font-size: 14px;
-      color: var(--production-textColor);
+    font-size: 14px;
+    color: var(--production-textColor);
   }
 
   &__main {
@@ -39,25 +39,24 @@
   }
 
   &__value {
-      font-weight: bold;
-      font-size: var(--balanceContainer-value);
-      color: var(--production-textColor);
+    font-weight: bold;
+    font-size: var(--balance-container-value-font-size);
+    color: var(--production-textColor);
   }
 
   &__footer {
     font-size: 14px;
     color: var(--production-textColor);
     padding: 10px 0px;
-
   }
 
   &__difference {
-      font-weight: bold;
-      font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
   }
 
   &__comparison {
-      margin-left: 5px;
+    margin-left: 5px;
   }
 
   &__icon-container {
@@ -82,7 +81,7 @@
 }
 
 @media (max-width: 1536px) {
-  .ecm-production {  
+  .ecm-production {
     width: 100%;
     max-width: 370px;
     margin: 0 12px 30px;
@@ -91,10 +90,8 @@
 
 @media (max-width: 712px) {
   .ecm-production {
-       
     width: 100%;
     max-width: none;
     margin: 0 0 30px;
   }
 }
-

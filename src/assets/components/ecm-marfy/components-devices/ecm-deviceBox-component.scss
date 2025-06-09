@@ -76,7 +76,7 @@
 
   &__charge-value {
     color: var(--devices-battery-charge-color);
-    font-size: var(--balanceContainer-value);
+    font-size: var(--balance-container-value-font-size);
   }
 
   &__footer {
@@ -131,7 +131,6 @@
     &-icon {
       color: var(--devices-color-icon);
     }
-
   }
 }
 
@@ -202,8 +201,8 @@
   width: 30px !important;
   height: 30px !important;
   &:hover {
-      background-color: var(--devices-hover-icon-background-color) !important;
-    }
+    background-color: var(--devices-hover-icon-background-color) !important;
+  }
 }
 
 .ecm-deviceBox {
@@ -220,7 +219,7 @@
       background-color: var(--devices-hover-icon-background-color) !important;
 
       .ecm-deviceBox__settings-icon {
-         color: var(--devices-hover-icon-color);
+        color: var(--devices-hover-icon-color);
       }
     }
   }
@@ -233,13 +232,10 @@
   border-radius: 25px;
 }
 
-.ecm-deviceBox .p-speeddial-open  {
+.ecm-deviceBox .p-speeddial-open {
   height: 120px;
 }
 
 .ecm-deviceBox .p-speeddial {
   justify-content: flex-start;
 }
-
-
-

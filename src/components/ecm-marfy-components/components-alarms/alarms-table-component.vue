@@ -1,37 +1,26 @@
 <script setup lang="ts">
-import { computed, onMounted, nextTick } from 'vue';
-import { useAlarms } from '@/composables/ecm-marfy/component-alarm-ts/useAlarms';
-import { useNotificationForm } from '@/composables/ecm-marfy/component-alarm-ts/useNotificationForm';
-import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
-import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue';
+import { computed, onMounted, nextTick } from 'vue'
+import { useAlarms } from '@/composables/ecm-marfy/component-alarm/useAlarms'
+import { useNotificationForm } from '@/composables/ecm-marfy/component-alarm/useNotificationForm'
+import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore'
+import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
 
-const {
-  alarms,
-  handleIconClick,
-  selectedAlarm,
-  selectAlarm,
-  showEditDialog,
-} = useAlarms();
+const { alarms, handleIconClick, selectedAlarm, selectAlarm, showEditDialog } = useAlarms()
 
-const {
-  editSchema,
-  formName,
-  handleSubmit,
-} = useNotificationForm();
+const { editSchema, formName, handleSubmit } = useNotificationForm()
 
-const alarmStore = useAlarmStore();
-const selectedAlarmId = computed(() => alarmStore.selectedAlarmId);
-
+const alarmStore = useAlarmStore()
+const selectedAlarmId = computed(() => alarmStore.selectedAlarmId)
 
 onMounted(async () => {
   if (!alarmStore.alarms.length) {
-    await alarmStore.fetchAlarms();
+    await alarmStore.fetchAlarms()
   }
   if (alarmStore.selectedAlarmId) {
-    await nextTick();
-    selectAlarm(alarmStore.selectedAlarmId);
+    await nextTick()
+    selectAlarm(alarmStore.selectedAlarmId)
   }
-});
+})
 </script>
 
 <template>
@@ -49,7 +38,7 @@ onMounted(async () => {
           v-for="alarm in alarms"
           :key="alarm.id"
           class="alarm-detail__row"
-        :class="{ 'alarm-detail__row--selected': String(selectedAlarmId) === String(alarm.id) }"
+          :class="{ 'alarm-detail__row--selected': String(selectedAlarmId) === String(alarm.id) }"
           @click="selectAlarm(alarm.id)"
         >
           <td class="alarm-detail__cell alarm-detail__cell--message">
@@ -67,7 +56,7 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'schedule')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px;"
+              style="font-size: 25px"
               @click.stop="handleIconClick('schedule', alarm)"
             >
               schedule
@@ -75,7 +64,7 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'edit')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px;"
+              style="font-size: 25px"
               @click.stop="handleIconClick('edit', alarm)"
             >
               edit
@@ -83,7 +72,7 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'acknowledge')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px;"
+              style="font-size: 25px"
               @click.stop="handleIconClick('acknowledge', alarm)"
             >
               check_circle
@@ -91,7 +80,7 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'delete')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px;"
+              style="font-size: 25px"
               @click.stop="handleIconClick('delete', alarm)"
             >
               delete
