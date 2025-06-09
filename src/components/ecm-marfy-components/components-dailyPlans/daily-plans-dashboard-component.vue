@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
-import type { DayPlanModel } from '@/interfaces/ecm-marfy/DayPlan/DayPlanModel'
+import type { DayPlanModel } from '@/interfaces/ecm-marfy/dailyPlans/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue"
-import {useAddDayPlanForm} from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
-import {useToast} from "primevue/usetoast";
+import { useAddDayPlanForm } from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
+import { useToast } from "primevue/usetoast"
+import { useDayPlanStore } from '@/stores/ecm-marfy/daily-plans/dailyPlansStore'
 
 const store = useSelectedItemStore()
-const dayPlans = ref<DayPlanModel[]>([])
-const toast = useToast();
-const editDayPlanForm = useAddDayPlanForm(toast);
-const selectedDayPlan = ref<DayPlanModel | null>(null);
-
-
+const dayPlanStore = useDayPlanStore()
+const dayPlans = ref<DayPlanModel[]>(dayPlanStore.dayPlans)
+const toast = useToast()
+const editDayPlanForm = useAddDayPlanForm(toast)
+const selectedDayPlan = ref<DayPlanModel | null>(null)
 
 function edit(dayPlan: DayPlanModel) {
-  selectedDayPlan.value = {...dayPlan};
-  editDayPlanForm.formData.value = { ...dayPlan };
-  editDayPlanForm.openForm(); 
+  selectedDayPlan.value = { ...dayPlan }
+  editDayPlanForm.formData.value = { ...dayPlan }
+  editDayPlanForm.openForm()
 }
 
 async function load(plan: DayPlanModel) {
@@ -37,7 +37,7 @@ async function fetchDayPlans(nodeId: number) {
     const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddDayPlanFormModel`)
     editDayPlanForm.editSchema.value = res.data
 
-    dayPlans.value = response.data.map((item: any) => ({
+    const fetchedPlans = response.data.map((item: any) => ({
       Id: item.id,
       Name: item.name,
       NodeId: item.nodeId,
@@ -55,29 +55,18 @@ async function fetchDayPlans(nodeId: number) {
       VariableAttenuationValueId: item.variableAttenuationValueId,
     }))
 
-    localStorage.setItem('cachedDayPlans', JSON.stringify(dayPlans.value))
+    dayPlans.value = fetchedPlans
+    dayPlanStore.setDayPlans(fetchedPlans)
   } catch (error: any) {
     console.error('Chyba při načítání denních plánů:', error)
     dayPlans.value = []
-    localStorage.removeItem('cachedDayPlans')
+    dayPlanStore.clearDayPlans()
   }
 }
 
 onMounted(() => {
-  if (!store.selectedNodeId) {
-    const savedId = localStorage.getItem('selectedNodeId')
-    if (savedId) {
-      store.selectedNodeId = parseInt(savedId)
-    }
-  }
-
-  const cachedPlans = localStorage.getItem('cachedDayPlans')
-  if (cachedPlans) {
-    try {
-      dayPlans.value = JSON.parse(cachedPlans)
-    } catch {
-      dayPlans.value = []
-    }
+  if (!store.selectedNodeId && dayPlanStore.selectedNodeId) {
+    store.selectedNodeId = dayPlanStore.selectedNodeId
   }
 
   if (typeof store.selectedNodeId === 'number' && !isNaN(store.selectedNodeId)) {
@@ -87,10 +76,11 @@ onMounted(() => {
 
 watch(() => store.selectedNodeId, (newNodeId) => {
   if (typeof newNodeId === 'number' && !isNaN(newNodeId)) {
-    localStorage.setItem('selectedNodeId', newNodeId.toString())
+    dayPlanStore.setSelectedNodeId(newNodeId)
     fetchDayPlans(newNodeId)
   } else {
     dayPlans.value = []
+    dayPlanStore.clearDayPlans()
   }
 })
 </script>

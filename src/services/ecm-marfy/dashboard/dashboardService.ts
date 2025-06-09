@@ -82,5 +82,15 @@ export async function getAlarmList(nodeId : number, orgId : number){
     });
 }
 
+export async function fetchNotificationSchema() {
+  try {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/AddNotificationModel`);
+    return res.data;
+  } catch (error) {
+    console.error('Chyba při načítání schématu formuláře:', error);
+    return [];
+  }
+}
+
 
 

@@ -1,39 +1,32 @@
-import { ref, onMounted, computed } from 'vue';
-import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
-import { getAlarmList } from '@/services/ecm-marfy/dashboard/dashboardService';
-import {deleteAlarm, getOneAlarmHistory} from '@/services/ecm-marfy/alarms/alarmService';
+import { computed, ref, onMounted } from 'vue';
 import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore';
+import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore';
+import { getOneAlarmHistory, deleteAlarm } from '@/services/ecm-marfy/alarms/alarmService';
 
-interface AlarmIcon {
+export interface AlarmIcon {
   icon: string;
   action: string;
 }
 
-export class AlarmModel {
-  alarmId: number;
+export interface AlarmModel {
+  id: number | string;
   message: string;
   status: string;
   icons: AlarmIcon[];
-
-  constructor(
-    alarmId: number,
-    message: string,
-    status: string,
-    icons: AlarmIcon[] = []
-  ) {
-    this.alarmId = alarmId;
-    this.message = message;
-    this.status = status;
-    this.icons = icons;
-  }
 }
 
 export function useAlarms() {
   const alarmStore = useAlarmStore();
-  const alarms = ref<AlarmModel[]>([]);
   const selectedStore = useSelectedItemStore();
+
+  const alarms = computed(() => alarmStore.alarms);
   const selectedAlarm = ref<AlarmModel | null>(null);
   const showEditDialog = ref(false);
+
+  function selectAlarm(id: number | string) {
+    alarmStore.selectAlarm(id);
+    selectedAlarm.value = alarms.value.find((alarm) => String(alarm.id) === String(id)) || null;
+  }
 
   async function fetchAlarms() {
     const orgId = selectedStore.selectedOrgId;
@@ -42,25 +35,7 @@ export function useAlarms() {
     if (nodeId === null || orgId === null) return;
 
     try {
-      const rawAlarms = await getAlarmList(nodeId, orgId);
-      console.log(rawAlarms);
-      alarms.value = rawAlarms.data.map((alarm: any) => {
-        const id = alarm.id;
-        const message = alarm.name || alarm.message || 'Neznámý alarm';
-        const status = alarm.status || 'ok';
-
-        const icons: AlarmIcon[] =
-          status.toLowerCase?.() === 'alarm'
-            ? [{ icon: 'check_circle', action: 'acknowledge' }]
-            : [
-                { icon: 'schedule', action: 'schedule' },
-                { icon: 'edit', action: 'edit' },
-                { icon: 'check_circle', action: 'acknowledge' },
-                { icon: 'delete', action: 'delete' }
-              ];
-
-        return new AlarmModel(id, message, status, icons);
-      });
+      await alarmStore.fetchAlarms();
     } catch (error) {
       console.error('Failed to load alarms:', error);
     }
@@ -69,20 +44,32 @@ export function useAlarms() {
   async function handleIconClick(action: string, alarm: AlarmModel) {
     switch (action) {
       case 'schedule':
-        const history = await getOneAlarmHistory(alarm.alarmId);
-        console.log('Alarm History:', history);
+        try {
+          const history = await getOneAlarmHistory(Number(alarm.id));
+          console.log('Alarm History:', history);
+        } catch (err) {
+          console.error('Failed to get alarm history:', err);
+        }
         break;
+
       case 'edit':
         selectedAlarm.value = { ...alarm };
         showEditDialog.value = true;
         break;
+
       case 'acknowledge':
         console.log('Acknowledge clicked for', alarm);
         break;
+
       case 'delete':
-        await deleteAlarm(alarm.alarmId);
-        alarmStore.fetchAlarms();
+        try {
+          await deleteAlarm(Number(alarm.id));
+          await fetchAlarms();
+        } catch (err) {
+          console.error('Failed to delete alarm:', err);
+        }
         break;
+
       default:
         console.warn('Unknown action:', action);
     }
@@ -96,5 +83,6 @@ export function useAlarms() {
     handleIconClick,
     selectedAlarm,
     showEditDialog,
+    selectAlarm,
   };
 }

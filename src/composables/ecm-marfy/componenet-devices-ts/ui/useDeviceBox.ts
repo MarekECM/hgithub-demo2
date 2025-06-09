@@ -8,7 +8,7 @@ import { useOrgTree } from '@/composables/ecm-marfy/component-aside-ts/useOrgTre
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData';
 
 export function useDeviceBox(props: { parameter?: string; data: DeviceData; variant?: string }) {
-  // Store a knihovny
+
   const sidebarStore = useSidebarStore();
   const confirm = useConfirm();
   const toast = useToast();
