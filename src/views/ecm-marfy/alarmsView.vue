@@ -5,12 +5,12 @@ import Header from '@/components/ecm-marfy-components/marfy-layout/header-compon
 import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-marfy-component.vue'
 import alarmsTable from '@/components/ecm-marfy-components/components-alarms/alarms-table-component.vue'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
-import {useAlarmStore} from "@/stores/ecm-marfy/alarms/useAlarmStore";
+//import {useAlarmStore} from "@/stores/ecm-marfy/alarms/useAlarmStore";
 const store = useSelectedItemStore()
 
 
 const sidebarStore = useSidebarStore()
-const showAlarmHistory = useAlarmStore().showAlarmHistory;
+//const showAlarmHistory = useAlarmStore().showAlarmHistory;
 </script>
 
 <template>
@@ -30,7 +30,8 @@ const showAlarmHistory = useAlarmStore().showAlarmHistory;
                 </span>
                 <span class="alarm-btn-container__text">Přidat alarm</span>  
               </div>
-              <div class="alarm-btn-container__selection-alarms" @click="showAlarmHistory">
+              <!-- @click="showAlarmHistory" toto bylo u tridy alarm-btn-container__selection-alarms --> 
+              <div class="alarm-btn-container__selection-alarms" >
                 <span class="alarm-btn-container__icon-content">
                   <span class="alarm-btn-container__icon material-icons">
                     format_list_bulleted

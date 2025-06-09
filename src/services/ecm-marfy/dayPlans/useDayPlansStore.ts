@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { DayPlanModel } from '@/interfaces/ecm-marfy/DayPlan/DayPlanModel'
+import type { DayPlanModel } from '@/interfaces/ecm-marfy/dailyPlans/DayPlanModel'
 import axios from 'axios'
 
 export const useDayPlansStore = defineStore('dayPlans', {

@@ -3,10 +3,11 @@ import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import type { DayPlanModel } from '@/interfaces/ecm-marfy/dailyPlans/DayPlanModel'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
-import DynamicFormDialog from "@/composables/global/DynamicFormDialog.vue"
-import { useAddDayPlanForm } from "@/composables/ecm-marfy/component-day-plan-ts/useDayPlans"
-import { useToast } from "primevue/usetoast"
+import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
+import { useAddDayPlanForm } from '@/composables/ecm-marfy/component-day-plan-ts/useDayPlans'
 import { useDayPlanStore } from '@/stores/ecm-marfy/daily-plans/dailyPlansStore'
+import { useToast } from 'primevue/usetoast'
+
 
 const store = useSelectedItemStore()
 const dayPlanStore = useDayPlanStore()
@@ -58,7 +59,7 @@ async function fetchDayPlans(nodeId: number) {
     dayPlans.value = fetchedPlans
     dayPlanStore.setDayPlans(fetchedPlans)
   } catch (error: any) {
-    console.error('Chyba při načítání denních plánů:', error)
+    console.error('Chyba při naĝítání denních plánů:', error)
     dayPlans.value = []
     dayPlanStore.clearDayPlans()
   }
@@ -90,7 +91,7 @@ watch(() => store.selectedNodeId, (newNodeId) => {
     <table class="alarm-detail__table">
       <thead class="alarm-detail__header">
         <tr class="alarm-detail__row">
-          <th class="alarm-detail__cell alarm-detail__cell--name">NÁZEV</th>
+          <th class="alarm-detail__cell alarm-detail__cell--name">NÝZEV</th>
           <th class="alarm-detail__cell alarm-detail__cell--actions">AKCE</th>
         </tr>
       </thead>
