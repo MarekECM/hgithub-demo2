@@ -1,7 +1,7 @@
 .summaries-selection-periods {
     width: 150px;
     height: 35px;
-    background-color: var(--selectionPeriodsBg);
+    background-color: var(--summaries-button-background-color);
     border-radius: 5px;
     font-size: 16px;
     display: flex;
@@ -12,12 +12,12 @@
     transition: var(--transtion3);
   
     &:hover {
-      background-color: white;
-      color: var(--selectionPeriodsBg);
+      background-color: var(--summaries-hover-button-background-color);
+      color: var( --summaries-hover-button-text-color);
   
       &__icon-calendar,
       &__icon-arrow {
-        color: var(--selectionPeriodsBg);
+        color: var(--summaries-icon-color);
       }
     }
   

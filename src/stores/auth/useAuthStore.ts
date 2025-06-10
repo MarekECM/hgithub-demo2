@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
         user: null as UserPayload | null,
         mode: 'demo' as AuthMode,
         isLoggingOut: false,
-        token: null as string | null,    // <-- tady přidáno
+        token: null as string | null,
     }),
 
     actions: {
@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
             this.mode = mode
         },
 
-        setToken(token: string | null) {   // <-- nová akce na nastavení tokenu
+        setToken(token: string | null) {  
             this.token = token
         },
 
@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', {
                     localStorage.setItem('authToken', 'demo-token')
                     this.user = { email: demoEmail }
                     this.isAuthenticated = true
-                    this.setToken('demo-token')  // uložení tokenu i zde
+                    this.setToken('demo-token')
                 } else {
                     throw new Error('Neplatné demo přihlašovací údaje')
                 }
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth', {
             logoutService()
             this.isAuthenticated = false
             this.user = null
-            this.setToken(null)  // reset tokenu při logoutu
+            this.setToken(null)  
             router.push("/login");
         },
 
@@ -84,8 +84,7 @@ export const useAuthStore = defineStore('auth', {
                 }
                 this.user = response.data
                 this.isAuthenticated = true
-                // Pokud bys chtěl token z response uložit, můžeš to udělat tady
-                // např. this.setToken(response.data.token)
+               
             } catch (err) {
                 console.warn('Nelze načíst uživatele z cookie:', err)
                 this.logout()

@@ -1,6 +1,5 @@
-// src/services/authService.ts
 import axios from 'axios';
-// Simulace přihlašovací služby (tato funkce vrací token)
+
 export const loginService = async (email: string, password: string): Promise<void> => {
     await axios.post(`${import.meta.env.VITE_API_URL}Auth/LoginViaCookies`, {
         username: email,
@@ -12,7 +11,6 @@ export const loginService = async (email: string, password: string): Promise<voi
         });
 }
 
-// Funkce pro odhlášení
 export const logoutService = async (): Promise<void> => {
     await axios.post(`${import.meta.env.VITE_API_URL}Auth/Logout`, null, {
         withCredentials: true

@@ -3,7 +3,7 @@ import { computed, onMounted, nextTick } from 'vue'
 import { useAlarms } from '@/composables/ecm-marfy/component-alarm/useAlarms'
 import { useNotificationForm } from '@/composables/ecm-marfy/component-alarm/useNotificationForm'
 import { useAlarmStore } from '@/stores/ecm-marfy/alarms/useAlarmStore'
-import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
+import DynamicFormDialog from '@/components/ecm-marfy-components/components-forms/DynamicFormDialog.vue'
 
 const { alarms, handleIconClick, selectedAlarm, selectAlarm, showEditDialog } = useAlarms()
 
@@ -56,7 +56,6 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'schedule')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px"
               @click.stop="handleIconClick('schedule', alarm)"
             >
               schedule
@@ -64,7 +63,6 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'edit')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px"
               @click.stop="handleIconClick('edit', alarm)"
             >
               edit
@@ -72,7 +70,6 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'acknowledge')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px"
               @click.stop="handleIconClick('acknowledge', alarm)"
             >
               check_circle
@@ -80,7 +77,6 @@ onMounted(async () => {
             <span
               v-if="alarm.icons.some((icon) => icon.action === 'delete')"
               class="alarm-detail__icon material-icons"
-              style="font-size: 25px"
               @click.stop="handleIconClick('delete', alarm)"
             >
               delete
@@ -100,8 +96,3 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped>
-.alarm-detail__row--selected {
-  background-color: #e3f2fd34;
-}
-</style>

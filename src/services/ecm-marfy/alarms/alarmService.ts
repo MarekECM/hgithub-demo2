@@ -39,5 +39,4 @@ export async function getAlarmList(nodeId: number, orgId: number) {
     },
   });
 }
-// NotificationTypes
 

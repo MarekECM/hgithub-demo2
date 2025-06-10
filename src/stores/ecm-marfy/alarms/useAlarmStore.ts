@@ -39,7 +39,6 @@ export const useAlarmStore = defineStore('alarmStore', {
 
       if (!orgId || !nodeId) return;
 
-      // 🟡 Zkontroluj, zda už nejsou data načtena, pro optimalizaci volání API
       if (
         this.lastLoadedOrgId === orgId &&
         this.lastLoadedNodeId === nodeId &&
@@ -54,7 +53,7 @@ export const useAlarmStore = defineStore('alarmStore', {
         const response = await getAlarmList(nodeId, orgId);
         const newAlarms = response.data;
 
-        // 🟢 FIX: kontrola, že `status` není null nebo undefined
+  
         this.alarms = newAlarms.map((alarm: any) => {
           const id = alarm.id;
           const message = alarm.name || alarm.message || 'Neznámý alarm';

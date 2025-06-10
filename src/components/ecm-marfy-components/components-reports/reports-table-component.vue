@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import primaryModalWindow from '@/components/ecm-marfy-components/components-modal-windows/primary-modal-windou.vue'
+import primaryModalWindow from '@/components/ecm-marfy-components/components-modal-windows/primary-modal-window.vue'
 </script>
 
 <template>

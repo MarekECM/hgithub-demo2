@@ -9,10 +9,13 @@
   border-radius: 25px;
   overflow: hidden;
   margin: 0 auto;
-  
+
+  .alarm-detail > .material-icons {
+    font-size: 24px;
+  }
+
 
   &__cell {
-   
     &--name {
       text-align: center;
     }
@@ -45,7 +48,7 @@
     padding: 3px;
     border-radius: 5px;
     background-color: var(--aside-navbar-icon-primary-color);
-    color: var(--iconBg-table);
+    color: var(--table-icon-background-color);
     cursor: pointer;
   }
 

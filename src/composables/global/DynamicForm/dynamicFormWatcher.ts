@@ -1,5 +1,5 @@
 import {nextTick, watch} from "vue";
-import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
+import type {DynamicFormConstants} from "@/interfaces/ecm-marfy/forms/DynamicFormConstantsInterface";
 import {getOptions, resetOptionsCache} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 import { handleFieldChange } from "@/composables/global/DynamicForm/dynamicFormFunctions";
 

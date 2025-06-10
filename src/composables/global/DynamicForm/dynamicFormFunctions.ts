@@ -1,4 +1,4 @@
-import type {FieldSchema} from "@/interfaces/DynamicFormField";
+import type {FieldSchema} from "@/interfaces/ecm-marfy/forms/DynamicFormField";
 import axios from "axios";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
@@ -6,7 +6,7 @@ import DatePicker from "primevue/datepicker";
 import Checkbox from "primevue/checkbox";
 import Select from "primevue/select";
 import MultiSelect from "primevue/multiselect";
-import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
+import type {DynamicFormConstants} from "@/interfaces/ecm-marfy/forms/DynamicFormConstantsInterface";
 import {useDynamicFieldChanges} from "@/composables/global/DynamicForm/dynamicFieldChanges";
 
 export async function handleFieldChange(field: FieldSchema, event: any, constants: DynamicFormConstants) {

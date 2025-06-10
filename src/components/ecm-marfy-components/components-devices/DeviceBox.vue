@@ -57,9 +57,9 @@ const {
         </div>
 
         <div class="ecm-deviceBox__footer">
-          <div class="ecm-deviceBox__device-button">
+          <button class="ecm-deviceBox__device-button">
             <a href="#" @click.prevent="navigateToDevice">Zobrazit zařízení</a>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -110,69 +110,3 @@ const {
     </template>
   </Dialog>
 </template>
-
-<style scoped>
-/* Původní styly beze změny */
-.bg-electricity {
-  background: url('@/components/img/elektromer.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  align-items: flex-end;
-}
-
-.bg-pv {
-  background: url('@/components/img/fve.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  align-items: flex-end;
-}
-
-.bg-location {
-  background-color: #e2e3e5;
-}
-
-.bg-jine {
-  background: url('@/components/img/dum.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  align-items: flex-end;
-}
-
-.bg-plynoměr {
-  background: url('@/components/img/plyn.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  align-items: flex-end;
-}
-
-.bg-baterky {
-  background: url('@/components/img/baterie.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  align-items: flex-end;
-}
-
-.bg-white {
-  background-color: rgba(255, 255, 255, 0.342);
-}
-
-.p-field {
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-.material-icons {
-  font-size: 24px;
-  vertical-align: middle;
-}
-</style>

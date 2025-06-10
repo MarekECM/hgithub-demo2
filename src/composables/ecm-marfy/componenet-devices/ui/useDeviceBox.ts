@@ -1,3 +1,4 @@
+import { useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useSidebarStore } from '@/stores/ui/resize'
 import { useConfirm } from 'primevue/useconfirm'
@@ -12,6 +13,7 @@ import { useOrgTree } from '@/composables/ecm-marfy/component-aside/useOrgTree'
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData'
 
 export function useDeviceBox(props: { parameter?: string; data: DeviceData; variant?: string }) {
+  const router = useRouter()
   const sidebarStore = useSidebarStore()
   const confirm = useConfirm()
   const toast = useToast()
@@ -52,16 +54,18 @@ export function useDeviceBox(props: { parameter?: string; data: DeviceData; vari
     }
   })
 
-  // Funkce pro navigaci a rozbalení stromu
-  async function navigateToDevice() {
-    store.setSelectedItem(props.data.elementName, undefined, props.data.nodeID)
-    if (!store.orgTree.length || store.idOfLoadedTree !== store.selectedOrgId) {
-      await fetchOrgTree(store.selectedOrgId)
-    }
-    store.expandNodePath(props.data.nodeID)
-    // Poznámka: Router je zakomentován, pokud ho chceš použít, odkomentuj:
-    // router.push({ name: 'device-detail', params: { parameter: props.data.nodeID } });
+
+async function navigateToDevice() {
+  store.setSelectedItem(props.data.elementName, undefined, props.data.nodeID)
+  
+  if (!store.orgTree.length || store.idOfLoadedTree !== store.selectedOrgId) {
+    await fetchOrgTree(store.selectedOrgId)
   }
+  
+  store.expandNodePath(props.data.nodeID)
+
+  router.push({ name: 'device-detail', params: { parameter: props.data.nodeID } })
+}
 
   // Mazání zařízení nebo elementu
   function delDeviceOrElement(elementId: number | null | undefined, deviceId: number) {

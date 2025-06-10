@@ -1,4 +1,4 @@
-import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
+import type {DynamicFormConstants} from "@/interfaces/ecm-marfy/forms/DynamicFormConstantsInterface";
 import {getOptions} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 
 export function showFields(constants: DynamicFormConstants, fieldNames: string[], value: boolean) {

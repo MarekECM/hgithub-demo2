@@ -301,7 +301,7 @@
       a {
         padding: 0;
         padding-left: 5px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--navbar-notification-drop-down-li-item-border-bottom-color);
         height: 50px;
         display: flex;
         align-items: center;

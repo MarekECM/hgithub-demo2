@@ -46,7 +46,7 @@ export const useSidebarStore = defineStore('resize', () => {
         width: `calc(100% - ${width.value}px)`
       };
     } else {
-      return {}; // Bez dynamických stylů pro menší okna
+      return {}; 
     }
   });
 

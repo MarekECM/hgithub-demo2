@@ -23,7 +23,7 @@ import publicityView from '@/views/dynamic-web/publicityView.vue'
 
 // Login
 import loginView from '@/views/loginView.vue'
-import {getDashboards} from "@/services/ecm-marfy/dashboard/dashboardService";
+//import {getDashboards} from "@/services/ecm-marfy/dashboard/dashboardService";
 
 
 const router = createRouter({
@@ -82,13 +82,13 @@ const router = createRouter({
       name: 'setting',
       component: settingView
     },
-  //  {
-  //   path: '/detail-zarizeni/:parameter',
-  //   name: 'device-detail',
-  //   component: () => import('@/views/ecm-marfy/devices-detail/deviceDetailView.vue'),
-  //   props: true,
+   {
+    path: '/detail-zarizeni/:parameter',
+    name: 'device-detail',
+    component: () => import('@/views/ecm-marfy/devices-detail/deviceDetailView.vue'),
+    props: true,
     
-  //   },
+    },
     {
       path: '/komunity-home/:parameter?',
       name: 'komunity-home',
@@ -104,14 +104,6 @@ const router = createRouter({
       name: 'publicity',
       component: publicityView
     },
-    // {
-    //   path: '/login',
-    //   component: () => import('@/views/loginView.vue')
-    // },
-    // {
-    //   path: '/dashboard',
-    //   component: () => import('@/views/ecm-marfy/homeView.vue'),
-    // }
   ]
 })
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { useSidebarStore } from '@/stores/ui/resize'
 import { useDevicesStore } from '@/stores/ecm-marfy/devices/devicesStore'
 import type { DeviceData } from '@/interfaces/ecm-marfy/devices/deviceData'
@@ -8,7 +7,7 @@ import NavtreeMarfy from '@/components/ecm-marfy-components/marfy-layout/aside-m
 import deviceBox from '@/components/ecm-marfy-components/components-devices/DeviceBox.vue'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'
 import { useAddMeasurementForm } from '@/composables/ecm-marfy/component-data/useMeasurements'
-import DynamicFormDialog from '@/composables/global/DynamicFormDialog.vue'
+import DynamicFormDialog from '@/components/ecm-marfy-components/components-forms/DynamicFormDialog.vue'
 import { useToast } from 'primevue/usetoast'
 
 const store = useSelectedItemStore()
@@ -20,13 +19,7 @@ function handleDashboardData(data: DeviceData[]) {
   devicesStore.setDevices(data)
 }
 
-// Nepoužíváme už žádné localStorage, protože používáme Pinia
 
-// Pokud chceš, můžeš zde načítat data z API nebo jiného zdroje,
-// ale zatím necháme store prázdný po reloadu.
-onMounted(() => {
-  // Můžeš tu načíst data např. z API, nebo pouze inicializovat store, pokud chceš.
-})
 </script>
 
 <template>
@@ -34,9 +27,9 @@ onMounted(() => {
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container-primary">
-        <div class="ecm-main__titleDevices">
+        <div class="ecm-main__title-devices">
           <span>{{ store.selectedItem }}</span>
-          <div class="ecm_btnContainer">
+          <div class="alarm-btn-container">
             <div class="ecm_iconBtn">
               <span class="iconContent">
                 <span class="material-icons ecm_powerIcon" style="font-size: 19px">add</span>

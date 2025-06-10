@@ -1,5 +1,5 @@
 import {useSelectedItemStore} from "@/stores/ui/useSelectedItemStore";
-import type {FieldSchema} from "@/interfaces/DynamicFormField";
+import type {FieldSchema} from "@/interfaces/ecm-marfy/forms/DynamicFormField";
 import {computed, isRef, reactive, ref, watch} from "vue";
 import {getComponent} from "@/composables/global/DynamicForm/dynamicFormFunctions";
 
