@@ -23,4 +23,5 @@ export interface AddMeasurementModel{
     PredictionPeriodId: number,
     SpotPrices: boolean,
     SpotPricesGraphTypeId: number,
+    NodeId: number | null,
 }

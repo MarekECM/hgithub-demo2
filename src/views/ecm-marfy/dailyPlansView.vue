@@ -54,6 +54,8 @@ const sidebarStore = useSidebarStore()
     :schema="addDayPlanForm.editSchema.value"
     @submit="addDayPlanForm.handleSubmit"
     :dialog-name="addDayPlanForm.formName"
+    :form-model-name="addDayPlanForm.formModelName"
+    :form-data="addDayPlanForm.formData"
   />
 </template>
 

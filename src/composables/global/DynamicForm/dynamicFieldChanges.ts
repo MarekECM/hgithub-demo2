@@ -11,10 +11,11 @@ export function showFields(constants: DynamicFormConstants, fieldNames: string[]
     }
 }
 export function useDynamicFieldChanges(constants: DynamicFormConstants) {
-    function automaticReadFieldUpdate(){
+    function automaticReadFieldUpdate(selectedValue: boolean){
         if(constants.formModelName == "AddMeasurementFormModel") {
-            showFields(constants, ["Expression", "DeviceId", "VariableId", "ManualWrite", "DeviceUnitId", "UnitExpression"], true);
-            showFields(constants, ["ManualWriteUnitId"], false);
+            showFields(constants, ["Expression", "DeviceId", "VariableId", "ManualWrite", "DeviceUnitId", "UnitExpression"], selectedValue);
+            showFields(constants, ["ManualWriteUnitId"], !selectedValue);
+            constants.formData["ManualWrite"] = !selectedValue;
         }
     }
     function manualWriteFieldUpdate(selectedValue: boolean){

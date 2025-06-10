@@ -11,6 +11,7 @@ import {useDynamicFieldChanges} from "@/composables/global/DynamicForm/dynamicFi
 
 export async function handleFieldChange(field: FieldSchema, event: any, constants: DynamicFormConstants) {
     let selectedValue = event.value;
+    if (selectedValue === undefined && event?.target?.checked === undefined) return;
     const dynamicFieldChanges = useDynamicFieldChanges(constants);
     const selectedOption = constants.selectOptions[field.name]?.find(
         opt => opt.value === selectedValue
@@ -38,7 +39,7 @@ export async function handleFieldChange(field: FieldSchema, event: any, constant
             dynamicFieldChanges.unitFieldUpdate();
             break;
         case "AutomaticRead":
-            dynamicFieldChanges.automaticReadFieldUpdate();
+            dynamicFieldChanges.automaticReadFieldUpdate(selectedValue);
             break;
         case "ManualWrite":
             dynamicFieldChanges.manualWriteFieldUpdate(selectedValue);
@@ -128,7 +129,6 @@ export function getComponent(type: string, endpoint?: string) {
 export function parseDefaultValue(field: FieldSchema): any {
     const val = field.defaultValue;
     if (val === undefined || val === null) return undefined;
-
     switch (field.typeStr) {
         case 'number':
             return Number(val);

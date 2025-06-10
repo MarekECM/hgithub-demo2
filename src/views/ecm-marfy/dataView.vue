@@ -34,10 +34,20 @@ onMounted(() => {
   <main class="ecm-main" :style="sidebarStore.dynamicStyles">
     <section class="ecm-main__wrap">
       <div class="ecm-main__container-primary">
-        <div class="ecm-main__title-devices">{{ store.selectedItem }}</div>
+        <div class="ecm-main__titleDevices">
+          <span>{{ store.selectedItem }}</span>
+          <div class="ecm_btnContainer">
+            <div class="ecm_iconBtn">
+              <span class="iconContent">
+                <span class="material-icons ecm_powerIcon" style="font-size: 19px">add</span>
+              </span>
+              <span class="ecm_iconBtnTextContent" @click="addMeasurementForm.openForm()">Přidat veličinu</span>
+            </div>
+          </div>
+        </div>
         <div v-if="devicesStore.devices.length">
           <template v-for="device in devicesStore.devices" :key="device.nodeID">
-            <deviceBox :data="device" :variant="device.deviceType.name" />
+            <deviceBox :data="device" :variant="device.deviceType?.name" />
           </template>
         </div>
         <div v-else>
@@ -54,5 +64,6 @@ onMounted(() => {
     @submit="addMeasurementForm.handleSubmit"
     :dialog-name="addMeasurementForm.formName"
     :form-model-name="addMeasurementForm.formModelName"
+    :form-data="addMeasurementForm.formData"
   />
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { useOrganizationSelect } from '@/composables/ecm-marfy/component-aside/useOrganizationSelect'
 import { useMainSelect } from '@/stores/ui/useMainSelect'
 import { useSelectedItemStore } from '@/stores/ui/useSelectedItemStore'

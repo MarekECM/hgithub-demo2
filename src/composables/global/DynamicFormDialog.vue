@@ -27,11 +27,6 @@ const constants : DynamicFormConstants = getDynamicFormConstants(props);
 
 onMounted(() => {
   dynamicFormWatcher(props, constants, emit);
-  for (const field of constants.schema.value) {
-    if (constants.formData[field.name] === undefined && field.defaultValue !== undefined) {
-      constants.formData[field.name] = parseDefaultValue(field);
-    }
-  }
 });
 
 </script>
@@ -49,9 +44,11 @@ onMounted(() => {
         <label :for="field.name" class="block mb-2">{{ field.label }}: </label>
         
         <component
+            :key="field.name + '_' + constants.formData[field.name]"
             :is="field.component"
             :id="field.name"
-            v-model="constants.formData[field.name]"
+            :modelValue="constants.formData[field.name]"
+            @update:modelValue="(val: any) => constants.formData[field.name] = val"
             class="w-full"
             :binary="field.typeStr === 'checkbox'"
             :type="field.typeStr === 'text' ? 'text' : undefined"
@@ -63,8 +60,8 @@ onMounted(() => {
             :options="field.typeStr.toLowerCase().includes('select') ? constants.selectOptions[field.name] : undefined"
             :optionLabel="field.typeStr.toLowerCase().includes('select') ? 'label' : undefined"
             :optionValue="field.typeStr.toLowerCase().includes('select') ? 'value' : undefined"
-            :virtualScrollerOptions="field.typeStr.toLowerCase().includes('select') ? { itemSize: 40 }:undefined"
-            @change="(e: any) => handleFieldChange(field, e,constants)"
+            :virtualScrollerOptions="field.typeStr.toLowerCase().includes('select') ? { itemSize: 40 } : undefined"
+            @change="(e: any) => handleFieldChange(field, e, constants)"
         />
       </div>
     </template>

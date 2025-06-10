@@ -1,7 +1,8 @@
-import {ref} from "vue";
+import {ref, nextTick} from "vue";
 import axios from "axios";
-import type {DynamicFormConstants} from "@/interfaces/DynamicFormConstantsInterface";
 import type {DynamicFormData} from "@/interfaces/DynamicFormDataInterface";
+import type {FieldSchema} from "@/interfaces/DynamicFormField";
+import { parseDefaultValue} from "@/composables/global/DynamicForm/dynamicFormFunctions"
 
 export function useDynamicForm(config: {
     formModelName: string;
@@ -23,9 +24,25 @@ export function useDynamicForm(config: {
         }
     }
 
+    function prepareInitialFormData(schema: FieldSchema[], initialData?: Record<string, any>): Record<string, any> {
+        const data: Record<string, any> = {};
+        for (const field of schema) {
+            const name = field.name;
+            if (initialData && initialData[name] !== undefined) {
+                data[name] = initialData[name];
+            } else if (field.defaultValue !== undefined) {
+                data[name] = parseDefaultValue(field);
+            } else {
+                data[name] = undefined;
+            }
+        }
+        return data;
+    }
     async function openForm(initialData?: Record<string, any>) {
         const res = await axios.get(`${import.meta.env.VITE_API_URL}Form/${config.formModelName}`);
         editSchema.value = res.data;
+        await nextTick();
+        formData.value = prepareInitialFormData(editSchema.value, initialData);
         showEditDialog.value = true;
     }
 
